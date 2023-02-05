@@ -1,0 +1,67 @@
+.toastmessage_holder {
+  width:100%;
+  height:fit-content;
+  background-color:transparent;
+  position:fixed;
+  z-index:2;
+  bottom:0px;
+  display:flex;
+  padding:5px;
+flex-direction: column-reverse;
+border-radius:1px solid black;
+}
+
+.toastmessage{
+  position:relative;
+  margin:20px auto;
+  display:block;
+  width:450px;
+  height:fit-content;
+  background-color: #ff0000a0;
+ border-radius:10px;
+ text-align: left;
+ padding:5px 20px;
+ box-sizing: border-box;
+}
+
+.minor_update{
+  position:relative;
+  margin:20px auto;
+  display:flex;
+  width:380px;
+  height:60px;
+  background-color: #008000ab;
+ border-radius:10px;
+-ms-flex-align: center;
+align-items: center;
+font-weight:500;
+}
+
+.minor_update p{
+  margin:auto;
+}
+@media only screen and (max-width: 767px) {  
+
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+  
+
+
+}
+
+
+@media only screen and (min-width: 1024px)   {
+  .toastmessage_holder {
+    background-color:transparent;
+    width:fit-content;
+      }
+
+  .toastmessage{
+        height:110px;
+        width:420px;
+      }
+
+}
