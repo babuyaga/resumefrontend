@@ -30,6 +30,10 @@ if(componentid<(secval.length-1)){
 
 
 
+
+
+
+
 export function deletechild_(secval,secstat,updatesecval,updateuistat,componentid,isupdatefunc,updateval){
 
   const tempdelvalue =[...secval];

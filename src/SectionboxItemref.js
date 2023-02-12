@@ -12,10 +12,8 @@ import {moveup_,movedown_, deletechild_, secupdateflag_} from "./UIstates.js";
 var styles = {display:""};
 var stylez = {display:""};
 
-function SectionboxItemref({secstate, compid, secname,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
+function SectionboxItemref({secstate, compid,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
 
-
-  const compref_id = secname + compid;
   const top = secstate[compid];
   const objValue = secvalue[compid];
 

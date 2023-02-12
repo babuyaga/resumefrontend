@@ -33,9 +33,10 @@ useEffect(()=>{
   getServer(setappval,getDataurl);
 },[]);
 
-const pushAppVal= (compvalue,i)=>{
+const pushAppVal= (updatevalue,i,title)=>{
 let tempval = [...appval];
-tempval[i].value = compvalue;
+tempval[i].value = updatevalue;
+tempval[i].title= title;
 saveData(tempval,saveUrl);
 setappval(tempval); 
 }
@@ -49,18 +50,46 @@ tempmessage.push(error);
 settoast(tempmessage);
 }
 
-console.log(appval);
-console.log(appval);
+const reorder = (i,flag)=>{
+let tempval = appval.map((x)=>(x));
+
+
+console.log("Tempval before",tempval);
+
+if((flag)&&(i>0)){
+  console.log("Up");
+  tempval[i-1] = appval[i];
+tempval[i]=appval[i-1];
+}
+else if ((!flag)&&(i<appval.length-1)){
+  console.log("Down");
+  tempval[i+1] = appval[i];
+  tempval[i]=appval[i+1];
+}
+setappval(tempval); 
+saveData(tempval,saveUrl);
+
+console.log("Tempval after",tempval);
+
+}
+
+const contentMaker = (value)=>{
+ return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={i} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}}/> )
+}
+
+  
+
+
 return (
     <div className="App">
-      <button onClick={()=>{console.log(typeof(appval));}}>View Parent Value</button>
+      <button onClick={(e)=>{e.preventDefault(); }}>View Parent Value</button>
    <NavBar/>
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>
-{appval.map((e,i)=> <SectionBox compData={e} item={e.idno} key={i} /*{e.key}*/ index={i} parentvaluepass={setappval} updateParentVal={pushAppVal} errorFunc={(y)=>{updateToast(y)}}/> )}
+{contentMaker(appval)}
 </form>
-{console.log("appval",appval)}
+
     </div>
   );
 }

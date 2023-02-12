@@ -18,7 +18,7 @@ var stylez = {display:""};
 
 function SectionboxItemunfix({ secstate, compid, secname,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
 
-  const compref_id = secname + compid;
+
   const compidsol = compid;
   const top = secstate[compid];
   const objValue = secvalue[compid];
@@ -80,7 +80,7 @@ moveup_(secvalue,secstate,updatesecvalue,updateuistate,compid);
   }
 
 
-  return (
+  return (                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
             <div className="section_box__item section_form__holder">
             <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
@@ -99,3 +99,5 @@ moveup_(secvalue,secstate,updatesecvalue,updateuistate,compid);
 }
 
 export default SectionboxItemunfix;
+
+
