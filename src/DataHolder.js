@@ -77,7 +77,7 @@ setstate(json);
 
 
 
-export async function saveData(dataSave,url){
+export async function saveData(dataSave,url,savethis){
   if(!url){
     url = 'http://localhost:5000/saveresume';
   }
@@ -91,17 +91,17 @@ export async function saveData(dataSave,url){
   },
 ];
 
-  const data = [...sectiondata];
 
 const res = await fetch(url,{
   method:'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
+  headers : { 
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+   },
   body: JSON.stringify(dataSave)
 });
 
-const json = await res.json();
+const json = res.json();
 console.log(json);
 }
 // {"Resume Objective":[{"description":"<p>First Description</p>"},{"description":"<p>First Description</p>"},{"description":"<p>First Description</p>"}]}

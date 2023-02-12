@@ -48,14 +48,10 @@ if(tempmessage.length>3){
 }
 tempmessage.push(error);
 settoast(tempmessage);
-}
+} 
 
 const reorder = (i,flag)=>{
 let tempval = appval.map((x)=>(x));
-
-
-console.log("Tempval before",tempval);
-
 if((flag)&&(i>0)){
   console.log("Up");
   tempval[i-1] = appval[i];
@@ -65,16 +61,14 @@ else if ((!flag)&&(i<appval.length-1)){
   console.log("Down");
   tempval[i+1] = appval[i];
   tempval[i]=appval[i+1];
+
 }
-setappval(tempval); 
+setappval(tempval);
 saveData(tempval,saveUrl);
-
-console.log("Tempval after",tempval);
-
 }
 
 const contentMaker = (value)=>{
- return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={i} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}}/> )
+ return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}}/> )
 }
 
   
@@ -82,7 +76,6 @@ const contentMaker = (value)=>{
 
 return (
     <div className="App">
-      <button onClick={(e)=>{e.preventDefault(); }}>View Parent Value</button>
    <NavBar/>
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      

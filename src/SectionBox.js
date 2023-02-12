@@ -14,6 +14,13 @@ import {getdataformat} from "./DataHolder.js";
 
 function SectionBox({compData,index,errorFunc,updateParentVal,reorder}) {
 
+
+const setupComponent = ()=>{
+  updateComponentData();
+
+}
+
+
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
 const sampe = getdataformat(); //has a sample array with all the possible data objects
@@ -41,6 +48,9 @@ useEffect(()=>{
 updateComponentData();
 },[]);
 
+// useEffect(()=>{updateComponentData();
+// },[compData.value]);
+
 
 
 const updateComponentData = ()=>{ //check if data was passed from parent, if yes, then change state value of this item.
@@ -57,6 +67,7 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
     setsectionval(gotdata);
     setuistate(tempui);
     setcompup(tempupdate);
+    settitle(compData.title);
     }
 }
 
@@ -117,6 +128,7 @@ errorFunc(error);
 
 const moveup =(e)=>{
   e.preventDefault();
+  console.log("Clicked Move up")
   reorder(index,true);
 }
 const movedown = (e)=>{
