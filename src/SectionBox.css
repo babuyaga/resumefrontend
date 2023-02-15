@@ -8,7 +8,7 @@ button{
 }
 
 .section_box{
-      background-color: White;
+      background-color: var(--section_color);
       height:fit-content;
       box-sizing: border-box;
       padding-left:30px;
@@ -18,9 +18,46 @@ button{
       flex-direction:column;
       gap:5px;
       margin-bottom:50px;
-      box-shadow: 0px 5px 8px gray;
+      box-shadow: 0px 5px 8px var(--shadow_color);
+      position:relative;
+      transition: 2s ease;
 }
 
+.section_heading__text{
+  width:fit-content;
+  display:flex;
+  flex-direction: row;
+  overflow: visible;
+
+}
+
+
+@keyframes example {
+  0% {top:0px;}
+  100% {top:-200px;}
+}
+
+.addclass {
+  animation-name:example;
+  animation-duration:3s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: backwards;
+}
+
+.onhover-message{
+  display:none;
+}
+
+.hover-track:hover .onhover-message{
+display:block;
+  position:absolute;
+padding:5px 15px;
+background-color:var(--hover_message_bg);
+color:var(--light_text);
+font-weight:100;
+margin-left:-15px;
+margin-top:-45px;
+}
 
 .section_box__heading{
   border-bottom:1px solid gray;
@@ -339,6 +376,12 @@ min-width:90%;
   .section_item__place{
     min-width:90%;
   }
+
+
+  .hover-track:hover .onhover-message{
+    margin-left:-55px;
+    margin-top:-45px;
+    }
 
   .section_item__dates{
     min-width:90%;

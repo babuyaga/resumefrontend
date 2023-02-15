@@ -1,7 +1,7 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './texteditor.css';
-import {useEffect,useState} from "react";
+import {useState} from "react";
 
 function TextEditor({setValueo}){
   const [value, setValue] = useState('');

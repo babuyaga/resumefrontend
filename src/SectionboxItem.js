@@ -1,10 +1,9 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './texteditor.css';
-import Closeicon from "./icons/Closeicon.js";
 import Saveicon from "./icons/Saveicon.js";
 import Trashicon from "./icons/Trashicon.js";
-import {useRef,useState,useEffect} from "react";
+import {useRef,useEffect} from "react";
 import Uparrow from "./icons/Uparrow.js";
 import Downarrow from "./icons/Downarrow.js";
 import Minimizeicon from "./icons/Minimizeicon.js";
@@ -22,7 +21,7 @@ useEffect(()=>{ objValue.description = "Kindly update description...";
  updatesectione();},[]
  );
 
-const compref_id = secname + compid;
+
 const top = secstate[compid];
 const objValue = secvalue[compid];
 objValue.startDate = objValue.startDate?objValue.startDate:"2022-09";

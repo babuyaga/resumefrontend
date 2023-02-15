@@ -10,15 +10,12 @@ import SectionboxItemref from "./SectionboxItemref.js";
 import SectionboxItemobjtwo from "./SectionboxItemobjtwo.js";
 import {useState,useEffect} from "react";
 import {getdataformat} from "./DataHolder.js";
+import Switch from "react-switch";
 
 
-function SectionBox({compData,index,errorFunc,updateParentVal,reorder}) {
 
+function SectionBox({classname,compData,index,errorFunc,updateParentVal,reorder}) {
 
-const setupComponent = ()=>{
-  updateComponentData();
-
-}
 
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
@@ -33,6 +30,8 @@ const [compupdate,setcompup] = useState([0]); //state to keep track of whether t
 const [comptitle,settitle] = useState(compData.title);
 let update_message = {value:`Autosaved`,display:"block", messagetype:2};
 
+
+const [togglestate,settoggle] = useState(compData.include);
 
 let sum = compupdate.reduce((accumulator, value) => {
 return accumulator + value;
@@ -58,6 +57,8 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
     const gotdata = compData.value;
     let tempui = [];
     let tempupdate=[];
+    let tempinclude = compData.include;
+    let temptitle = compData.title;
 
     gotdata.forEach(()=>{
    tempui.push(0);
@@ -67,7 +68,8 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
     setsectionval(gotdata);
     setuistate(tempui);
     setcompup(tempupdate);
-    settitle(compData.title);
+    settitle(temptitle);
+    settoggle(tempinclude);
     }
 }
 
@@ -109,15 +111,20 @@ const updatestate =()=>{
 //Function to update the parent object
 const updateParent = (e) =>{  
 if(e){e.preventDefault();}
-let tempparentval = sectionval.map((x)=>(x));
-
-if(compupdate[(tempparentval.length-1)]!=1){ //check if the last component added was updated, if not, remove it from temparray and then only update the db
-  tempparentval.pop();
-} //if the last component is just added and not updated, then don't add it to the database
-
-updateParentVal(tempparentval,index,comptitle);
-
+updateParent_(comptitle,togglestate);
 makeToast(update_message);
+}
+
+const updateParent_ = (titleval,toggleval)=>{
+
+    let tempparentval = sectionval.map((x)=>(x));
+
+  if(compupdate[(tempparentval.length-1)]!=1){ //check if the last component added was updated, if not, remove it from temparray and then only update the db
+  tempparentval.pop();
+  } //if the last component is just added and not updated, then don't add it to the database
+
+updateParentVal(tempparentval,index,titleval,toggleval);
+
 }
 
 const makeToast =(error)=>{
@@ -126,37 +133,28 @@ errorFunc(error);
 }
 
 
+const toggleChange = ()=>{
+var temptoggle = togglestate;
+temptoggle = !temptoggle;
+settoggle(temptoggle);
+updateParent_(comptitle,temptoggle);}
+
+
+
 const moveup =(e)=>{
   e.preventDefault();
-  console.log("Clicked Move up")
+  console.log("Clicked Move up");
   reorder(index,true);
 }
 const movedown = (e)=>{
- 
-// console.log("\nBefore");
-// console.log("item_ ",item_);
-// console.log("sampe ",sampe);
-// console.log("sectionval ",sectionval);
-// console.log("uistate ",uistate);
-// console.log("compupdate ",compupdate);
-// console.log("comptitle ",comptitle);
-// console.log("Sum ",sum);
- 
   e.preventDefault();
   reorder(index,false);
-
-
-  // console.log("After");
-  // console.log("item_ ",item_);
-  // console.log("sampe ",sampe);
-  // console.log("sectionval ",sectionval);
-  // console.log("uistate ",uistate);
-  // console.log("compupdate ",compupdate);
-  // console.log("comptitle ",comptitle);
-  // console.log("Sum ",sum);
-
 }
 
+
+const animate = ()=>{
+ 
+}
 
 function contentmaker(item_id){
 
@@ -189,9 +187,10 @@ switch(item_id){
 
 
   return (
-    <div className="section_box">
-<button onClick={updateParent}>Update Parent</button>
-            <div className="section_box__item section_box__heading"><span className="section_heading__item section_heading__text"><input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></span> <div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button"><Settingsicon/></button></div> </div>
+    <div className={classname}>
+
+            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span><input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button" ><Settingsicon/></button></div> </div>
+         
           {contentmaker(compData.idno)}
 
            <div className="section_form__item section_item__nextbutton" style={compData.addmore?{}:{display:"none"}}><button className="section_nextbutton__button" onClick={addchild}><Addicon/><span>Add another {compData.title}</span></button></div>

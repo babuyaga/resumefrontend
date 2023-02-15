@@ -1,4 +1,11 @@
-
+:root{
+  --background_color: #dcdcdcab;
+  --section_color: white;
+  --shadow_color:gray;
+  --hover_message_bg:black;
+  --light_text: white;
+  --border_bottom:
+}
 
 .App {
   text-align: center;
@@ -7,15 +14,17 @@
   padding-top:70px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+
 
 body{
-  background-color: #dcdcdcab;
+  background-color: var(--background_color);
 }
 
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

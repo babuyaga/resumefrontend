@@ -5,19 +5,13 @@ import ToastMessage from './ToastMessage.js';
 import {useState,useEffect} from "react";
 import './ToastMessage.css';
 import NavBar from "./NavBar.js";
-import {getdataformat,sectionData,getServer,saveData} from "./DataHolder.js";
+import {getServer,saveData} from "./DataHolder.js";
+import SettingBox from "./SettingBox.js";
 
 function App() {
 
   let getDataurl = "http://localhost:5000/getresume";
   let saveUrl = 'http://localhost:5000/saveresume';
-  let error = {value:"This is the first error message",display:"block", messagetype:2};
-
-
-const withhead = {"title":"Licenses and Certifications","idno":5,"addmore":true};
-const withouthead = {"title":"Licenses and Certifications","idno":3,"addmore":true};
-
-
 // const forlater=[
 // {"title":"Work Experience","idno":4,"addmore":true},
 // {"title":"Skills","idno":2,"addmore":true},
@@ -27,16 +21,22 @@ const withouthead = {"title":"Licenses and Certifications","idno":3,"addmore":tr
   
 
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
+const [showset,setshow] = useState(false);
 const [appval, setappval] = useState([]); //saves the data used for each of the components in the app
+
+
 
 useEffect(()=>{
   getServer(setappval,getDataurl);
-},[]);
+},[]); 
 
-const pushAppVal= (updatevalue,i,title)=>{
+const pushAppVal= (updatevalue,i,title,include)=>{
+
+  console.log(include);
 let tempval = [...appval];
 tempval[i].value = updatevalue;
 tempval[i].title= title;
+tempval[i].include=include;
 saveData(tempval,saveUrl);
 setappval(tempval); 
 }
@@ -61,29 +61,32 @@ else if ((!flag)&&(i<appval.length-1)){
   console.log("Down");
   tempval[i+1] = appval[i];
   tempval[i]=appval[i+1];
-
 }
 setappval(tempval);
 saveData(tempval,saveUrl);
 }
 
+
 const contentMaker = (value)=>{
- return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}}/> )
+ return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> )
 }
 
   
 
 
-return (
+return (<div>   <SettingBox state={showset} statefunction={setshow} /> 
     <div className="App">
+       
    <NavBar/>
+
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>
+
 {contentMaker(appval)}
 </form>
 
-    </div>
+    </div></div>
   );
 }
 
