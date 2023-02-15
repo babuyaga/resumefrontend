@@ -5,10 +5,16 @@
     border: 1px solid black;
     position:fixed;
     margin:auto;
-    z-index:3;
+    z-index:3;  
 }
+
+
 .setting_box_container{
     background-color:#000000ab;
+}
+
+.setting_box_scrim_invisible{
+opacity: 0;
 }
 
 .setting_box{

@@ -2,16 +2,19 @@ import SectionBox from './SectionBox.js';
 import './SectionBox.css';
 import './App.css';
 import ToastMessage from './ToastMessage.js';
-import {useState,useEffect} from "react";
+import {useState,useEffect,createContext} from "react";
 import './ToastMessage.css';
 import NavBar from "./NavBar.js";
 import {getServer,saveData} from "./DataHolder.js";
 import SettingBox from "./SettingBox.js";
 
+export const appuiContext = createContext();
+
+
 function App() {
 
   let getDataurl = "http://localhost:5000/getresume";
-  let saveUrl = 'http://localhost:5000/saveresume';
+  let saveUrl = 'http://localhost:5000/saveresume'; 
 // const forlater=[
 // {"title":"Work Experience","idno":4,"addmore":true},
 // {"title":"Skills","idno":2,"addmore":true},
@@ -21,7 +24,7 @@ function App() {
   
 
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
-const [showset,setshow] = useState(false);
+const [showset,setshowset] = useState(false);
 const [appval, setappval] = useState([]); //saves the data used for each of the components in the app
 
 
@@ -50,6 +53,7 @@ tempmessage.push(error);
 settoast(tempmessage);
 } 
 
+
 const reorder = (i,flag)=>{
 let tempval = appval.map((x)=>(x));
 if((flag)&&(i>0)){
@@ -67,6 +71,12 @@ saveData(tempval,saveUrl);
 }
 
 
+const updateSettingUI = (flag)=>{
+setshowset(flag);
+}
+
+
+
 const contentMaker = (value)=>{
  return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> )
 }
@@ -74,7 +84,8 @@ const contentMaker = (value)=>{
   
 
 
-return (<div>   <SettingBox state={showset} statefunction={setshow} /> 
+return (<appuiContext.Provider value={{showset,setshowset}}>
+  <div>   <SettingBox/> 
     <div className="App">
        
    <NavBar/>
@@ -87,7 +98,10 @@ return (<div>   <SettingBox state={showset} statefunction={setshow} />
 </form>
 
     </div></div>
-  );
+    </appuiContext.Provider>);
+
+
+
 }
 
 export default App;

@@ -3,15 +3,42 @@
   --section_color: white;
   --shadow_color:gray;
   --hover_message_bg:black;
+  --dark_text:#000000;
   --light_text: white;
-  --border_bottom:
+  --border_bottom: #cdcdcd;
+  --border_light: #cdcdcdab;
+  --border_dark: #cdcdcd;
+  --border_black: #000000;
+  --button_bg:#ffffff;
+  --button_active_border:rgb(116, 217, 65);
+  --button_hover_light:#cdcdcd12;
+  --button_hover_dark:#ffb056ab;
+  --section_min_bg:#cdcdcd1e;
 }
+/* 
+:root {
+  --background_color: #1a1a1a;
+  --section_color: #222222;
+  --shadow_color: #444444;
+  --hover_message_bg: #ffffff;
+  --dark_text:#ffffff;
+  --light_text: #000000;
+  --border_bottom: #444444;
+  --border_light: #333333;
+  --border_dark: #555555;
+  --border_black: #ffffff;
+  --button_bg: #222222;
+  --button_active_border: #6ed35d;
+  --button_hover: #ffffff1e;
+  --section_min_bg: #ffffff08;
+  } */
 
 .App {
   text-align: center;
   display:flex;
   flex-direction: column;
   padding-top:70px;
+  color:var(--dark_text);
 }
 
 
@@ -46,6 +73,23 @@ html,body{
   color: #61dafb;
 }
 
+.icon_class{
+  color: var(--dark_text);
+  stroke:var(--dark_text);
+}
+.icon_class_dark{
+  color: var(--dark_text);
+  stroke:var(--dark_text);
+
+}
+
+.settings_icon{
+  transition: transform .7s ease-in-out;
+}
+
+.settings_icon:hover{
+  transform: rotate(360deg);
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

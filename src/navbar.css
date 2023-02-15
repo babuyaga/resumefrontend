@@ -1,8 +1,8 @@
 .navbar_holder {
   width:100%;
   height:50px;
-  background-color:Black;
-  position:absolute;
+  background-color:var(--button_hover_dark);
+  position:fixed;
   z-index:2;
   top:0px;
   display:flex;

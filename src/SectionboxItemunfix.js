@@ -57,8 +57,9 @@ const secupdateflag =(flag) =>{   //set flag to show that the current component 
 
   const deletesec_comp = (e)=>{ //call this function to delete the current instance of the component
  e.preventDefault();
+ if(secstate.length>1){
 deletechild_(secvalue,secstate,updatesecvalue,updateuistate,compid,isupdatefunc,isupdateval);
-  }
+  }}
 
   const remuistate = (e)=>{  //call this function to toggle min-max of the current instance of the component
     e.preventDefault();
