@@ -1,5 +1,5 @@
-:root{
-  --background_color: #dcdcdcab;
+.light{
+  --background_color: #fefefe;
   --section_color: white;
   --shadow_color:gray;
   --hover_message_bg:black;
@@ -12,12 +12,15 @@
   --button_bg:#ffffff;
   --button_active_border:rgb(116, 217, 65);
   --button_hover_light:#cdcdcd12;
-  --button_hover_dark:#ffb056ab;
+  --button_hover_dark:#cddcee;
+  --navbar_bg:#f3f3f3;
+  --navbar_border:gray;
   --section_min_bg:#cdcdcd1e;
+  --hover_message_border:#444444;
 }
-/* 
-:root {
-  --background_color: #1a1a1a;
+
+.dark{
+  --background_color: #fefefe;
   --section_color: #222222;
   --shadow_color: #444444;
   --hover_message_bg: #ffffff;
@@ -31,7 +34,7 @@
   --button_active_border: #6ed35d;
   --button_hover: #ffffff1e;
   --section_min_bg: #ffffff08;
-  } */
+  }  */
 
 .App {
   text-align: center;
@@ -39,9 +42,12 @@
   flex-direction: column;
   padding-top:70px;
   color:var(--dark_text);
+  height:100%;
 }
 
-
+.App form{
+padding:20px 0px;
+}
 
 body{
   background-color: var(--background_color);
@@ -51,6 +57,7 @@ body{
 html,body{
   max-width:100%;
   overflow-x:hidden;
+  background-color: var(--background_color);
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -90,14 +97,7 @@ html,body{
 .settings_icon:hover{
   transform: rotate(360deg);
 }
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {

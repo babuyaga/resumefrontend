@@ -1,0 +1,23 @@
+
+
+    .light{
+        --background_color: #fefefe;
+        --section_color: white;
+        --shadow_color:gray;
+        --hover_message_bg:black;
+        --dark_text:#000000;
+        --light_text: white!important;
+        --border_bottom: #cdcdcd;
+        --border_light: #cdcdcdab;
+        --border_dark: #cdcdcd;
+        --border_black: #000000;
+        --button_bg:#ffffff;
+        --button_active_border:rgb(116, 217, 65);
+        --button_hover_light:#cdcdcd12;
+        --button_hover_dark:#cddcee;
+        --navbar_bg:#f3f3f3;
+        --navbar_border:gray;
+        --section_min_bg:#cdcdcd1e;
+        --hover_message_border:#444444;
+        background-color: var(--background_color)!important;
+      }

@@ -7,11 +7,13 @@ import './ToastMessage.css';
 import NavBar from "./NavBar.js";
 import {getServer,saveData} from "./DataHolder.js";
 import SettingBox from "./SettingBox.js";
-
+import  "./light.css";
+import  "./dark.css";
 export const appuiContext = createContext();
 
 
 function App() {
+
 
   let getDataurl = "http://localhost:5000/getresume";
   let saveUrl = 'http://localhost:5000/saveresume'; 
@@ -24,9 +26,9 @@ function App() {
   
 
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
-const [showset,setshowset] = useState(false);
+const [showset,setshowset] = useState({"display":false,"index":1});
 const [appval, setappval] = useState([]); //saves the data used for each of the components in the app
-
+const [theme,settheme] = useState("light");
 
 
 useEffect(()=>{
@@ -34,7 +36,6 @@ useEffect(()=>{
 },[]); 
 
 const pushAppVal= (updatevalue,i,title,include)=>{
-
   console.log(include);
 let tempval = [...appval];
 tempval[i].value = updatevalue;
@@ -42,6 +43,44 @@ tempval[i].title= title;
 tempval[i].include=include;
 saveData(tempval,saveUrl);
 setappval(tempval); 
+}
+
+const deleteAppval = (index) => {
+let tempval = [...appval];
+tempval.splice(index,1);
+saveData(tempval,saveUrl);
+setappval(tempval);
+}
+
+const addAppval = (index) =>{
+  let tempval = [...appval];
+  
+  const generateKey = (pre) => {
+
+    function between(min, max) {  
+      return Math.floor(
+        Math.random() * (max - min + 1) + min
+      )
+    }
+    return `${ pre }_${between(1,99999999)}_${ new Date().getTime() }`;
+  }
+  const resumeobj = {
+    "title":"Added Section",
+    "idno":6,
+    "uniqueid":"adfasdfasdfasdfasdf",
+    "addmore":false,
+    "include":true,
+    "value":[{"description": "First Description"}]
+    };
+
+  resumeobj.uniqueid = generateKey(resumeobj.title);
+   
+console.log("function called at ", index );
+if(tempval.length<15){
+  tempval.splice(index,0,resumeobj);
+}
+  saveData(tempval,saveUrl);
+setappval(tempval);
 }
 
 const updateToast = (error)=>{ 
@@ -71,10 +110,6 @@ saveData(tempval,saveUrl);
 }
 
 
-const updateSettingUI = (flag)=>{
-setshowset(flag);
-}
-
 
 
 const contentMaker = (value)=>{
@@ -84,9 +119,9 @@ const contentMaker = (value)=>{
   
 
 
-return (<appuiContext.Provider value={{showset,setshowset}}>
+return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme}}>
   <div>   <SettingBox/> 
-    <div className="App">
+    <div className={`App ${theme}`}>
        
    <NavBar/>
 
@@ -95,6 +130,8 @@ return (<appuiContext.Provider value={{showset,setshowset}}>
     <form>
 
 {contentMaker(appval)}
+
+
 </form>
 
     </div></div>

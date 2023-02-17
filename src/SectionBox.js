@@ -14,9 +14,9 @@ import Switch from "react-switch";
 import {appuiContext} from "./App.js";
 
 
-function SectionBox({classname,compData,index,errorFunc,updateParentVal,reorder,showSetting}) {
+function SectionBox({classname,compData,index,errorFunc,updateParentVal,reorder}) {
 
-const {showset,setshowset} = useContext(appuiContext);
+const {setshowset} = useContext(appuiContext);
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
@@ -153,7 +153,7 @@ const movedown = (e)=>{
 
 const showsetting = (e)=>{
   e.preventDefault();
-  setshowset(true);
+  setshowset({"display":true,"index":index});
 }
 
 
@@ -189,9 +189,9 @@ switch(item_id){
 
 
   return (
-    <div className={classname}>
+    <div className="section_box">
 
-            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span><input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
+            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
          
           {contentmaker(compData.idno)}
 

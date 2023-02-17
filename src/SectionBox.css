@@ -8,7 +8,6 @@ button {
 
 .section_box {
   background-color: var(--section_color);
-  height: fit-content;
   box-sizing: border-box;
   padding-left: 30px;
   padding-right: 30px;
@@ -19,7 +18,7 @@ button {
   margin-bottom: 50px;
   box-shadow: 0px 5px 8px var(--shadow_color);
   position: relative;
-  transition: transform .7s ease-in-out;
+  transition: all .7s ease-in-out;
 }
 
 .section_heading__text {
@@ -49,10 +48,14 @@ button {
 }
 
 .onhover-message {
-  display: none;
+  position: absolute;
+  opacity:0;
+  transition: 0.5s;
+  z-index:-1;
 }
 
 .hover-track:hover .onhover-message {
+    opacity:1;
   display: block;
   position: absolute;
   padding: 5px 15px;
@@ -61,7 +64,9 @@ button {
   font-weight: 100;
   margin-left: -15px;
   margin-top: -45px;
+  z-index:1;
 }
+  
 
 .section_box__heading {
   border-bottom: 1px solid var(--border_bottom);
@@ -78,11 +83,12 @@ button {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: fit-content;
   gap: 5px;
   border: 1px solid var(--border_light);
   border-radius: 8px;
 }
+
+
 
 .section_form__holder_container {
   width: 100%;
@@ -211,7 +217,7 @@ input:focus {
   flex-direction: row;
   justify-content: center;
   gap: 9px;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s ease-in;
 }
 
 
@@ -400,6 +406,7 @@ input:focus {
   .hover-track:hover .onhover-message {
     margin-left: -55px;
     margin-top: -45px;
+    border:1px solid var(--hover_message_border);
   }
 
   .section_item__dates {
