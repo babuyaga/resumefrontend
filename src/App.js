@@ -7,6 +7,7 @@ import './ToastMessage.css';
 import NavBar from "./NavBar.js";
 import {getServer,saveData} from "./DataHolder.js";
 import SettingBox from "./SettingBox.js";
+import IndexHolder from './indexholder.js';
 import  "./light.css";
 import  "./dark.css";
 export const appuiContext = createContext();
@@ -27,15 +28,16 @@ function App() {
 
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
 const [showset,setshowset] = useState({"display":false,"index":1});
-const [appval, setappval] = useState([]); //saves the data used for each of the components in the app
+ //saves the data used for each of the components in the app
 const [theme,settheme] = useState("light");
-
+const [hoveron,sethover] = useState(false);
+const [appval, setappval] = useState(["init"]);
 
 useEffect(()=>{
   getServer(setappval,getDataurl);
 },[]); 
 
-const pushAppVal= (updatevalue,i,title,include)=>{
+const pushAppValclient = (updatevalue,i,title,include)=>{
   console.log(include);
 let tempval = [...appval];
 tempval[i].value = updatevalue;
@@ -43,7 +45,9 @@ tempval[i].title= title;
 tempval[i].include=include;
 saveData(tempval,saveUrl);
 setappval(tempval); 
+console.log("Client pushed Appval", appval);
 }
+
 
 const deleteAppval = (index) => {
 let tempval = [...appval];
@@ -110,30 +114,54 @@ saveData(tempval,saveUrl);
 }
 
 
+const swaporder = (i,j)=>{
 
+  let apparrayog = [0,1,2,3,4,5,6,7];
+  let apparray = apparrayog.map(e=>e);
+  let temparray = apparrayog.map(e=>e);
+  
+  if(j<i){
+  temparray[j] = apparray[i];
+  apparray.splice(i,1);
+  for(let v=j+1;v<(apparray.length+1);v++){
+    temparray[v] = apparray[v-1];
+  }
+  }
+  else if(j>i){
+  //function yet to be finished
+  }
+   
+console.log("apparrayog",apparrayog);
+console.log("temparray",temparray);
+}
+
+const buttonclick = (e)=>{
+  e.preventDefault();
+  swaporder(1,6);
+}
 
 const contentMaker = (value)=>{
- return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppVal}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> )
+ return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" />)
 }
 
   
 
 
-return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme}}>
+return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient}}>
   <div>   <SettingBox/> 
     <div className={`App ${theme}`}>
        
    <NavBar/>
-
+<button onClick={buttonclick}> Swap</button>
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>
+         <div style={{"display":"flex","flexDirection":"column","gap":"15px"}}>
 
-{contentMaker(appval)}
+              {contentMaker(appval)}
 
-
+          </div>
 </form>
-
     </div></div>
     </appuiContext.Provider>);
 

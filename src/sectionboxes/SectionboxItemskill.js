@@ -1,11 +1,11 @@
-import Closeicon from "./icons/Closeicon.js";
-import Saveicon from "./icons/Saveicon.js";
-import Trashicon from "./icons/Trashicon.js";
+import Closeicon from "../icons/Closeicon.js";
+import Saveicon from "../icons/Saveicon.js";
+import Trashicon from "../icons/Trashicon.js";
 import {useRef,useState,useEffect} from "react";
-import Uparrow from "./icons/Uparrow.js";
-import Downarrow from "./icons/Downarrow.js";
-import Minimizeicon from "./icons/Minimizeicon.js";
-import Maximizeicon from "./icons/Maximizeicon.js";
+import Uparrow from "../icons/Uparrow.js";
+import Downarrow from "../icons/Downarrow.js";
+import Minimizeicon from "../icons/Minimizeicon.js";
+import Maximizeicon from "../icons/Maximizeicon.js";
 
 
 var styles = {display:""};
@@ -15,10 +15,10 @@ var stylez = {display:""};
 var options = ["Beginner","Intermediate","Skilfull","Experienced","Expert"];
 var opthtml = options.map((item,i) => (<option value={i} key={i}>{item}</option>));
 
-function SectionboxItemskill({ secstate, compid, secname,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
+function SectionboxItemskill({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
 
 const compref_id = secname + compid;
-const top = secstate[compid];
+const top = uistate[compid];
 const objValue = secvalue[compid];
 objValue.name = objValue.name?objValue.name:"";
 objValue.level = objValue.level?objValue.level:1;
@@ -45,45 +45,37 @@ const updatesection =() =>{
   const tempupvalue = [...secvalue];
   tempupvalue[compid] = objValue;
   updatesecvalue(tempupvalue);
-  if(objValue.name===""){
-   secupdateflag(0);
-  }else {secupdateflag(1);}
 }
 
-const secupdateflag =(flag) =>{
-  const iscompup = [...isupdateval]; //below code sets a flag that the component has been updated.
-  iscompup[compid]=flag;
-  isupdatefunc(iscompup);
-}
 
 const moveup = (e)=>{
   e.preventDefault();
 const tempmoveupvalue =[...secvalue];
-const tempmoveupuistate = [...secstate];
+const tempmoveupuistate = [...uistate];
 if(compid>0){
 tempmoveupvalue[compid-1] = secvalue[compid];
 tempmoveupvalue[compid] = secvalue[compid-1];
-tempmoveupuistate[compid-1] = secstate[compid];
-tempmoveupuistate[compid] = secstate[compid-1];
+tempmoveupuistate[compid-1] = uistate[compid];
+tempmoveupuistate[compid] = uistate[compid-1];
 updatesecvalue(tempmoveupvalue);
 updateuistate(tempmoveupuistate);
 }};
 
 const movedown = (e)=> {  e.preventDefault();
 const tempmovedownvalue =[...secvalue];
-const tempmovedownuistate = [...secstate];
+const tempmovedownuistate = [...uistate];
 if(compid<(secvalue.length-2)){
 tempmovedownvalue[compid+1] = secvalue[compid];
 tempmovedownvalue[compid] = secvalue[compid+1];
-tempmovedownuistate[compid+1] = secstate[compid];
-tempmovedownuistate[compid] = secstate[compid+1];
+tempmovedownuistate[compid+1] = uistate[compid];
+tempmovedownuistate[compid] = uistate[compid+1];
 updatesecvalue(tempmovedownvalue);
 updateuistate(tempmovedownuistate);
 }};
 
 const remuistate =(e) =>{
   e.preventDefault();
-  const tempuistate = [...secstate];
+  const tempuistate = [...uistate];
   tempuistate[compid] = (tempuistate[compid]===1)?0:1;
   updateuistate(tempuistate);
 };
@@ -91,27 +83,21 @@ const remuistate =(e) =>{
 const deletesec_comp = (e)=>{
 e.preventDefault();
 const tempdelvalue =[...secvalue];
-const tempdeluistate = [...secstate];
+const tempdeluistate = [...uistate];
 if(tempdelvalue.length>1){
 tempdelvalue.splice(compid,1);
 tempdeluistate.splice(compid,1);
 updatesecvalue(tempdelvalue);
 updateuistate(tempdeluistate);
-secupdateflagdel();
 }
 }
 
 
-const secupdateflagdel = () =>{
-  const iscompup = [...isupdateval]; //below code sets a flag that the component has been updated.
-  iscompup.splice(compid,1);
-  isupdatefunc(iscompup);
-}
 
 
   return (
 
-            <div className="section_box__item section_form__holder">
+            <div className="section_box__item section_form__holder">5
               <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
                   <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
                       <div className="section_form__item section_item__title"><span>Skill</span>      <div className="inputbox_component" ><input value={objValue.name} onChange={changeobjval} ref={skillref}></input></div>    </div>

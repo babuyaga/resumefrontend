@@ -34,7 +34,7 @@ if(componentid<(secval.length-1)){
 
 
 
-export function deletechild_(secval,secstat,updatesecval,updateuistat,componentid,isupdatefunc,updateval){
+export function deletechild_(secval,secstat,updatesecval,updateuistat,componentid){
 
   var tempdelvalue =[...secval];
   var tempdeluistate = [...secstat];
@@ -43,7 +43,7 @@ export function deletechild_(secval,secstat,updatesecval,updateuistat,componenti
   tempdeluistate.splice(componentid,1);
   updatesecval(tempdelvalue);
   updateuistat(tempdeluistate);
-  secupdateflagdel_(updateval,isupdatefunc,componentid);
+ 
   }
 
   if(tempdelvalue.length===1){
@@ -51,21 +51,8 @@ export function deletechild_(secval,secstat,updatesecval,updateuistat,componenti
     tempdeluistate = [];
     updatesecval(tempdelvalue);
     updateuistat(tempdeluistate);
-    secupdateflagdel_(updateval,isupdatefunc,componentid);
+
   }
 
 }
 
-export function secupdateflagdel_(updateval,isupdatefunc,componentid){
-
-const tempcomp = [...updateval];
-tempcomp.splice(componentid,1);
-isupdatefunc(tempcomp);
-}
-
-export function secupdateflag_(flag,isupdatefunc,isupdateval,componentid){
-
-  const iscompup = [...isupdateval]; //below code sets a flag that the component has been updated.
-  iscompup[componentid]=flag;
-  isupdatefunc(iscompup);
-}

@@ -2,21 +2,22 @@ import Uparrow from "./icons/Uparrow.js";
 import Downarrow from "./icons/Downarrow.js";
 import Settingsicon from "./icons/Settingsicon.js";
 import Addicon from "./icons/Addicon.js";
-import SectionboxItem from "./SectionboxItem.js";
-import SectionboxItemskill from "./SectionboxItemskill.js";
-import SectionboxItemfixed from "./SectionboxItemfixed.js";
-import SectionboxItemunfix from "./SectionboxItemunfix.js";
-import SectionboxItemref from "./SectionboxItemref.js";
-import SectionboxItemobjtwo from "./SectionboxItemobjtwo.js";
+import SectionboxItem from "./sectionboxes/SectionboxItem.js";
+import SectionboxItemskill from "./sectionboxes/SectionboxItemskill.js";
+import SectionboxItemfixed from "./sectionboxes/SectionboxItemfixed.js";
+import SectionboxItemunfix from "./sectionboxes/SectionboxItemunfix.js";
+import SectionboxItemref from "./sectionboxes/SectionboxItemref.js";
+import SectionboxItemobjtwo from "./sectionboxes/SectionboxItemobjtwo.js";
 import {useState,useEffect,useContext,createContext} from "react";
 import {getdataformat} from "./DataHolder.js";
+import IndexHolder from './indexholder.js';
 import Switch from "react-switch";
 import {appuiContext} from "./App.js";
 
 
-function SectionBox({classname,compData,index,errorFunc,updateParentVal,reorder}) {
+function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
 
-const {setshowset} = useContext(appuiContext);
+const {setshowset,pushAppValclient} = useContext(appuiContext);
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
@@ -26,6 +27,8 @@ const [sectionval, setsectionval] = useState([sampe[item_]]); //state variable t
 
 const [uistate,setuistate] =useState([1]); //state variable to keep track of the updated ui state of the component 0 for minimized and 1 for maximized
 const [compupdate,setcompup] = useState([0]); //state to keep track of whether the component has been updated or not if updated it's 1 and if not updated its 0
+
+const [order,setorder] = useState(index);
 
 const [comptitle,settitle] = useState(compData.title);
 let update_message = {value:`Autosaved`,display:"block", messagetype:2};
@@ -47,6 +50,19 @@ useEffect(()=>{
 updateComponentData();
 },[]);
 
+
+const MINUTE_MS = 10000;
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    updateParent();
+    console.log("client updated by component ",index);
+  }, MINUTE_MS);
+
+  return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+}, [])
+
+
 // useEffect(()=>{updateComponentData();
 // },[compData.value]);
 
@@ -63,7 +79,7 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
     gotdata.forEach(()=>{
    tempui.push(0);
    tempupdate.push(1);
-    });
+    }); 
     
     setsectionval(gotdata);
     setuistate(tempui);
@@ -77,21 +93,25 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
 const addchild =(e) =>{
   e.preventDefault();
   let temparr = sectionval.map((x)=>(x));
-  if((sum===(temparr.length))&&(temparr.length<6)){
-    temparr.push(sampe[item_]);
-  setsectionval(temparr);   //update the section value
-  updatestate();   //call the function to update UI state of all the children and then add an element to the state keeping array; this function minimizes all children other than the last one.
-}
+ 
+    
 
-else if((sum===(temparr.length))&&(temparr.length>=6)){
+ if((temparr.length>=5)){
   let error = {value:`Max 5 inputs allowed. Try removing a previous input`,display:"block", messagetype:1};
   errorFunc(error);  
  }
+ else{
+  temparr.push(sampe[item_]);
+  setsectionval(temparr);   //update the section value
+  updatestate();   //call the function to update UI state of all the children and then add an element to the state keeping array; this function minimizes all children other than the last one.
+  updateParent();
 
- else if((sum!==(temparr.length))){
-  let error = {value:`Why leave it empty? Fill it up`,display:"block", messagetype:1};
-  errorFunc(error);  
  }
+
+//  else if((sum!==(temparr.length))){
+//   let error = {value:`Why leave it empty? Fill it up`,display:"block", messagetype:1};
+//   errorFunc(error);  
+//  }
 
 
 }
@@ -119,13 +139,13 @@ const updateParent_ = (titleval,toggleval)=>{
 
     let tempparentval = sectionval.map((x)=>(x));
 
-  if(compupdate[(tempparentval.length-1)]!=1){ //check if the last component added was updated, if not, remove it from temparray and then only update the db
-  tempparentval.pop();
-  } //if the last component is just added and not updated, then don't add it to the database
+  // if(compupdate[(tempparentval.length-1)]!=1){ //check if the last component added was updated, if not, remove it from temparray and then only update the db
+  // tempparentval.pop();
+  // } //if the last component is just added and not updated, then don't add it to the database
 
-updateParentVal(tempparentval,index,titleval,toggleval);
-
+pushAppValclient(tempparentval,index,titleval,toggleval);
 }
+
 
 const makeToast =(error)=>{
   //if calling this function directly via a button, use e.preventDefault() to handle error.  
@@ -137,7 +157,8 @@ const toggleChange = ()=>{
 var temptoggle = togglestate;
 temptoggle = !temptoggle;
 settoggle(temptoggle);
-updateParent_(comptitle,temptoggle);}
+updateParent_(comptitle,temptoggle);
+}
 
 
 
@@ -156,28 +177,39 @@ const showsetting = (e)=>{
   setshowset({"display":true,"index":index});
 }
 
+const dragstartfunc=()=>{
+
+}
+
+const ondragfunc = (e)=>{
+}
+
+
+const dragendfunc=()=>{
+
+}
 
 
 function contentmaker(item_id){
 
 switch(item_id){
   case 1:
-  return (sectionval.map((e, i) => <SectionboxItemref        secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemref        uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
   break;
   case 2:
-  return (sectionval.map((e, i) => <SectionboxItemskill      secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title}  />));
+  return (sectionval.map((e, i) => <SectionboxItemskill      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title}  />));
   break;
   case 3:
-  return (sectionval.map((e, i) => <SectionboxItemfixed      secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemfixed      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
   break;
   case 4:
-  return (sectionval.map((e, i) => <SectionboxItem           secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItem           uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
   break;
   case 5:
-  return (sectionval.map((e, i) => <SectionboxItemobjtwo     secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemobjtwo     uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
   break;
   case 6:
-  return (sectionval.map((e, i) => <SectionboxItemunfix      secstate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval} isupdateval={compupdate} isupdatefunc={setcompup} key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemunfix      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
   break;
   default:
   return "";
@@ -188,16 +220,18 @@ switch(item_id){
 
 
 
-  return (
-    <div className="section_box">
+  return (<div style={{"order":index}}>
 
-            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
+<IndexHolder/>    
+    <div className="section_box"  >
+
+            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item heading_move_div"></div><div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
          
           {contentmaker(compData.idno)}
 
            <div className="section_form__item section_item__nextbutton" style={compData.addmore?{}:{display:"none"}}><button className="section_nextbutton__button" onClick={addchild}><Addicon/><span>Add another {compData.title}</span></button></div>
-       
-    </div>
+       <button onClick={updateParent}>Save</button>
+    </div></div>
   );
 }
 

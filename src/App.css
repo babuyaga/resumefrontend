@@ -1,40 +1,4 @@
-.light{
-  --background_color: #fefefe;
-  --section_color: white;
-  --shadow_color:gray;
-  --hover_message_bg:black;
-  --dark_text:#000000;
-  --light_text: white;
-  --border_bottom: #cdcdcd;
-  --border_light: #cdcdcdab;
-  --border_dark: #cdcdcd;
-  --border_black: #000000;
-  --button_bg:#ffffff;
-  --button_active_border:rgb(116, 217, 65);
-  --button_hover_light:#cdcdcd12;
-  --button_hover_dark:#cddcee;
-  --navbar_bg:#f3f3f3;
-  --navbar_border:gray;
-  --section_min_bg:#cdcdcd1e;
-  --hover_message_border:#444444;
-}
 
-.dark{
-  --background_color: #fefefe;
-  --section_color: #222222;
-  --shadow_color: #444444;
-  --hover_message_bg: #ffffff;
-  --dark_text:#ffffff;
-  --light_text: #000000;
-  --border_bottom: #444444;
-  --border_light: #333333;
-  --border_dark: #555555;
-  --border_black: #ffffff;
-  --button_bg: #222222;
-  --button_active_border: #6ed35d;
-  --button_hover: #ffffff1e;
-  --section_min_bg: #ffffff08;
-  }  */
 
 .App {
   text-align: center;
@@ -63,6 +27,17 @@ html,body{
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .App-header {
@@ -97,7 +72,6 @@ html,body{
 .settings_icon:hover{
   transform: rotate(360deg);
 }
-
 
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {

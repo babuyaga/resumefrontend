@@ -1,15 +1,15 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './texteditor.css';
-import Saveicon from "./icons/Saveicon.js";
-import Trashicon from "./icons/Trashicon.js";
-import Addicon from "./icons/Addicon.js";
+import '../texteditor.css';
+import Saveicon from "../icons/Saveicon.js";
+import Trashicon from "../icons/Trashicon.js";
+import Addicon from "../icons/Addicon.js";
 import {useRef,useState,useEffect} from "react";
-import Uparrow from "./icons/Uparrow.js";
-import Downarrow from "./icons/Downarrow.js";
-import Minimizeicon from "./icons/Minimizeicon.js";
-import Maximizeicon from "./icons/Maximizeicon.js";
-import {moveup_,movedown_, deletechild_, secupdateflag_} from "./UIstates.js";
+import Uparrow from "../icons/Uparrow.js";
+import Downarrow from "../icons/Downarrow.js";
+import Minimizeicon from "../icons/Minimizeicon.js";
+import Maximizeicon from "../icons/Maximizeicon.js";
+import {moveup_,movedown_, deletechild_} from "../UIstates.js";
 
 var styles = {display:""};
 var stylez = {display:""};
@@ -18,11 +18,11 @@ var stylez = {display:""};
 
 
 
-function SectionboxItemfixed({ secstate, compid, secname,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
+function SectionboxItemfixed({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
 
   const compref_id = secname + compid;
   const compidsol = compid;
-  const top = secstate[compid];
+  const top = uistate[compid];
   const objValue = secvalue[compid];
   objValue.description = objValue.description?objValue.description:"";
 
@@ -38,10 +38,7 @@ const updatesection =() =>{
     tempupvalue[compid] = objValue;
     updatesecvalue(tempupvalue);
  
-   if(objValue.description===""){
-    secupdateflag(0);
-   }else {secupdateflag(1);}
- 
+
    }
 
 
@@ -51,32 +48,31 @@ const updatesectione =(e) =>{
   };
 
   const secupdateflag =(flag) =>{
-    secupdateflag_(flag,isupdatefunc,isupdateval,compid);
-  }
+   }
 
   const deletesec_comp = (e)=>{
   e.preventDefault();
-  deletechild_(secvalue,secstate,updatesecvalue,updateuistate,compid,isupdatefunc,isupdateval);
+  deletechild_(secvalue,uistate,updatesecvalue,updateuistate,compid);
   }
 
   const remuistate = (e)=>{
     e.preventDefault();
-    const tempuistate = [...secstate];
+    const tempuistate = [...uistate];
     tempuistate[compid] = (tempuistate[compid]===1)?0:1;
    updateuistate(tempuistate);
   }
 
 const moveup =(e) =>{e.preventDefault(); 
-  moveup_(secvalue,secstate,updatesecvalue,updateuistate,compid);
+  moveup_(secvalue,uistate,updatesecvalue,updateuistate,compid);
 };
 const movedown = (e)=>{e.preventDefault();
-  movedown_(secvalue,secstate,updatesecvalue,updateuistate,compid);}
+  movedown_(secvalue,uistate,updatesecvalue,updateuistate,compid);}
   return (
 
-    <div className="section_box__item section_form__holder">
+    <div className="section_box__item section_form__holder">2
     <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
           <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
-              <div className="section_form__item section_item__description"><span>Description</span><ReactQuill  theme="snow" value={objValue.description} onChange={changeobjdesc}/></div>
+              <div className="section_form__item section_item__description"><span>Description</span><ReactQuill  theme="snow" value={objValue.description} onChange={changeobjdesc} placeholder="Enter Description"/></div>
               <div className="section_form__item section_item__buttonholder"><button className="section_buttonholder__button" onClick={updatesectione}> <Saveicon/><span>Save</span> </button><button className="section_buttonholder__button" onClick={deletesec_comp} ><Trashicon/><span>Delete</span></button></div>
           </div>
 

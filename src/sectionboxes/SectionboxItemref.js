@@ -1,20 +1,20 @@
 import {useState,useRef,useEffect} from "react";
-import TextEditor from './TextEditor.js';
-import Saveicon from "./icons/Saveicon.js";
-import Trashicon from "./icons/Trashicon.js";
-import Addicon from "./icons/Addicon.js";
-import Uparrow from "./icons/Uparrow.js";
-import Downarrow from "./icons/Downarrow.js";
-import Minimizeicon from "./icons/Minimizeicon.js";
-import Maximizeicon from "./icons/Maximizeicon.js";
-import {moveup_,movedown_, deletechild_, secupdateflag_} from "./UIstates.js";
+import TextEditor from '../TextEditor.js';
+import Saveicon from "../icons/Saveicon.js";
+import Trashicon from "../icons/Trashicon.js";
+import Addicon from "../icons/Addicon.js";
+import Uparrow from "../icons/Uparrow.js";
+import Downarrow from "../icons/Downarrow.js";
+import Minimizeicon from "../icons/Minimizeicon.js";
+import Maximizeicon from "../icons/Maximizeicon.js";
+import {moveup_,movedown_, deletechild_} from "../UIstates.js";
 
 var styles = {display:""};
 var stylez = {display:""};
 
-function SectionboxItemref({secstate, compid,secvalue, updatesecvalue,updateuistate,isupdateval,isupdatefunc}) {
+function SectionboxItemref({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
 
-  const top = secstate[compid];
+  const top = uistate[compid];
   const objValue = secvalue[compid];
 
   objValue.compname = objValue.compname?objValue.compname:"";
@@ -48,35 +48,31 @@ function SectionboxItemref({secstate, compid,secvalue, updatesecvalue,updateuist
     tempupvalue[compid] = objValue;
     updatesecvalue(tempupvalue);
  
-   if(objValue.description===""){
-    secupdateflag(0);
-   }else {secupdateflag(1);}
+ 
  
    }
 
-   const secupdateflag =(flag) =>{   //set flag to show that the current component has been updated
-    secupdateflag_(flag,isupdatefunc,isupdateval,compid);
-     }
+
 
      
   const deletesec_comp = (e)=>{ //call this function to delete the current instance of the component
     e.preventDefault();
-   deletechild_(secvalue,secstate,updatesecvalue,updateuistate,compid,isupdatefunc,isupdateval);
+   deletechild_(secvalue,uistate,updatesecvalue,updateuistate,compid);
      }
 
 const moveup = (e) =>{ //code to move the instance of component up
       e.preventDefault();
-  moveup_(secvalue,secstate,updatesecvalue,updateuistate,compid);
+  moveup_(secvalue,uistate,updatesecvalue,updateuistate,compid);
   }
 
 const movedown = (e) =>{ //code to move the instance of the component down
     e.preventDefault();
-    movedown_(secvalue,secstate,updatesecvalue,updateuistate,compid);
+    movedown_(secvalue,uistate,updatesecvalue,updateuistate,compid);
   }
 
   const remuistate = (e)=>{  //call this function to toggle min-max of the current instance of the component
     e.preventDefault();
-    const tempuistate = [...secstate];
+    const tempuistate = [...uistate];
     tempuistate[compid] = (tempuistate[compid]===1)?0:1;
    updateuistate(tempuistate);
 
@@ -86,13 +82,13 @@ const movedown = (e) =>{ //code to move the instance of the component down
 
   return (
 
-            <div className="section_box__item section_form__holder">
+            <div className="section_box__item section_form__holder">4
                   <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
                   <div className="section_box__item section_form__holder_container" style={(top=="1")?stylez:{display:"none"}}>
-                      <div className="section_form__item section_item__title"><span>Company Name</span>      <div className="inputbox_component"><input value={objValue.compname} onChange={changeobjval} ref={companyref} ></input></div>    </div>
-                      <div className="section_form__item section_item__location"><span>Contact Person</span> <div className="inputbox_component"><input value={objValue.contactperson} onChange={changeobjval} ref={contactref}></input></div> </div>
-                      <div className="section_form__item section_item__place"> <span> Phone Number </span> <div className="inputbox_component"><input value={objValue.phonenumber} onChange={changeobjval} ref={phoneref}></input></div> </div>
-                      <div className="section_form__item section_item__place"> <span> Email Address </span> <div className="inputbox_component"><input value={objValue.emailadd} onChange={changeobjval} ref={emailref}></input></div> </div>
+                      <div className="section_form__item section_item__title"><span>Company Name</span>      <div className="inputbox_component"><input placeholder="Enter Company Name" type="text" maxlength="30" value={objValue.compname} onChange={changeobjval} ref={companyref} ></input></div>    </div>
+                      <div className="section_form__item section_item__location"><span>Contact Person</span> <div className="inputbox_component"><input placeholder="Contact Person Name" type="text" maxlength="30" value={objValue.contactperson} onChange={changeobjval} ref={contactref}></input></div> </div>
+                      <div className="section_form__item section_item__place"> <span> Phone Number </span> <div className="inputbox_component"><input placeholder="Contact Person Phone Number" type="number" min="0" max="9999999999" value={objValue.phonenumber} onChange={changeobjval} ref={phoneref}></input></div> </div>
+                      <div className="section_form__item section_item__place"> <span> Email Address </span> <div className="inputbox_component"><input placeholder="Enter contact email" type="email" maxlength="50" value={objValue.emailadd} onChange={changeobjval} ref={emailref}></input></div> </div>
                       <div className="section_form__item section_item__buttonholder"><button className="section_buttonholder__button" onClick={updatesectione}> <Saveicon/><span>Save</span> </button><button className="section_buttonholder__button" onClick={deletesec_comp}><Trashicon/><span>Delete</span></button></div>
                   </div>
 

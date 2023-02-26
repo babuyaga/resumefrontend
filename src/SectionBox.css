@@ -13,9 +13,8 @@ button {
   padding-right: 30px;
   padding-bottom: 30px;
   display: flex;
+  gap:5px;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 50px;
   box-shadow: 0px 5px 8px var(--shadow_color);
   position: relative;
   transition: all .7s ease-in-out;
@@ -67,6 +66,11 @@ button {
   z-index:1;
 }
   
+@keyframes backgroundflash {
+  0% {background-image: linear-gradient(to left,transparent, transparent,transparent);}
+  50% {background-image: linear-gradient(to left,transparent, #00000007,transparent);}
+  100% {background-image: linear-gradient(to left,transparent, transparent,transparent);}
+}
 
 .section_box__heading {
   border-bottom: 1px solid var(--border_bottom);
@@ -167,6 +171,7 @@ input:focus {
   display: flex;
   flex-direction: row;
   gap: 10px;
+  justify-content: flex-end;
 }
 
 
@@ -299,6 +304,7 @@ input:focus {
     width: fit-content;
   }
 
+  
 
 }
 
@@ -307,7 +313,7 @@ input:focus {
 
   .section_box {
     width: 100vw;
-    margin: 0px auto 50px auto;
+    margin: 0px auto;
   }
 
 
@@ -371,6 +377,25 @@ input:focus {
     padding: 5px 35px;
   }
 
+.section_heading__item{
+min-width:33%;
+  }
+
+  .heading_move_div{
+    flex-grow:1;
+    height:100%;
+  }
+  
+  .heading_move_div:hover{
+    cursor:move;
+    animation-name: backgroundflash;
+    animation-iteration-count: 2;
+     animation-duration:0.35s;
+     animation-timing-function: ease-in;
+  }
+  
+
+
 }
 
 
@@ -381,7 +406,7 @@ input:focus {
   .section_box {
     width: 95vw;
     max-width: 1000px;
-    margin: 0px auto 50px auto;
+    margin: 0px auto;
     border-radius: 6px;
   }
 
@@ -451,6 +476,24 @@ input:focus {
 
   .section_form__minimized {
     padding: 5px 45px;
+  }
+
+  
+.heading_move_div{
+  flex-grow:1;
+  height:100%;
+}
+
+.heading_move_div:hover{
+  cursor:move;
+  animation-name: backgroundflash;
+  animation-iteration-count: 2;
+   animation-duration:0.35s;
+   animation-timing-function: ease-in;
+}
+
+.section_heading__item{
+min-width:25%;
   }
 
 }

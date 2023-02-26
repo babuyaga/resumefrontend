@@ -15,6 +15,7 @@
         --button_hover_dark:#cddcee;
         --button_hover: #ffffff1e;
         --section_min_bg: #ffffff08;
+        --index_holder: gold;
         background-color: var(--background_color);
         color:var(--dark_text);
         }

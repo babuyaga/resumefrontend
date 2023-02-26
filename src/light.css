@@ -19,5 +19,6 @@
         --navbar_border:gray;
         --section_min_bg:#cdcdcd1e;
         --hover_message_border:#444444;
+        --index_holder: rgb(0, 140, 255);
         background-color: var(--background_color)!important;
       }
