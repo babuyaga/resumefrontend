@@ -22,13 +22,14 @@ function SectionboxItemunfix({ uistate,updateuistate, compid, secname,secvalue,u
   const compidsol = compid;
   const top = uistate[compid];
   let objValue = secvalue[compid];
+objValue.description = objValue.description?objValue.description:"";
 
+const updatesection =() =>{ 
+  const tempupvalue = [...secvalue];
+  tempupvalue[compid] = objValue;
+  updatesecvalue(tempupvalue);
+ }
 
-  const updatesection =() =>{  //function to update the parent section    
-    const tempupvalue = [...secvalue];
-    tempupvalue[compid] = objValue;
-    updatesecvalue(tempupvalue);
-   }
 
   const changeobjdesc =(e)=>{ //Function to update inputbox of component
   objValue.description = e;

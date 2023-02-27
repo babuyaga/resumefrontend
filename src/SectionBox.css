@@ -17,7 +17,6 @@ button {
   flex-direction: column;
   box-shadow: 0px 5px 8px var(--shadow_color);
   position: relative;
-  transition: all .7s ease-in-out;
 }
 
 .section_heading__text {

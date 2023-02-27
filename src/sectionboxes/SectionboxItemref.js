@@ -13,7 +13,7 @@ var styles = {display:""};
 var stylez = {display:""};
 
 function SectionboxItemref({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
-
+  
   const top = uistate[compid];
   const objValue = secvalue[compid];
 

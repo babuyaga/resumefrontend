@@ -50,6 +50,11 @@ setappval(tempval);
 console.log("Client pushed Appval", appval);
 }
 
+const blanksave= (updatedarray)=>{
+  saveData(updatedarray,saveUrl);
+  setappval(updatedarray); 
+  
+}
 
 const deleteAppval = (index) => {
 let tempval = [...appval];
@@ -111,8 +116,9 @@ else if ((!flag)&&(i<appval.length-1)){
   tempval[i+1] = appval[i];
   tempval[i]=appval[i+1];
 }
-setappval(tempval);
 saveData(tempval,saveUrl);
+setappval(tempval);
+
 }
 
 
@@ -126,13 +132,15 @@ const swaporder = (i,j)=>{
 temparray.splice(i,1);
 temparray.splice(j,0,apparray[i]);
  }else if(j>i){
-  temparray.splice(j+1,0,apparray[i]);
+  temparray.splice(j,0,apparray[i]);
   temparray.splice(i,1);
  }
  console.log("apparrayog",apparray);
 console.log("temparray",temparray);
-setappval(temparray);
+
    }
+   saveData(temparray,saveUrl); 
+   setappval(temparray);
 }
 
 
@@ -158,25 +166,20 @@ console.log("apparrayog",apparrayog);
 console.log("temparray",temparray);
 }
 
-const buttonclick = (e)=>{
-  e.preventDefault();
-  swaporder2(1,8);
-}
 
 
 const contentMaker = (value)=>{
- return value.map((e,i)=> <div><IndexHolder itemindex={i}/>   <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> </div>)
+ return value.map((e,i)=> <div><IndexHolder itemindex={i}/>   <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> {i===(appval.length-1)?<IndexHolder itemindex={i+1}/>:""}</div>)
 }
 
   
 
 
-return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient,swaporder,hoverindex,sethovindex}}>
+return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient,swaporder,hoverindex,sethovindex,blanksave}}>
   <div>   <SettingBox/> 
     <div className={`App ${theme}`}>
        
    <NavBar/>
-<button onClick={buttonclick}> Swap</button>
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>

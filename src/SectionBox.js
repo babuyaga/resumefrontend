@@ -8,7 +8,7 @@ import SectionboxItemfixed from "./sectionboxes/SectionboxItemfixed.js";
 import SectionboxItemunfix from "./sectionboxes/SectionboxItemunfix.js";
 import SectionboxItemref from "./sectionboxes/SectionboxItemref.js";
 import SectionboxItemobjtwo from "./sectionboxes/SectionboxItemobjtwo.js";
-import {useState,useEffect,useContext,createContext} from "react";
+import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {getdataformat} from "./DataHolder.js";
 
 import Switch from "react-switch";
@@ -29,6 +29,8 @@ const [uistate,setuistate] =useState([1]); //state variable to keep track of the
  //state to keep track of whether the component has been updated or not if updated it's 1 and if not updated its 0
 
 const [order,setorder] = useState(index);
+const sectionbox = useRef();
+
 
 const [comptitle,settitle] = useState(compData.title);
 let update_message = {value:`Autosaved`,display:"block", messagetype:2};
@@ -168,20 +170,27 @@ const showsetting = (e)=>{
   e.preventDefault();
   setshowset({"display":true,"index":index});
 }
+const [stylezz,setstylezz]=useState({"opacity":"1"});
 
-const dragstartfunc=()=>{
+const dragstartfunc=(e)=>{
 
+setstylezz({"opacity":"0.5"});
 }
 
 const ondragfunc = (e)=>{
 let j = hoverindex;
-console.log("This is index",index,j);
+console.log("This is offset left",sectionbox.current.offsetLeft);
+let x = sectionbox.current.offsetLeft;
+let diff= e.clientY-sectionbox.current.offsetTop;
+let y= e.clientY-30;
+setstylezz({"opacity":"0.3"});
 }
 
 
 const dragendfunc=()=>{
   let j = hoverindex;
   console.log(index,j);
+  setstylezz({"opacity":"1"});
   setorder(j);
   swaporder(index,j);
 }
@@ -217,12 +226,12 @@ switch(item_id){
 
 
 
-  return (<div style={{"order":index}}>
+  return (<div style={{"order":index}} >
 
 
-    <div className="section_box" style={{}}>
+    <div className="section_box" style={stylezz} ref={sectionbox}>
 
-            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item heading_move_div" draggable="true" onDragStart={()=>{}} onDrag={ondragfunc} onDragEnd={dragendfunc}></div><div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
+            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item heading_move_div" draggable="true" onDragStart={dragstartfunc} onDrag={ondragfunc} onDragEnd={dragendfunc}></div><div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
          
           {contentmaker(compData.idno)}
 
