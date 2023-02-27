@@ -32,6 +32,8 @@ const [showset,setshowset] = useState({"display":false,"index":1});
 const [theme,settheme] = useState("light");
 const [hoveron,sethover] = useState(false);
 const [appval, setappval] = useState(["init"]);
+const [hoverindex,sethovindex] = useState(0);
+
 
 useEffect(()=>{
   getServer(setappval,getDataurl);
@@ -116,38 +118,60 @@ saveData(tempval,saveUrl);
 
 const swaporder = (i,j)=>{
 
+  let apparray = appval.map(e=>e);
+  let temparray = appval.map(e=>e);
+  let length = appval.length;
+   if((j>=0)&&(j<=length)&&((i+1)!=j)){
+ if(j<i){ 
+temparray.splice(i,1);
+temparray.splice(j,0,apparray[i]);
+ }else if(j>i){
+  temparray.splice(j+1,0,apparray[i]);
+  temparray.splice(i,1);
+ }
+ console.log("apparrayog",apparray);
+console.log("temparray",temparray);
+setappval(temparray);
+   }
+}
+
+
+
+const swaporder2 = (i,j)=>{
+
   let apparrayog = [0,1,2,3,4,5,6,7];
   let apparray = apparrayog.map(e=>e);
   let temparray = apparrayog.map(e=>e);
-  
-  if(j<i){
-  temparray[j] = apparray[i];
-  apparray.splice(i,1);
-  for(let v=j+1;v<(apparray.length+1);v++){
-    temparray[v] = apparray[v-1];
-  }
-  }
-  else if(j>i){
-  //function yet to be finished
-  }
-   
+  let length = apparrayog.length;
+
+
+  if((j>=0)&&(j<=length)&&((i+1)!=j)){
+ if(j<i){ 
+temparray.splice(i,1);
+temparray.splice(j,0,apparray[i]);
+ }else if(j>i){
+  temparray.splice(j+1,0,apparray[i]);
+  temparray.splice(i,1);
+ }
+}
 console.log("apparrayog",apparrayog);
 console.log("temparray",temparray);
 }
 
 const buttonclick = (e)=>{
   e.preventDefault();
-  swaporder(1,6);
+  swaporder2(1,8);
 }
 
+
 const contentMaker = (value)=>{
- return value.map((e,i)=> <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" />)
+ return value.map((e,i)=> <div><IndexHolder itemindex={i}/>   <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> </div>)
 }
 
   
 
 
-return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient}}>
+return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient,swaporder,hoverindex,sethovindex}}>
   <div>   <SettingBox/> 
     <div className={`App ${theme}`}>
        

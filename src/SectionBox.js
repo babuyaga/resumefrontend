@@ -10,14 +10,14 @@ import SectionboxItemref from "./sectionboxes/SectionboxItemref.js";
 import SectionboxItemobjtwo from "./sectionboxes/SectionboxItemobjtwo.js";
 import {useState,useEffect,useContext,createContext} from "react";
 import {getdataformat} from "./DataHolder.js";
-import IndexHolder from './indexholder.js';
+
 import Switch from "react-switch";
 import {appuiContext} from "./App.js";
 
 
 function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
 
-const {setshowset,pushAppValclient} = useContext(appuiContext);
+const {setshowset,pushAppValclient,swaporder,hoverindex} = useContext(appuiContext);
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
@@ -26,7 +26,7 @@ const sampe = getdataformat(); //has a sample array with all the possible data o
 const [sectionval, setsectionval] = useState([sampe[item_]]); //state variable to keep track of the updated value of the component
 
 const [uistate,setuistate] =useState([1]); //state variable to keep track of the updated ui state of the component 0 for minimized and 1 for maximized
-const [compupdate,setcompup] = useState([0]); //state to keep track of whether the component has been updated or not if updated it's 1 and if not updated its 0
+ //state to keep track of whether the component has been updated or not if updated it's 1 and if not updated its 0
 
 const [order,setorder] = useState(index);
 
@@ -36,31 +36,25 @@ let update_message = {value:`Autosaved`,display:"block", messagetype:2};
 
 const [togglestate,settoggle] = useState(compData.include);
 
-let sum = compupdate.reduce((accumulator, value) => {
-return accumulator + value;
-}, 0);  //sums up the value 
 
 
-useEffect(()=>{
- sum = compupdate.reduce((accumulator, value) => {
-return accumulator + value;
-}, 0);  },[compupdate]);
+
 
 useEffect(()=>{
 updateComponentData();
 },[]);
 
 
-const MINUTE_MS = 10000;
+// const MINUTE_MS = 10000;
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    updateParent();
-    console.log("client updated by component ",index);
-  }, MINUTE_MS);
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//     updateParent();
+//     console.log("client updated by component ",index);
+//   }, MINUTE_MS);
 
-  return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-}, [])
+//   return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+// }, [])
 
 
 // useEffect(()=>{updateComponentData();
@@ -83,7 +77,6 @@ const updateComponentData = ()=>{ //check if data was passed from parent, if yes
     
     setsectionval(gotdata);
     setuistate(tempui);
-    setcompup(tempupdate);
     settitle(temptitle);
     settoggle(tempinclude);
     }
@@ -105,7 +98,6 @@ const addchild =(e) =>{
   setsectionval(temparr);   //update the section value
   updatestate();   //call the function to update UI state of all the children and then add an element to the state keeping array; this function minimizes all children other than the last one.
   updateParent();
-
  }
 
 //  else if((sum!==(temparr.length))){
@@ -182,11 +174,16 @@ const dragstartfunc=()=>{
 }
 
 const ondragfunc = (e)=>{
+let j = hoverindex;
+console.log("This is index",index,j);
 }
 
 
 const dragendfunc=()=>{
-
+  let j = hoverindex;
+  console.log(index,j);
+  setorder(j);
+  swaporder(index,j);
 }
 
 
@@ -222,10 +219,10 @@ switch(item_id){
 
   return (<div style={{"order":index}}>
 
-<IndexHolder/>    
-    <div className="section_box"  >
 
-            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item heading_move_div"></div><div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
+    <div className="section_box" style={{}}>
+
+            <div className="section_box__item section_box__heading"><div className="section_heading__item section_heading__text"><span className="hover-track"><span className="onhover-message">Show this on resume?</span><Switch id="material-switch" height={15} width={30}  handleDiameter={12} uncheckedIcon={false} checkedIcon={false} onChange={toggleChange} checked={togglestate}/></span> <input style={{"fontWeight":"bold","minWidth":"fit-content"}} onChange={(e)=>{settitle(e.target.value);}} value={comptitle}></input></div> <div className="section_heading__item heading_move_div" draggable="true" onDragStart={()=>{}} onDrag={ondragfunc} onDragEnd={dragendfunc}></div><div className="section_heading__item section_heading__buttons"><button className="up-arrow--button sectionbox--button" onClick={moveup}><Uparrow/></button><button className="down-arrow--button sectionbox--button" onClick={movedown}><Downarrow/></button><button className="settings-arrow--button sectionbox--button settings_icon" onClick={showsetting}><Settingsicon/></button></div> </div>
          
           {contentmaker(compData.idno)}
 
