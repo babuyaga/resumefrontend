@@ -1,9 +1,9 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../texteditor.css';
-import Saveicon from "../icons/Saveicon.js";
-import Trashicon from "../icons/Trashicon.js";
-import Addicon from "../icons/Addicon.js";
+// import '../../components/texteditor.css';
+import Saveicon from "../../icons/Saveicon.js";
+import Trashicon from "../../icons/Trashicon.js";
+import Addicon from "../../icons/Addicon.js";
 
 var styles = {display:""};
 var stylez = {display:""};

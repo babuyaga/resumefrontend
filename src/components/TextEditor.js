@@ -1,6 +1,6 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './texteditor.css';
+import './stylesheets/texteditor.css';
 import {useState} from "react";
 
 function TextEditor({setValueo}){

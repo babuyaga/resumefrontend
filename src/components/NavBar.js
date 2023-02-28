@@ -1,8 +1,8 @@
 
 import {useState,useEffect,createContext,useContext} from "react";
 import getdataformat from "./DataHolder.js";
-import {appuiContext} from "./App.js";
-import "./navbar.css";
+import {appuiContext} from "../pages/App.js";
+import "./stylesheets/navbar.css";
 import Switch from "react-switch";
 
 

@@ -49,7 +49,7 @@ export function sectionData(){
 
 export async function getServer(setstate,url){
   if(!url){
-    url = 'http://localhost:5000/postrequest';
+    url = 'http://192.168.1.110:5000/postrequest';
   }
   
   var sectiondata = [ {
@@ -79,7 +79,7 @@ setstate(json);
 
 export async function saveData(dataSave,url){
   if(!url){
-    url = 'http://localhost:5000/saveresume';
+    url = 'http://192.168.1.110:5000/saveresume';
   }
   
   var sectiondata = [ {

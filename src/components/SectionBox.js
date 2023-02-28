@@ -1,7 +1,7 @@
-import Uparrow from "./icons/Uparrow.js";
-import Downarrow from "./icons/Downarrow.js";
-import Settingsicon from "./icons/Settingsicon.js";
-import Addicon from "./icons/Addicon.js";
+import Uparrow from "../icons/Uparrow.js";
+import Downarrow from "../icons/Downarrow.js";
+import Settingsicon from "../icons/Settingsicon.js";
+import Addicon from "../icons/Addicon.js";
 import SectionboxItem from "./sectionboxes/SectionboxItem.js";
 import SectionboxItemskill from "./sectionboxes/SectionboxItemskill.js";
 import SectionboxItemfixed from "./sectionboxes/SectionboxItemfixed.js";
@@ -12,7 +12,7 @@ import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {getdataformat} from "./DataHolder.js";
 
 import Switch from "react-switch";
-import {appuiContext} from "./App.js";
+import {appuiContext} from "../pages/App.js";
 
 
 function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
@@ -27,9 +27,9 @@ const [sectionval, setsectionval] = useState([sampe[item_]]); //state variable t
 
 const [uistate,setuistate] =useState([1]); //state variable to keep track of the updated ui state of the component 0 for minimized and 1 for maximized
  //state to keep track of whether the component has been updated or not if updated it's 1 and if not updated its 0
-
+ const sectionbox = useRef();
 const [order,setorder] = useState(index);
-const sectionbox = useRef();
+
 
 
 const [comptitle,settitle] = useState(compData.title);
@@ -173,8 +173,8 @@ const showsetting = (e)=>{
 const [stylezz,setstylezz]=useState({"opacity":"1"});
 
 const dragstartfunc=(e)=>{
-
 setstylezz({"opacity":"0.5"});
+
 }
 
 const ondragfunc = (e)=>{
@@ -200,22 +200,22 @@ function contentmaker(item_id){
 
 switch(item_id){
   case 1:
-  return (sectionval.map((e, i) => <SectionboxItemref        uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemref        uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} sectionindex={index}/>));
   break;
   case 2:
-  return (sectionval.map((e, i) => <SectionboxItemskill      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title}  />));
+  return (sectionval.map((e, i) => <SectionboxItemskill      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title}  sectionindex={index} />));
   break;
   case 3:
-  return (sectionval.map((e, i) => <SectionboxItemfixed      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemfixed      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 4:
-  return (sectionval.map((e, i) => <SectionboxItem           uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItem           uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 5:
-  return (sectionval.map((e, i) => <SectionboxItemobjtwo     uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemobjtwo     uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 6:
-  return (sectionval.map((e, i) => <SectionboxItemunfix      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} />));
+  return (sectionval.map((e, i) => <SectionboxItemunfix      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   default:
   return "";
@@ -226,7 +226,7 @@ switch(item_id){
 
 
 
-  return (<div style={{"order":index}} >
+  return (<div style={{"order":order}} id={sectionid}>
 
 
     <div className="section_box" style={stylezz} ref={sectionbox}>

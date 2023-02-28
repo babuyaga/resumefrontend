@@ -1,19 +1,18 @@
-import SectionBox from './SectionBox.js';
-import './SectionBox.css';
+import SectionBox from '../components/SectionBox.js';
+import '../components/stylesheets/SectionBox.css';
 import './App.css';
-import ToastMessage from './ToastMessage.js';
+import ToastMessage from '../components/ToastMessage.js';
 import {useState,useEffect,createContext} from "react";
-import './ToastMessage.css';
-import NavBar from "./NavBar.js";
-import {getServer,saveData} from "./DataHolder.js";
-import SettingBox from "./SettingBox.js";
-import IndexHolder from './indexholder.js';
-import  "./light.css";
-import  "./dark.css";
+import NavBar from "../components/NavBar.js";
+import {getServer,saveData} from "../components/DataHolder.js";
+import SettingBox from "../components/SettingBox.js";
+import IndexHolder from '../components/indexholder.js';
+import  "../stylesheets/light.css";
+import  "../stylesheets/dark.css";
 export const appuiContext = createContext();
 
 
-function App() {
+function App({resumeheading}) {
 
 
   let getDataurl = "http://localhost:5000/getresume";
@@ -127,49 +126,60 @@ const swaporder = (i,j)=>{
   let apparray = appval.map(e=>e);
   let temparray = appval.map(e=>e);
   let length = appval.length;
+ 
+let element;
+
    if((j>=0)&&(j<=length)&&((i+1)!=j)){
  if(j<i){ 
 temparray.splice(i,1);
 temparray.splice(j,0,apparray[i]);
+element = document.getElementById(`indexholder_${j}`);
  }else if(j>i){
   temparray.splice(j,0,apparray[i]);
   temparray.splice(i,1);
+  element = document.getElementById(`sectionbox_${j-1}`);
  }
  console.log("apparrayog",apparray);
 console.log("temparray",temparray);
 
    }
+
    saveData(temparray,saveUrl); 
    setappval(temparray);
+   console.log("element",element);
+   element.scrollIntoView();
 }
 
-
-
-const swaporder2 = (i,j)=>{
-
-  let apparrayog = [0,1,2,3,4,5,6,7];
-  let apparray = apparrayog.map(e=>e);
-  let temparray = apparrayog.map(e=>e);
-  let length = apparrayog.length;
-
-
-  if((j>=0)&&(j<=length)&&((i+1)!=j)){
- if(j<i){ 
-temparray.splice(i,1);
-temparray.splice(j,0,apparray[i]);
- }else if(j>i){
-  temparray.splice(j+1,0,apparray[i]);
-  temparray.splice(i,1);
- }
+const buttonclick = ()=>{
+  getServer(setappval,getDataurl);
 }
-console.log("apparrayog",apparrayog);
-console.log("temparray",temparray);
-}
+
+// const swaporder2 = (i,j)=>{
+
+//   let apparrayog = [0,1,2,3,4,5,6,7];
+//   let apparray = apparrayog.map(e=>e);
+//   let temparray = apparrayog.map(e=>e);
+//   let length = apparrayog.length;
+
+
+//   if((j>=0)&&(j<=length)&&((i+1)!=j)){
+//  if(j<i){ 
+// temparray.splice(i,1);
+// temparray.splice(j,0,apparray[i]);
+//  }else if(j>i){
+//   temparray.splice(j+1,0,apparray[i]);
+//   temparray.splice(i,1);
+//  }
+// }
+
+
+
+// }
 
 
 
 const contentMaker = (value)=>{
- return value.map((e,i)=> <div><IndexHolder itemindex={i}/>   <SectionBox compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> {i===(appval.length-1)?<IndexHolder itemindex={i+1}/>:""}</div>)
+ return value.map((e,i)=> <div><IndexHolder sectionid={`indexholder_${i}`} itemindex={i} key={e.uniqueid+"index"}/>   <SectionBox sectionid={`sectionbox_${i}`} compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> {i===(appval.length-1)?<IndexHolder sectionid={`indexholder_${i+1}`} itemindex={i+1}/>:""}</div>)
 }
 
   
@@ -180,6 +190,7 @@ return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval
     <div className={`App ${theme}`}>
        
    <NavBar/>
+   <button onClick={buttonclick}>Click this to reload</button>
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>

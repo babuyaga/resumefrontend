@@ -1,7 +1,7 @@
-import "./SettingBox.css";
+import "./stylesheets/SettingBox.css";
 import {useState,useEffect,useContext,createContext} from "react";
-import Closeicon from "./icons/Closeicon.js";
-import {appuiContext} from "./App.js";
+import Closeicon from "../icons/Closeicon.js";
+import {appuiContext} from "../pages/App.js";
 import Switch from "react-switch";
 
 function SettingBox() {

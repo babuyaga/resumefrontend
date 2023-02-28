@@ -1,13 +1,13 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../texteditor.css';
-import Saveicon from "../icons/Saveicon.js";
-import Trashicon from "../icons/Trashicon.js";
+// import '../../components/texteditor.css';
+import Saveicon from "../../icons/Saveicon.js";
+import Trashicon from "../../icons/Trashicon.js";
 import {useRef,useEffect} from "react";
-import Uparrow from "../icons/Uparrow.js";
-import Downarrow from "../icons/Downarrow.js";
-import Minimizeicon from "../icons/Minimizeicon.js";
-import Maximizeicon from "../icons/Maximizeicon.js";
+import Uparrow from "../../icons/Uparrow.js";
+import Downarrow from "../../icons/Downarrow.js";
+import Minimizeicon from "../../icons/Minimizeicon.js";
+import Maximizeicon from "../../icons/Maximizeicon.js";
 import {moveup_,movedown_, deletechild_, secupdateflag_} from "../UIstates.js";
 
 

@@ -1,14 +1,15 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import '../texteditor.css';
-import Saveicon from "../icons/Saveicon.js";
-import Trashicon from "../icons/Trashicon.js";
-import Addicon from "../icons/Addicon.js";
-import {useRef,useState,useEffect} from "react"; 
-import Uparrow from "../icons/Uparrow.js";
-import Downarrow from "../icons/Downarrow.js";
-import Minimizeicon from "../icons/Minimizeicon.js";
-import Maximizeicon from "../icons/Maximizeicon.js";
+// import '../../components/texteditor.css';
+import Saveicon from "../../icons/Saveicon.js";
+import Trashicon from "../../icons/Trashicon.js";
+import Addicon from "../../icons/Addicon.js";
+import {useState,useEffect,useContext,createContext,useRef} from "react";
+import {appuiContext} from "../../pages/App.js";
+import Uparrow from "../../icons/Uparrow.js";
+import Downarrow from "../../icons/Downarrow.js";
+import Minimizeicon from "../../icons/Minimizeicon.js";
+import Maximizeicon from "../../icons/Maximizeicon.js";
 import {moveup_,movedown_, deletechild_} from "../UIstates.js";
 
 var styles = {display:""};
@@ -16,13 +17,15 @@ var stylez = {display:""};
 
 //COMPID is 6
 
-function SectionboxItemunfix({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
+function SectionboxItemunfix({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
 
+const {appval} = useContext(appuiContext);
 
   const compidsol = compid;
   const top = uistate[compid];
-  let objValue = secvalue[compid];
+  let objValue = appval[sectionindex].value[compid];
 objValue.description = objValue.description?objValue.description:"";
+
 
 const updatesection =() =>{ 
   const tempupvalue = [...secvalue];
