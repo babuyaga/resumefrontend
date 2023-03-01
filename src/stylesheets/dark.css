@@ -1,0 +1,23 @@
+
+    .dark {
+        --background_color: #1d1b22;
+        --section_color: #222222;
+        --shadow_color: #444444;
+        --hover_message_bg: #ffffff;
+        --dark_text:#ffffff;
+        --light_text: #000000;
+        --border_bottom: #444444;
+        --border_light: #333333;
+        --border_dark: #555555;
+        --border_black: #ffffff;
+        --button_bg:#00000000;
+        --button_hover_border:#ffffff12;
+        --button_shadow_color:#444444;
+        --button_active_border: #6ed35d;
+        --button_hover_dark:#1d1b22;
+        --button_hover: #ffffff1e;
+        --section_min_bg: #ffffff08;
+        --index_holder: gold;
+        background-color: var(--background_color);
+        color:var(--dark_text);
+        }

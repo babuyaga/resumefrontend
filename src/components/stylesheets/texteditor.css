@@ -1,0 +1,38 @@
+
+
+  .quill{
+  width: 100%;
+  border-radius:4px;
+}
+
+.quill:focus-within{
+  outline:1px solid black;
+}
+
+
+  .ql-container{
+  min-height:120px;
+  }
+
+  .ql-editor{
+    height:120px;
+  }
+
+
+  .ql-blank{
+    height:120px;
+  }
+
+.textdescription_holder{
+  width:100%;
+}
+@media only screen and (max-width: 767px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {}
+
+
+@media only screen and (min-width: 1024px)   {
+
+}

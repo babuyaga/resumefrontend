@@ -1,0 +1,88 @@
+
+
+.App {
+  text-align: center;
+  display:flex;
+  flex-direction: column;
+  padding-top:70px;
+  color:var(--dark_text);
+  height:100%;
+}
+
+.App form{
+padding:20px 0px;
+}
+
+body{
+  background-color: var(--background_color);
+}
+
+
+html,body{
+  max-width:100%;
+  overflow-x:hidden;
+  background-color: var(--background_color);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.icon_class{
+  color: var(--dark_text);
+  stroke:var(--dark_text);
+}
+.icon_class_dark{
+  color: var(--dark_text);
+  stroke:var(--dark_text);
+
+}
+
+.settings_icon{
+  transition: transform .7s ease-in-out;
+}
+
+.settings_icon:hover{
+  transform: rotate(360deg);
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+.App{
+  padding-top:80px;
+}
+}
