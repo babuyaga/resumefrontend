@@ -40,12 +40,27 @@ flex-direction:column
   box-sizing: content-box;
  border-radius: 5px;
  transition: all 0.2s ease-in;
+ background-color:var(--button_bg);
+border: 1px solid var(--button_hover_border) ;
+color: var(--dark_text)var(--button_bg);
+transition: all 0.1s ease-in;
+box-shadow:6px 6px 8px var(--button_shadow_color);
 }
 
 
 .add_section_button button:hover{
-background-color:var(--button_hover_dark);
+  background-color: var(--button_hover_dark);
+  color:var(--dark_text);
 }
+
+.add_section_button button:active{
+  background-color: var(--button_bg);
+  box-shadow:2px 2px 4px var(--button_shadow_color);
+  margin:4px -4px -4px 4px;
+}
+
+
+
 
 @media only screen and (max-width: 767px) {  
 

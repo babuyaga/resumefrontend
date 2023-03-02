@@ -255,10 +255,22 @@ input:focus {
   display: flex;
   flex-direction: row;
   gap: 5px;
+  background-color:var(--button_bg);
+  border: 1px solid var(--button_hover_border) ;
+  color: var(--dark_text);
+  transition: all 0.1s ease-in;
+  box-shadow:3px 3px 6px var(--button_shadow_color);
+}
+
+.section_buttonholder__button:hover{
+  background-color: var(--button_hover_dark);
+  color:var(--dark_text);
 }
 
 .section_buttonholder__button:active {
   background-color: var(--button_bg);
+  box-shadow:1px 1px 4px var(--button_shadow_color);
+  margin:3px -3px -3px 3px;
 }
 
 .section_item__dateinput input:hover {
