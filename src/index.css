@@ -26,3 +26,7 @@ html,body{
   background-color: var(--background_color);
   scroll-behavior: smooth;
 }
+
+#root{
+  height:100vh;
+}

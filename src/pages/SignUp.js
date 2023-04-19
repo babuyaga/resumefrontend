@@ -12,13 +12,13 @@ const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 
 
-return (  <div className="login-page"> 
-                    <div className="login-box signup-box">
+return (  <div className="signup-page"> 
+                    <div className="signup-box signup-box">
                     
-                        <div className="login-box-partition">
-                        <div className="login-box-partition--section partition-logo"><h2></h2></div>
-                                <div className="login-box-partition--section partition-top">
-                                    <div className="login-box-partition--section-holder">
+                        <div className="signup-box-partition">
+                        <div className="signup-box-partition--section partition-logo"><h2></h2></div>
+                                <div className="signup-box-partition--section partition-top">
+                                    <div className="signup-box-partition--section-holder">
                                         <h2>Hey there,</h2>
                                         <p> We need some of your details.</p> 
                                         <button className="google-login--button" onClick={loginWithGoogle}> <Googleicon/> <span>Sign up with Google</span> </button>
@@ -26,12 +26,12 @@ return (  <div className="login-page">
                                     </div>
                                 </div>
 <div className="or-holder"><hr></hr><p>or</p><hr></hr></div>
-                                 <div className="login-box-partition--section partition-bottom"> 
-                                     <div className="login-box-partition--section-holder">
-                                        <form className="form-login"> 
-                                        <input className="inputbox-login" type="text" name="username" placeholder="Name"/>
-                                        <input className="inputbox-login" type="email" name="email" placeholder="Email"/>
-                                        <input className="inputbox-login" type="password" name="password" placeholder="Password"/>
+                                 <div className="signup-box-partition--section partition-bottom"> 
+                                     <div className="signup-box-partition--section-holder">
+                                        <form className="form-signup"> 
+                                        <input className="inputbox-signup" type="text" name="username" placeholder="Name"/>
+                                        <input className="inputbox-signup" type="email" name="email" placeholder="Email"/>
+                                        <input className="inputbox-signup" type="password" name="password" placeholder="Password"/>
                                         <br></br>
                                         </form>
                                         
@@ -41,14 +41,14 @@ return (  <div className="login-page">
                                     </div>
                                 </div>
                         </div>
-                        <div className="login-box-partition ">
+                        <div className="signup-box-partition ">
                             <div className="imageside-signup">
-                                <div className="login-box-partition--section reviewtext ">
+                                <div className="signup-box-partition--section reviewtext ">
                                 <span>
                                         <h2>ResumoGusthi helped masdf asdfa asdfa sdfa a fasdfas df adsfadsf dafasd afdsfads</h2>
-                                        <div className="name-credential--arrows-login">
-                                            <div className="review-stars--login"><span className="reviewer-name">Sophie Hall</span> <span className="reviewer-cred">Student, Canada</span></div>
-                                            <div className="review-stars--login"><div className="stars-buttons--login-item stars--loginpage" ><Staricon/><Staricon/><Staricon/><Staricon/><Staricon/></div> <div className="stars-buttons--login-item"><button className="carousel-scroll--button"><Downarrow/></button><button className="carousel-scroll--button"><Uparrow/></button></div></div>
+                                        <div className="name-credential--arrows-signup">
+                                            <div className="review-stars--signup"><span className="reviewer-name">Sophie Hall</span> <span className="reviewer-cred">Student, Canada</span></div>
+                                            <div className="review-stars--signup"><div className="stars-buttons--signup-item stars--signuppage" ><Staricon/><Staricon/><Staricon/><Staricon/><Staricon/></div> <div className="stars-buttons--signup-item"><button className="carousel-scroll--button"><Downarrow/></button><button className="carousel-scroll--button"><Uparrow/></button></div></div>
                                         </div>
                                     </span>
                                 </div>

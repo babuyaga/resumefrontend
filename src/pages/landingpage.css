@@ -18,10 +18,17 @@ p,h1,h2,span {
     display:block;
 }
 
+.navbar{
+    min-height:65px!important;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    background-color:#77DD77cb;
+}
 
 .landing-page--container{
     height:fit-content;
-    width:100%;
+    width:98%;
     max-width: 1680px;
     margin:auto;
     display:flex;
@@ -59,7 +66,7 @@ p,h1,h2,span {
  padding:30px 0px;
 }
 .hero-section h1{
-    font-size:50px;
+    font-size:40px;
 }
 
 .hero-section button{
@@ -91,6 +98,7 @@ width:110px;
     background-color:#ffffff;
     padding:15px;
     border-radius:5px;
+    box-shadow:0px 0px 5px #0000001a;
 }
 
 
@@ -99,6 +107,11 @@ width:110px;
     height:35px;
     background-color:#f6f6f6;
 }
+.services-section{
+    display:flex;
+    flex-direction: column;
+}
+
 .carousel-track{
     display:flex;
     width:100%;
@@ -106,18 +119,21 @@ width:110px;
     gap:20px;
     padding:10px 0px;
 }
+
 .services-section--component{
 display:flex;
 flex-direction:column;
 gap:50px;
-justify-content: space-between;
+justify-content: center;
 }
 
 .services-section-text,.services-section-image{
     height:400px;
     background-color:transparent;
-    border:1px solid black;
+    border:1px solid #00000012;
+    box-shadow:0px 2px 5px #0000001a;
     width:100%;
+    display:flex;
 }
 
 .testimonials-section{
@@ -132,6 +148,7 @@ padding:20px 0px 30px 0px;
     height:350px;
     margin:10px;
     background-color:white;
+    box-shadow:0px 0px 10px #0000001a;
 }
 .testimonial-title p{
     font-size:35px;
@@ -192,22 +209,40 @@ width:150px;
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
+
 }
 
 .sop-image{
     background-image:url('../resources/SOP-Image.svg');
+    background-size:40%;
 }
 
 .resume-image{
     background-image:url('../resources/resume-image.svg');
+    background-size:60%;
 }
 .cover-letter-image{
     background-image:url('../resources/cover-letter-image.svg');
+    background-size:50%;
 }
 .getstarted-image{
     background-image:url('../resources/sign-up-image.svg');
     background-size:70%;
 }
+
+.services-section-text span{
+width:90%;
+margin:auto;
+}
+
+.services-section-text h1{
+font-size:38px;
+margin:0 auto 0 0;
+}
+.services-section-text p{
+    font-size:18px;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
  
 
@@ -217,17 +252,13 @@ width:150px;
 @media only screen and (min-width: 1024px) {
 .navbar{
     min-height:55px!important;
-    display:flex;
-    flex-direction:row;
-    justify-content: space-between;
-    background-color:pink;
 }
 .foobar{
     min-height:400px!important;
     display:flex;
     flex-direction:row;
     justify-content: space-between;
-    background-color:pink;
+    background-color:#6C63FF;
 }
     .landing-page{
         display:flex;
@@ -243,6 +274,9 @@ width:150px;
         justify-content: space-between;
         padding:60px 0px;
         margin:80px 0px;
+    }
+    .hero-section h1{
+        font-size:50px;
     }
     .hero-comp-one{
         width:50%;
@@ -278,7 +312,6 @@ width:150px;
     .services-section{
         overflow:hidden;
         margin-top:30px;
-        gap:20px;
         flex-direction: column;
     }
 .services-section--component{
@@ -287,7 +320,9 @@ width:150px;
 .services-section--maincomponent{
     display:flex;
 }
-
+.services-section--maincomponent h1{
+font-size:45px;
+}
 .services-section--maincomponent button{
        margin:10px;
         width:5px;
@@ -328,13 +363,24 @@ width:150px;
         height:360px;
         border-radius:15px;
         box-sizing: border-box;
-        width:45%;       
+        width:45%;  
+        max-width:495px;  
+        flex-direction:column;  
+        padding:30px; 
     }
+
+    .services-section-text span{
+        display:flex;
+        flex-direction: column;
+        height:100%;
+        padding:10px 0px;
+    }
+
 
     .testimonial-title p{
         font-size:45px;
         font-weight:bold;
-        margin:10px;
+        margin:30px 10px;
     }
     .testimonial-title span{
         width:100%;

@@ -63,26 +63,41 @@ return (
                    
             </div> 
             <div className="landing-page--section services-section section-flex-col">
-                <div className="services-section--maincomponent services-buttons"><button className={frame===frames[0]?"selected-button":""} onClick={()=>{setframe(frames[0]);}}></button><button className={frame===frames[1]?"selected-button":""}></button><button className={frame===frames[2]?"selected-button":""}></button></div>
-                <div className="service-track-holder services-section--maincomponent">
-                <div className={`carousel-track ${frame} ${pause}`} onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}>
+            <div className="services-section--maincomponent"><h1>Our Services</h1></div>
+            <div className="service-track-holder services-section--maincomponent">
+                <div className={`carousel-track ${frame} ${pause}`} >
                        <div className="section-flex-row sop-writing--service services-section--component animation">
-                           <div className="services-section-text">SOP WRiting Services1</div>
-                           <div className="services-section-image sop-image"></div>                        
+                           <div className="services-section-text" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}>
+                              <span>
+                                <h1>Statement Of Purpose</h1>
+                                <p> Commonly Used in the Graphic, Print & Publishing Industries for previewing Visual layout and Mockup for previewing Visual layout and Mockup</p>
+                              </span>
+                            </div>
+                           
+                           <div className="services-section-image sop-image" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}></div>                        
                         </div>
                        <div className="section-flex-row resume-generation-service services-section--component animation">
-                           <div className="services-section-text">SOP WRiting Services2</div>
-                           <div className="services-section-image resume-image"></div>                        
+                           <div className="services-section-text" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}> <span>
+                                <h1>Resume Making</h1>
+                                <p> Commonly Used in the Graphic, Print & Publishing Industries for previewing Visual layout and Mockup for previewing Visual layout and Mockup</p>
+                              </span>
+                            </div>
+                           <div className="services-section-image resume-image" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}></div>                        
                         </div>
                        <div className="section-flex-row coverletter-generation-service services-section--component animation"> 
-                           <div className="services-section-text">SOP WRiting Services3</div>
-                           <div className="services-section-image cover-letter-image"></div>                        
+                           <div className="services-section-text" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}> <span>
+                                <h1>Cover Letter Writting</h1>
+                                <p> Commonly Used in the Graphic, Print & Publishing Industries for previewing Visual layout and Mockup for previewing Visual layout and Mockup</p>
+                              </span>
+                            </div>
+                           <div className="services-section-image cover-letter-image" onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}></div>                        
                         </div>
                 </div>
             </div> 
+            <div className="services-section--maincomponent services-buttons"><button className={frame===frames[0]?"selected-button":""} onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}} onClick={()=>{setframe(frames[0]);}}></button><button onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}} className={frame===frames[1]?"selected-button":""} onClick={()=>{setframe(frames[1]);}}></button><button onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}} className={frame===frames[2]?"selected-button":""} onClick={()=>{setframe(frames[2]);}}></button></div>
             </div> 
             <div className="landing-page--section testimonials-section section-flex-col">
-            <div className="testimonial-section--component testimonial-title"><span><p>Read What Others Have To Say</p></span></div>
+            <div className="testimonial-section--component testimonial-title"><span><p>Testimonials</p></span></div>
                         <div className="testimonial-section--component">
                                 <div className="testimonial-box"></div>
                                 <div className="testimonial-box"></div>
@@ -96,7 +111,7 @@ return (
                         </div>
                 
                         <div className="getstarted-section--component getstarter-text">
-                            <div className="getstarted-section--subcomponent getstarted-title"><span><p>Be a part of the next big thing</p></span></div>
+                            <div className="getstarted-section--subcomponent getstarted-title"><span><p>We'll help you migrate!</p></span></div>
                             <div className="getstarted-section--subcomponent getstarted-subtitle"><span><p>We work with brands, startups, to SMEs. Colaborate for more impact and growth</p></span></div>
                             <button className="getstarted-section--subcomponent getstarted-button"> CONTACT US</button>
                         </div>
