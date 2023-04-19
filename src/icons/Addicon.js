@@ -7,3 +7,4 @@ return(<svg className="icon_class_dark" width="24" height="24" strokeWidth="1.5"
 }
 
 export default Addicon;
+

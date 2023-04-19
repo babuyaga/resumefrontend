@@ -1,0 +1,371 @@
+.landing-page{
+height:fit-content;
+min-height:100%;
+width:100%;
+height:fit-content;
+display:flex;
+flex-direction: column;
+background-color: #E6E8EC;
+}
+
+h2{
+    margin:0;
+    padding:0;
+}
+
+
+p,h1,h2,span {
+    display:block;
+}
+
+
+.landing-page--container{
+    height:fit-content;
+    width:100%;
+    max-width: 1680px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    background-color:white;
+    box-sizing: border-box;
+}
+
+.landing-page--section{
+    min-height:100px;
+    height:fit-content;
+    width:100%;
+    margin-bottom:10px;
+    display:flex;
+    box-sizing: border-box!important;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.hero-section{
+    display:flex;
+    flex-direction: column;
+    padding:0px 20px;
+
+    background-position: center;
+    background-repeat:none;
+    background-size:cover
+}
+    
+.hero-comp-one{
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+ padding:30px 0px;
+}
+.hero-section h1{
+    font-size:50px;
+}
+
+.hero-section button{
+    margin:auto;
+height:35px;
+width:110px;
+}
+
+.hero-comp-two{
+    width:100%;
+    height:350px;
+    background-image:url("../resources/error404.png");
+}
+.trusted-brands--section{
+    padding-bottom:20px;
+}
+.brands-section--title p{
+    font-size:15px;
+    color:gray;
+    text-align:center;
+}
+
+.brands-section--icon {
+    display:flex;
+    gap: 10px;
+    background-color:#ffffff;
+    padding:15px;
+    border-radius:5px;
+}
+
+
+.brand-icons{
+    width:80px;
+    height:35px;
+    background-color:#f6f6f6;
+}
+.carousel-track{
+    display:flex;
+    width:100%;
+    flex-direction:column;
+    gap:20px;
+    padding:10px 0px;
+}
+.services-section--component{
+display:flex;
+flex-direction:column;
+gap:50px;
+justify-content: space-between;
+}
+
+.services-section-text,.services-section-image{
+    height:400px;
+    background-color:red;
+    width:100%;
+}
+
+.testimonials-section{
+    display:flex;
+    flex-direction:column;
+padding:20px 0px 30px 0px;
+}
+
+
+.testimonial-box{
+    width:350px;
+    height:350px;
+    margin:10px;
+    background-color:white;
+}
+.testimonial-title p{
+    font-size:35px;
+    font-weight:bold;
+    margin:10px;
+}
+.testimonial-title span{
+    width:70%;
+    margin:auto;
+    text-align:center;
+}
+.getstarted-section{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    text-align:center;
+}
+
+.getstarted-image{
+    display:none;
+}
+.getstarted-section--component{
+    background-color:red;
+    margin:20px;
+    border-radius:5px;
+}
+
+.getstarted-title span{
+    font-size:35px;
+    font-weight:bold;
+    width:70%;
+    margin:auto;
+}
+
+.getstarted-subtitle span{
+    width:70%;
+    font-size:18px;
+    margin:auto;
+}
+
+.getstarted-button{
+    margin:auto;
+    height:45px;
+width:150px;
+}
+
+.getstarter-text{
+    padding-bottom:40px;
+}
+
+.services-buttons{
+    display:none;
+}
+.service-track-holder{
+    width:97%;
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+ 
+
+}
+
+
+@media only screen and (min-width: 1024px) {
+.navbar{
+    min-height:55px!important;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    background-color:pink;
+}
+.foobar{
+    min-height:400px!important;
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    background-color:pink;
+}
+    .landing-page{
+        display:flex;
+        background-color: #ffffff;
+        }            
+
+        .testimonial-section--component{
+            display:flex;
+            flex-direction:row;
+        }
+    .hero-section{
+        flex-direction:row;
+        justify-content: space-between;
+        padding:60px 0px;
+        margin:80px 0px;
+    }
+    .hero-comp-one{
+        width:50%;
+        text-align: left;
+    }
+    .hero-comp-one span{
+        width:60%;
+        margin:auto auto auto 0;
+    }
+
+    .hero-comp-one button{
+        margin:0;
+    }
+
+    .hero-comp-two{
+        width:50%;
+        height:430px;
+    }
+
+    .brand-icons{
+        width:180px;
+        height:55px;
+    }
+
+    .brands-section--title p{
+        font-size:18px;
+    }
+    .trusted-brands--section{
+        padding-bottom:30px;
+    }
+
+    .services-section{
+        overflow:hidden;
+        margin-top:30px;
+        gap:20px;
+        flex-direction: column;
+    }
+.services-section--component{
+    flex-direction:row;
+}
+.services-section--maincomponent{
+    display:flex;
+}
+
+.services-section--maincomponent button{
+       margin:10px;
+        width:5px;
+        border-radius:10px;
+        height:15px;
+        transition:all 1s;
+}
+.services-button{
+    z-index:2;
+
+}
+.carousel-track{
+    height:400px;
+    flex-direction:column;
+   
+}
+.service-track-holder{
+    overflow:hidden;
+    width:100%;
+}
+.carousel-track{
+    transition:all 1s;
+}
+.frame-one{
+    translate: 0px -45px; 
+    
+}
+    .frame-two{
+        translate: 0px -505px;
+    }
+    .frame-three{
+        translate: 0px -965px;
+    }
+
+
+    .services-section-text,.services-section-image{
+        margin:40px 0px;
+        height:360px;
+        border-radius:15px;
+        box-sizing: border-box;
+        width:45%;       
+    }
+
+    .testimonial-title p{
+        font-size:45px;
+        font-weight:bold;
+        margin:10px;
+    }
+    .testimonial-title span{
+        width:100%;
+    }
+
+
+    .getstarted-image{
+        display:flex;
+        height:350px;
+        flex-grow:1;
+    }
+
+    .getstarted-section{
+        display:flex;
+        flex-direction:row;
+        justify-content: space-around;
+        text-align:center;
+        gap:50px;
+    }
+    
+    .getstarted-section--component{
+        background-color:red;
+        margin:20px 0px;
+        border-radius:5px;
+        
+    }
+    
+    .getstarted-title span{
+        font-size:35px;
+        font-weight:bold;
+        width:70%;
+        margin-left:0;
+        text-align:left;
+    }
+    
+    .getstarted-subtitle span{
+        width:70%;
+        font-size:18px;
+        margin-left:0;
+        text-align:left;
+
+    }
+    
+    .getstarted-button{
+        margin-left:0;
+        height:45px;
+    width:150px;
+    }
+    
+    .getstarter-text{
+        padding-bottom:40px;
+    }
+ .selected-button{
+    width:35px!important;
+ }
+ .landing-page--section{
+padding:0 80px;
+ }
+}

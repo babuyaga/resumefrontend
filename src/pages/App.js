@@ -9,6 +9,7 @@ import SettingBox from "../components/SettingBox.js";
 import IndexHolder from '../components/indexholder.js';
 import  "../stylesheets/light.css";
 import  "../stylesheets/dark.css";
+import Cookies from "js-cookie";
 export const appuiContext = createContext();
 
 
@@ -28,7 +29,7 @@ function App({resumeheading}) {
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
 const [showset,setshowset] = useState({"display":false,"index":1});
  //saves the data used for each of the components in the app
-const [theme,settheme] = useState("light");
+const [theme,settheme] = useState(Cookies.get("theme") ||"light");
 const [hoveron,sethover] = useState(false);
 const [appval, setappval] = useState(["init"]);
 const [hoverindex,sethovindex] = useState(0);
