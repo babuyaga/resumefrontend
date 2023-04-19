@@ -35,8 +35,9 @@ useEffect(() => {
 
 return (  
 <div className="landing-page"> 
+<div className="landing-page--section navbar"> </div>
     <div className="landing-page--container">
-        <div className="landing-page--section navbar"> </div>
+ 
             <div className="landing-page--section hero-section section-flex--row">
                    <div className="hero-section--component hero-comp-one section-flex-col">
                      <span>
@@ -46,7 +47,7 @@ return (
                      <button>Contact Us</button>
                      </span>
                    </div>
-                   <div className="hero-section--component hero-comp-two section-flex-col">Hero image</div>
+                   <div className="hero-section--component hero-comp-two section-flex-col"></div>
             </div> 
             <div className="landing-page--section trusted-brands--section section-flex--col">
                    <div className="brands-section--component brands-comp-one section-flex-col">
@@ -67,15 +68,15 @@ return (
                 <div className={`carousel-track ${frame} ${pause}`} onMouseEnter={()=>{setpause(true)}} onMouseLeave={()=>{setpause(false)}}>
                        <div className="section-flex-row sop-writing--service services-section--component animation">
                            <div className="services-section-text">SOP WRiting Services1</div>
-                           <div className="services-section-image">Image</div>                        
+                           <div className="services-section-image sop-image"></div>                        
                         </div>
                        <div className="section-flex-row resume-generation-service services-section--component animation">
                            <div className="services-section-text">SOP WRiting Services2</div>
-                           <div className="services-section-image">Image</div>                        
+                           <div className="services-section-image resume-image"></div>                        
                         </div>
                        <div className="section-flex-row coverletter-generation-service services-section--component animation"> 
                            <div className="services-section-text">SOP WRiting Services3</div>
-                           <div className="services-section-image">Image</div>                        
+                           <div className="services-section-image cover-letter-image"></div>                        
                         </div>
                 </div>
             </div> 
@@ -92,7 +93,6 @@ return (
             <div className="landing-page--section getstarted-section section-flex-col">
                          <div className="getstarted-section--component getstarted-image">
 
-                             image
                         </div>
                 
                         <div className="getstarted-section--component getstarter-text">
@@ -111,11 +111,11 @@ return (
                         <div className="section-flex-row"></div>
 
             </div> 
-            <div className="landing-page--section foobar"> </div>
+          
     </div>
 
 
-
+    <div className="landing-page--section foobar"> </div>
 
 
 </div>);

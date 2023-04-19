@@ -71,7 +71,10 @@ width:110px;
 .hero-comp-two{
     width:100%;
     height:350px;
-    background-image:url("../resources/error404.png");
+    background-image:url("../resources/Hero-Image.svg");
+    background-position:center;
+    background-size:contain;
+    background-repeat:no-repeat;
 }
 .trusted-brands--section{
     padding-bottom:20px;
@@ -112,7 +115,8 @@ justify-content: space-between;
 
 .services-section-text,.services-section-image{
     height:400px;
-    background-color:red;
+    background-color:transparent;
+    border:1px solid black;
     width:100%;
 }
 
@@ -150,7 +154,6 @@ padding:20px 0px 30px 0px;
     display:none;
 }
 .getstarted-section--component{
-    background-color:red;
     margin:20px;
     border-radius:5px;
 }
@@ -183,6 +186,27 @@ width:150px;
 }
 .service-track-holder{
     width:97%;
+}
+
+.services-section-image,.getstarted-image{
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.sop-image{
+    background-image:url('../resources/SOP-Image.svg');
+}
+
+.resume-image{
+    background-image:url('../resources/resume-image.svg');
+}
+.cover-letter-image{
+    background-image:url('../resources/cover-letter-image.svg');
+}
+.getstarted-image{
+    background-image:url('../resources/sign-up-image.svg');
+    background-size:70%;
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
  
@@ -226,7 +250,7 @@ width:150px;
     }
     .hero-comp-one span{
         width:60%;
-        margin:auto auto auto 0;
+        margin:auto;
     }
 
     .hero-comp-one button{
@@ -234,7 +258,8 @@ width:150px;
     }
 
     .hero-comp-two{
-        width:50%;
+        width:40%;
+        margin-right:auto;
         height:430px;
     }
 
@@ -331,7 +356,6 @@ width:150px;
     }
     
     .getstarted-section--component{
-        background-color:red;
         margin:20px 0px;
         border-radius:5px;
         
