@@ -23,7 +23,9 @@ p,h1,h2,span {
     display:flex;
     flex-direction:row;
     justify-content: space-between;
-    background-color:#77DD77cb;
+    background-color:#93E493;
+    position:fixed;
+    z-index:6;
 }
 
 .landing-page--container{
@@ -52,28 +54,47 @@ p,h1,h2,span {
 .hero-section{
     display:flex;
     flex-direction: column;
-    padding:0px 20px;
-
+    padding:70px 20px 0px 20px;
     background-position: center;
     background-repeat:none;
-    background-size:cover
+    background-size:cover;
+    margin:0px 0px 50px 0px;
+    gap:30px;
 }
     
 .hero-comp-one{
  justify-content: center;
  align-items: center;
- text-align: center;
+ text-align: left;
  padding:30px 0px;
+}
+
+.hero-section-span p{
+    margin-top:35px;
+}
+
+.hero-get-started{
+    margin-top:25px!important;
+}
+.hero-get-started, .getstarted-button{
+    margin:auto;
+    width:200px;
+    height:45px;
+    border:1px solid;
+    border-radius:5px;
+    background-color:#6C63FF;
+    font-size:18px;
+    font-weight:bold;
+    color:white;
+}
+.getstarted-button{
+    background-color:#77DD77cb;
+    color:#001D00;
 }
 .hero-section h1{
     font-size:40px;
 }
 
-.hero-section button{
-    margin:auto;
-height:35px;
-width:110px;
-}
 
 .hero-comp-two{
     width:100%;
@@ -144,19 +165,40 @@ padding:20px 0px 30px 0px;
 
 
 .testimonial-box{
-    width:350px;
-    height:350px;
+    width:325px;
+    height:325px;
     margin:10px;
+    justify-content: flex-start;
+    padding:30px 0 0 0;
+    align-items: center;
+    gap:15px!important;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
     background-color:white;
     box-shadow:0px 0px 10px #0000001a;
 }
+
+.testimonial-box h3{
+    margin:0;
+    padding:0;
+}
+.testimonial-box span{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    width:85%;
+}
+
+
+
 .testimonial-title p{
     font-size:35px;
     font-weight:bold;
     margin:10px;
 }
 .testimonial-title span{
-    width:70%;
+    width:fit-content;
     margin:auto;
     text-align:center;
 }
@@ -242,14 +284,72 @@ margin:0 auto 0 0;
 .services-section-text p{
     font-size:18px;
 }
+.testimonial-carousel-track{
+    display:flex;
+    flex-direction:column;
+}
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
- 
+.testimonial-pic{
+    width:120px;
+    height:120px;
+    border-radius:60px;
+    background-color:Red;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1390px) {
+ .testimonial-box{
+    width:250px;
+    height:340px;
+ }
+ .testimonial-carousel-track{
+    gap:5px!important;
+ }
+ .testimonial-carousel-track div{
+    display:flex;
+    gap:5px!important;
+    transform:translateX(20px)!important;
+ }
+ .testimonial-section--component{
+    width:868px;
+ }
+
+
+ .testimonial-carousel-track{
+    display:flex;
+    flex-direction:row;
+  
+    gap:30px;
+    position:relative;
+}
+
+.t-frame-zero{
+    transition:all 1s;
+    transform:translateX(-20px)!important;
+}
+.t-frame-one {
+    transform:translateX(-1115px)!important;
+    transition:all 1s;
+}
+
+
+.t-frame-two {
+    transform:translateX(-1940px)!important;
+    transition:all 1s;
+}
+
+.t-frame-three{
+    transform:translate(-2765px)!important;
+    transition:all 1s;
+}
+.t-frame-four{
+    transform:translate(-2765px)!important;
+}
+
 
 }
 
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 768px) {
 .navbar{
     min-height:55px!important;
 }
@@ -265,18 +365,53 @@ margin:0 auto 0 0;
         background-color: #ffffff;
         }            
 
-        .testimonial-section--component{
+ .testimonial-section--component{
             display:flex;
+            position:relative;
             flex-direction:row;
+            max-width:1223px;
+            overflow:hidden;
         }
+.three-card-carousel{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+}
+.testimonial-button-left{
+    margin-right:-4%;
+}
+
+.testimonial-button-right{
+    margin-left:-4%;
+}
+
+    .round-carousel-button{
+        width:55px;
+        height:55px;
+        z-index:3;
+        border-radius:27.5px;
+        background-color:white;
+        box-shadow:0px 0px 8px #0000001b;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        rotate: 90deg;
+    }
+    .round-carousel-button:hover{
+        box-shadow:0px 0px 12px #0000002b;
+        cursor:pointer;
+    }
     .hero-section{
         flex-direction:row;
         justify-content: space-between;
         padding:60px 0px;
-        margin:80px 0px;
+        margin:100px 0px 10px 0px;
     }
     .hero-section h1{
         font-size:50px;
+        margin:auto;
     }
     .hero-comp-one{
         width:50%;
@@ -284,17 +419,23 @@ margin:0 auto 0 0;
     }
     .hero-comp-one span{
         width:60%;
+        display:flex;
+        flex-direction: column;
         margin:auto;
+        gap:0px;
     }
 
-    .hero-comp-one button{
+    .hero-get-started, .getstarted-button{
         margin:0;
+        margin-top:10px;
+        height:55px;
+        width:200px;
     }
 
     .hero-comp-two{
         width:40%;
         margin-right:auto;
-        height:430px;
+        height:505px;
     }
 
     .brand-icons{
@@ -329,6 +470,7 @@ font-size:45px;
         border-radius:10px;
         height:15px;
         transition:all 1s;
+        background-color:black;
 }
 .services-button{
     z-index:2;
@@ -434,8 +576,47 @@ font-size:45px;
     }
  .selected-button{
     width:35px!important;
+    background-color:white!important;
  }
  .landing-page--section{
 padding:0 80px;
  }
+
+ .testimonial-carousel-track{
+    display:flex;
+    flex-direction:row;
+    transform:translateX(-310px);
+    gap:30px;
+    position:relative;
+}
+
+
+.testimonial-carousel-track div{
+    display:flex;
+    gap:30px;
+}
+
+.t-frame-zero{
+    transition:all 1s;
+    transform:translateX(-310px);
+}
+.t-frame-one {
+    transform:translateX(-1440px);
+    transition:all 1s;
+}
+
+
+.t-frame-two {
+    transform:translateX(-2560px);
+    transition:all 1s;
+}
+
+.t-frame-three{
+    transform:translate(-3685px);
+    transition:all 1s;
+}
+.t-frame-four{
+    transform:translate(-3685px);
+}
+
 }

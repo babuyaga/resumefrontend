@@ -2,24 +2,41 @@ import "./landingpage.css";
 import Googleicon from "../icons/Googleicon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
-import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {Link} from "react-router-dom";
-
+import { useNavigate } from 'react-router-dom';
+import Testimonial from "../components/Testimonial";
 
 
 function Landingpage() {
 const [frame,setframe] = useState("frame-one");
+const [Tframe,setTframe] = useState("")
 const [pause,setpause] = useState(false);
 const [index,setindex]= useState(0);
+const tframes = ["","t-frame-one","t-frame-two","t-frame-three","t-frame-four","t-frame-zero"];
 const frames = ["frame-one","frame-two","frame-three","frame-two"];
+const navigate = useNavigate();
+
+const getStarted = ()=>{
+  navigate('/signup');
+}
+const resumeBuilder = ()=>{
+  navigate('/resumeBuilder');
+}
+const sopWriter = ()=>{
+  navigate('/sopWriting');
+}
+
+const coverLetter = ()=>{
+  navigate('/coverLetter');
+}
 
 useEffect(() => {
     let i = index;
     const intervalId = setInterval(() => {
         if(!pause){
       setframe(frames[i]);
-      console.log(frames[i]);
+     
       i++;
       if(i===4){
         i=0;
@@ -31,6 +48,41 @@ useEffect(() => {
   }, [pause]);
 
 
+const moveright = ()=>{
+  console.log(Tframe);
+if(Tframe===tframes[0]){
+  setTframe(tframes[1]);
+} else if(Tframe===tframes[1]){
+  setTframe(tframes[2]);
+} else if(Tframe===tframes[2]){
+  setTframe(tframes[3]);
+  setTimeout(() => {
+    setTframe(tframes[0]);  
+  }, 950);
+}else if(Tframe===tframes[3]){
+  setTframe(tframes[0]);
+}
+console.log(Tframe);
+}
+
+const moveleft = ()=>{
+  console.log(Tframe);
+  if(Tframe===tframes[0]){
+    setTframe(tframes[4]);
+    setTimeout(() => {
+      setTframe(tframes[2]);  
+    }, 1);   
+  } else if(Tframe===tframes[2]){
+    setTframe(tframes[1]);
+  } else if(Tframe===tframes[1]){
+    setTframe(tframes[5]);
+    setTimeout(() => {
+      setTframe(tframes[0]);  
+    }, 1000); 
+  }
+  console.log(Tframe);
+  }
+  
 
 
 return (  
@@ -40,11 +92,13 @@ return (
  
             <div className="landing-page--section hero-section section-flex--row">
                    <div className="hero-section--component hero-comp-one section-flex-col">
-                     <span>
-                    <h1>Building Digital Products,Brands & Experience</h1>
-                     <p> Digital Agency is Your Online Team Management Tool That is Easy and Prompt</p>
+                     <span className="hero-section-span">
+                    <h1>Expert SOPs & Resumes for VISA Application</h1>
+                    
+                     <h3>Instant SOP generation or schedule <br></br>a one-on-one call. Get started now!</h3>
                      
-                     <button>Contact Us</button>
+                     <button className="hero-get-started" onClick={getStarted}>Get Started</button>
+                     <p> Get expertly crafted SOPs for VISA applications, along with professional resumes, cover letters, and a 3-day trial to create and download a resume. </p>
                      </span>
                    </div>
                    <div className="hero-section--component hero-comp-two section-flex-col"></div>
@@ -98,11 +152,37 @@ return (
             </div> 
             <div className="landing-page--section testimonials-section section-flex-col">
             <div className="testimonial-section--component testimonial-title"><span><p>Testimonials</p></span></div>
+                        <div className="three-card-carousel">
+                        <div className="round-carousel-button testimonial-button-left" onClick={()=>{moveleft();}}><Downarrow/></div>       
                         <div className="testimonial-section--component">
-                                <div className="testimonial-box"></div>
-                                <div className="testimonial-box"></div>
-                                <div className="testimonial-box"></div>
+                            <div className={`testimonial-carousel-track ${Tframe}`}>
+                                <div>
+                                <Testimonial name="Parvathy9" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy1" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy2" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy3" testimonial="Helloooooo"/>
+                                </div> 
+                                <div>
+                                <Testimonial name="Parvathy4" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy5" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy6" testimonial="Helloooooo"/>
+                                </div>
+                                <div>
+                                <Testimonial name="Parvathy7" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy8" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy9" testimonial="Helloooooo"/>
+                                </div>
+                                <div>
+                                <Testimonial name="Parvathy1" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy2" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy3" testimonial="Helloooooo"/>
+                                <Testimonial name="Parvathy4" testimonial="Helloooooo"/>
+                                </div>
+                            </div>
+                           
                         </div>
+                        <div className="round-carousel-button testimonial-button-right" onClick={()=>{moveright();}}><Uparrow/></div>      
+                    </div>
 
             </div> 
             <div className="landing-page--section getstarted-section section-flex-col">
