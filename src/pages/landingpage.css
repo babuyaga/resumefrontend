@@ -16,6 +16,7 @@ h2{
 
 p,h1,h2,span {
     display:block;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar{
@@ -24,7 +25,6 @@ p,h1,h2,span {
     flex-direction:row;
     justify-content: space-between;
     background-color:#93E493;
-    position:fixed;
     z-index:6;
 }
 
@@ -71,6 +71,7 @@ p,h1,h2,span {
 
 .hero-section-span p{
     margin-top:35px;
+    color:gray;
 }
 
 .hero-get-started{
@@ -105,12 +106,16 @@ p,h1,h2,span {
     background-repeat:no-repeat;
 }
 .trusted-brands--section{
-    padding-bottom:20px;
+    background-color:#1F1F23;
+    padding-top:50px!important;
+    padding-bottom:50px!important;
+    border-radius:15px;
 }
 .brands-section--title p{
     font-size:15px;
-    color:gray;
+    color:#ffffffda;
     text-align:center;
+    margin-top:0;
 }
 
 .brands-section--icon {
@@ -167,15 +172,17 @@ padding:20px 0px 30px 0px;
 .testimonial-box{
     width:325px;
     height:325px;
+    border-radius:10px;
     margin:10px;
     justify-content: flex-start;
-    padding:30px 0 0 0;
+    padding:40px 0 0 0;
     align-items: center;
     gap:15px!important;
     box-sizing: border-box;
     display:flex;
     flex-direction: column;
     background-color:white;
+    color: white;
     box-shadow:0px 0px 10px #0000001a;
 }
 
@@ -237,7 +244,11 @@ width:150px;
 }
 
 .getstarter-text{
-    padding-bottom:40px;
+    padding:30px 0px!important;
+    display:flex;
+    gap:0px;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .services-buttons{
@@ -271,14 +282,19 @@ width:150px;
     background-image:url('../resources/sign-up-image.svg');
     background-size:70%;
 }
-
+.getstarted-title p{
+    margin:0;
+}
 .services-section-text span{
 width:90%;
 margin:auto;
+display:flex;
+flex-direction: column;
+gap:10px;
 }
 
 .services-section-text h1{
-font-size:38px;
+font-size:33px!important;
 margin:0 auto 0 0;
 }
 .services-section-text p{
@@ -293,7 +309,7 @@ margin:0 auto 0 0;
     width:120px;
     height:120px;
     border-radius:60px;
-    background-color:Red;
+    background-color:white;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1390px) {
@@ -410,7 +426,7 @@ margin:0 auto 0 0;
         margin:100px 0px 10px 0px;
     }
     .hero-section h1{
-        font-size:50px;
+        font-size:45px;
         margin:auto;
     }
     .hero-comp-one{
@@ -418,7 +434,7 @@ margin:0 auto 0 0;
         text-align: left;
     }
     .hero-comp-one span{
-        width:60%;
+        width:65%;
         display:flex;
         flex-direction: column;
         margin:auto;
@@ -446,13 +462,10 @@ margin:0 auto 0 0;
     .brands-section--title p{
         font-size:18px;
     }
-    .trusted-brands--section{
-        padding-bottom:30px;
-    }
+ 
 
     .services-section{
         overflow:hidden;
-        margin-top:30px;
         flex-direction: column;
     }
 .services-section--component{
@@ -463,6 +476,7 @@ margin:0 auto 0 0;
 }
 .services-section--maincomponent h1{
 font-size:45px;
+font-weight:bold;
 }
 .services-section--maincomponent button{
        margin:10px;
@@ -484,6 +498,7 @@ font-size:45px;
 .service-track-holder{
     overflow:hidden;
     width:100%;
+    height:400px;
 }
 .carousel-track{
     transition:all 1s;
@@ -508,7 +523,7 @@ font-size:45px;
         width:45%;  
         max-width:495px;  
         flex-direction:column;  
-        padding:30px; 
+        padding:40px 30px; 
     }
 
     .services-section-text span{
@@ -550,7 +565,7 @@ font-size:45px;
     }
     
     .getstarted-title span{
-        font-size:35px;
+        font-size:45px;
         font-weight:bold;
         width:70%;
         margin-left:0;
@@ -559,10 +574,11 @@ font-size:45px;
     
     .getstarted-subtitle span{
         width:70%;
-        font-size:18px;
+        font-size:22px;
+        font-weight:400;
+        color: #000000ab;
         margin-left:0;
         text-align:left;
-
     }
     
     .getstarted-button{
@@ -573,7 +589,9 @@ font-size:45px;
     
     .getstarter-text{
         padding-bottom:40px;
+        max-width:50%;
     }
+    
  .selected-button{
     width:35px!important;
     background-color:white!important;

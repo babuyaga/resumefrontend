@@ -9,6 +9,7 @@ import axios from "axios";
 import {initializeApp} from 'firebase/app';
 import {getAuth,GoogleAuthProvider,signInWithPopup,signOut} from "firebase/auth";
 import Landingpage from './Landingpage.js';
+import Dashboard from './Dashboard.js';
 
 
 export const authContext = createContext();
@@ -113,7 +114,7 @@ return (  <BrowserRouter>
     <Route path="/statement-of-purpose-writing" element={<Landingpage />} />
     <Route path="/signup" element={<SignUp />} />
 
-    <Route path="/account" element={<App />} />
+    <Route path="/dashboard" element={<Dashboard />} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

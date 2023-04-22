@@ -22,7 +22,6 @@ code {
 
 html,body{
   max-width:100%;
-  overflow-x:hidden;
   background-color: var(--background_color);
   scroll-behavior: smooth;
 }
