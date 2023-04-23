@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate} from "react-router-dom";
 import {useEffect,useState,createContext} from "react";
 import Login from "./Login.js";
 import App from "./App.js";
@@ -10,7 +10,8 @@ import {initializeApp} from 'firebase/app';
 import {getAuth,GoogleAuthProvider,signInWithPopup,signOut} from "firebase/auth";
 import Landingpage from './Landingpage.js';
 import Dashboard from './Dashboard.js';
-
+import Documents from './Documents.js';
+import Profile from './Profile.js';
 
 export const authContext = createContext();
 
@@ -29,7 +30,8 @@ function Router() {
   const [authe,setAuth] = useState( (Cookies.get("authe")==="true")?true:false);
   const [user,setUser] = useState( Cookies.get("user") || false);
   const [data,setdata] = useState("");
-   
+
+
   const firebaseConfig = {
     apiKey: "AIzaSyDklzqovWelTnf1ihgLQ24LdiH-MSz6E3g",
     authDomain: "hosting-ac30c.firebaseapp.com",
@@ -60,8 +62,9 @@ function Router() {
       Cookies.set("tokenhhs",tokenn,{ expires: 1 });
       Cookies.set("authe",true,{ expires: 1 });
       Cookies.set("user",user,{ expires: 1 });
-      window.location.reload(false);
-  
+      // window.location.reload(false);
+      Navigate("/dashboard");
+
     })
     
     
@@ -103,10 +106,10 @@ function Router() {
 
   
 return (  <BrowserRouter>
-<authContext.Provider value={{handleSignout,loginWithGoogle}}>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth}}>
     <Routes>
     {/* <Route index element={<Error404 />} />  */}
-    <Route path="/login" element={authe?<App/>:<Login/>}>
+    <Route path="/login" element={<Login/>}>
     
         <Route path="profile" element={<App />} />
     </Route>
@@ -114,7 +117,9 @@ return (  <BrowserRouter>
     <Route path="/statement-of-purpose-writing" element={<Landingpage />} />
     <Route path="/signup" element={<SignUp />} />
 
-    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
+    <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
+    <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

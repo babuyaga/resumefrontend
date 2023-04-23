@@ -541,14 +541,12 @@ margin:auto 0px;
 }
 
 .feature-button--dashboard{
-    width:218px;
-    min-width:218px;
-    max-width:218px;
+    width:210px;
+    min-width:210px;
+    max-width:210px;
     transition:all 0.2s;
     box-shadow:2px 2px 8px #00000022;
     margin: auto 0;
-    box-sizing: border-box;
-    padding:0 5px
 }
 
 .feature-button--dashboard:hover{
@@ -558,12 +556,12 @@ margin:auto 0px;
 }
 .feature-button--dashboard:active{
     box-shadow:0px 0px 0px #0000003b;
-    width:216px;
-    min-width:216px;
-    max-width:216px;
+    width:208px;
+    min-width:208px;
+    max-width:208px;
     cursor:pointer;
     margin:auto 1px;
-    padding:0 5px
+    padding:0px;
 }
 
 .subtitle-feature-button{

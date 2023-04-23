@@ -6,11 +6,19 @@ import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
+import { useNavigate } from "react-router-dom";
 
 
 function Login() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle} = useContext(authContext);
+const {handleSignout,loginWithGoogle,authe} = useContext(authContext);
+const navigate = useNavigate();
+
+useEffect(()=>{
+    if(authe){
+        navigate("/dashboard");
+    }
+},[authe])
 
 
 return (  <div className="login-page"> 
