@@ -58,7 +58,7 @@ return (  <div className="dashboard-page">
                             </div>
                         
                             <div className="section-content-holder--dashboard documents-section--dashboard">
-                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section"></span></div>
+                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Profile</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
                                          <div className="buttons-documents-component" id="selected-button-document"><span>Profile</span></div>
                                          <div className="buttons-documents-component"><span>Security</span></div>
