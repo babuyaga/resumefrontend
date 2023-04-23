@@ -112,20 +112,22 @@ display:flex;
 
 .feature-button--dashboard{
     height:68px;
-    width:100%;
+    width:fit-content;
     margin:auto 0;
     background-color:#FAFAFA;
     box-shadow:2px 2px 5px #0000003b;
     display:flex;
     flex-direction: row;
     align-items: center;
-    padding-left:10px;
+    padding:0px 20px;
     border-radius:2px;
+    gap:20px;
 }
 
 .feature-button--dashboard:active{
     box-shadow:0px 0px 0px #0000003b;
-    padding:2px 0 0 12px;
+    padding:0px 20px;
+    margin:auto -2px auto 2px;
     cursor:pointer;
 }
 
@@ -139,7 +141,10 @@ display:flex;
     display:flex;
     font-weight:bold;
 }
-
+.container-buttons-sections--dashboard{
+    display:flex;
+    gap:10px;
+}
 .documents-section-title--dashboard{
     display:flex;
     flex-direction: row!important;
@@ -195,6 +200,7 @@ flex-direction: column;
 .documents-display-section--dashboard{
     margin-top:10px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .username-buttons-section--dashboard{
     font-weight:bold;
@@ -217,19 +223,44 @@ flex-direction: column;
     height:50px;
     width:100%;
     background-color:red;
+    margin-bottom:10px;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
- .dashboard-page{
-    padding-top: 55px;
- }
-
+.expert-help--maintitle{
+    font-weight:bold;
 }
+@media only screen and (min-width: 1024px) and (max-width: 1180px){
+    .item-documents-section--dashboard{
+        height:fit-content;
+        width:fit-content!important;
+        background-color:white;
+        border-radius:5px;
+        padding:10px;
+        box-sizing: border-box;
+    }
+    .image-item-documents--dashboard{
+        height:169px;
+        width:180px!important;
+        background-color:pink;
+        margin-bottom:10px;
+    }
+}
+
 
 @media only screen and (min-width: 1024px) {
     .dashboard-page{
         padding-top: 55px;
      }
+
+     .dashboard-page{
+        display:flex;
+        flex-direction:column;
+        margin:auto;
+        width:100%;
+     height:fit-content;
+        justify-content: center;
+        background-color: #F5F5F5;
+    }
     
     .navbar-general--dashboard{
         position:fixed;
@@ -246,7 +277,6 @@ flex-direction: column;
     flex-direction:row;
     align-items: flex-start;
     max-width:1535px;
-    min-height:100%;
 }
 
 .menu-general--dashboard, .menu-faux--dashboard{
@@ -332,12 +362,17 @@ cursor:pointer;
     flex-direction: column;
 }
 .main-buttons-section--dashboard{
-    height:120px;
+    height:fit-content;
     flex-direction: row;
     padding:0;
     gap:30px;
+    flex-wrap:wrap;
+    margin:20px 0px;
 }
-
+.container-buttons-sections--dashboard{
+    display:flex;
+    gap:30px;
+}
 .documents-section--dashboard{
     padding-top:20px;
     min-height:300px;
@@ -347,7 +382,9 @@ justify-content: space-around;
 
 }
 .callback-section--dashboard{
-    height:300px;
+    margin-top:30px;
+    height:800px;
+    gap:25px;
     flex-direction:column;
 }
 .component-buttons-sections--dashboard{
@@ -360,15 +397,15 @@ margin:auto 0px;
    
 }
 
-.item-documents-section--dashboard{
-
-}
 
 
 .component-callback-section--dashboard{
     display:flex;
+    flex-direction:row;
 }
-
+.text-callback-section--dashboard{
+    padding:20px 30px;
+}
 .component-expert-help{
     flex-grow:1;
 }
@@ -377,18 +414,19 @@ margin:auto 0px;
     width:210px;
     transition:all 0.2s;
     box-shadow:2px 2px 8px #00000022;
+    margin: auto 0;
 }
 
 .feature-button--dashboard:hover{
     box-shadow:2px 2px 5px #0000003b;
     cursor:pointer;
+    margin: auto 0;
 }
 .feature-button--dashboard:active{
     box-shadow:0px 0px 0px #0000003b;
     width:208px;
-    margin-left: 2px;
-    margin-right:-2px;
     cursor:pointer;
+    margin:auto 1px;
 }
 
 
@@ -436,5 +474,11 @@ margin-bottom:5px;
     height:15px;
     padding:2px;
     border-radius:5px;
+}
+
+.expert-help-image--dashboard{
+    height:400px;
+    flex-grow:1;
+    background-color:black;
 }
 }

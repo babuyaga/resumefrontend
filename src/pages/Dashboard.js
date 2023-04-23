@@ -52,9 +52,26 @@ return (  <div className="dashboard-page">
                             </div>
                             <div className="section-content-holder--dashboard main-buttons-section--dashboard">
                                 <div className="component-buttons-sections--dashboard buttons-section-title--dashboard"><span className="username-buttons-section--dashboard">Hello Jerry!</span><span className="subtitle-buttons-section--dashboard">Let's get you started</span></div>
-                                <div className="component-buttons-sections--dashboard"> <div className="feature-button--dashboard"><span>Resume</span></div> </div>
-                                <div className="component-buttons-sections--dashboard"> <div className="feature-button--dashboard"><span>SOP</span></div> </div>
-                                <div className="component-buttons-sections--dashboard"> <div className="feature-button--dashboard"><span>Cover Letter</span></div> </div>
+                                <div className="container-buttons-sections--dashboard">
+                                    <div className="component-buttons-sections--dashboard"> 
+                                        <div className="feature-button--dashboard">
+                                            <div>(i)</div>
+                                            <div><span>Resume</span><span>Resume</span></div>
+                                        </div> 
+                                    </div>
+                                    <div className="component-buttons-sections--dashboard"> 
+                                        <div className="feature-button--dashboard">
+                                            <div>(i)</div>
+                                            <div><span>SOP</span><span>Resume</span></div>
+                                        </div> 
+                                    </div>
+                                    <div className="component-buttons-sections--dashboard"> 
+                                        <div className="feature-button--dashboard">
+                                            <div>(i)</div>
+                                            <div><span>Cover Letter</span><span>Resume</span></div>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>
                         
                             <div className="section-content-holder--dashboard horizontal-rule--holder">
@@ -77,15 +94,15 @@ return (  <div className="dashboard-page">
                                      </div>
                             </div>
                             <div className="section-content-holder--dashboard callback-section--dashboard">
-                                        <div className="component-callback-section--dashboard component-desktop">Get Expert Help</div>
-                                        <div className="component-callback-section--dashboard component-desktop">
+                                        <div className="component-callback-section--dashboard component-desktop"><span className="title-documents--section expert-help--maintitle">Get Expert Help</span></div>
+                                        <div className="component-callback-section--dashboard text-callback-section--dashboard component-desktop">
                                             <div className="component-expert-help expert-help-image--dashboard ">image</div>
                                             <div className="component-expert-help expert-help-text--dashboard">
                                                 <div className="expert-help--title">Schedule a call back from an SOP expert</div>
                                                 <div className="expert-help--button">Schedule</div>
                                             </div>
                                         </div>
-                                        <div className="component-callback-section--dashboard component-mobile">Get Expert Call</div>
+                                        <div className="component-callback-section--dashboard component-mobile expert-help--maintitle">Get Expert Call</div>
                             </div>
 
 
