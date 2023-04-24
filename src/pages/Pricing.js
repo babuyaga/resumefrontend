@@ -42,18 +42,20 @@ return (  <div className="dashboard-page">
                         <MenuDash item="4"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
-                            <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
+                            {/* <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
                                     <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
-                            </div>
+                            </div> */}
                         
                             <div className="section-content-holder--dashboard documents-section--dashboard">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Pricing</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
+                                        <div className="documents-buttons--dashboard">
                                          <div className="buttons-documents-component" id="selected-button-pricing"><span>14 Days</span></div>
                                          <div className="buttons-documents-component"><span>1 Month</span></div>
                                          <div className="buttons-documents-component"><span>6 Months</span></div>
                                          {/* <div className="buttons-documents-component"><span>12 Months</span></div> */}
-
+                                         </div>
+                                         <div className="buttons-documents-component" id="checkout-button--pricing"> <span>Checkout</span></div>
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
                                     {PricingCard("Basic")}
@@ -61,6 +63,7 @@ return (  <div className="dashboard-page">
                                     {PricingCard("Professional")}
                                     {/* <div className="documents-loading--dashboard"><span>Loading...</span></div> */}
                                      </div>
+                                     
                             </div>
               
                         </div>
