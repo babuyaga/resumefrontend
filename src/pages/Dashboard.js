@@ -8,6 +8,8 @@ import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
 import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
+import MenuDash from "../components/dashboard/MenuDash.js";
+
 
 function Dashboard() {
 const [checked,setchecked] = useState(false);
@@ -35,21 +37,7 @@ return (  <div className="dashboard-page">
                 </div>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
-                        <div className="menu-general--dashboard component-content--dashboard">
-                             <div className="component-menu--dashboard"><p>Menu</p></div>
-                             <div className="button-holder--menu component-menu--dashboard">
-                                 <div className="button-menu--dashboard" id="selected-button" onClick={()=>{navigate("/dashboard");}}><span>Dashboard</span></div>       
-                                 <div className="button-menu--dashboard"  onClick={()=>{navigate("/documents");}}><span>Documents</span></div>  
-                                 <div className="button-menu--dashboard"  onClick={()=>{navigate("/profile");}}><span>Profile</span></div>
-                                 <div className="button-menu--dashboard"  onClick={()=>{navigate("/pricing");}}><span>Pricing</span></div>           
-                             </div>
-                             <div className="profile-holder--menu component-menu--dashboard">
-                                 <div className="profile-container--menu">
-                                    <div className="profile-block--menu"></div>
-                                 </div>
-                            </div> 
-                            
-                        </div>
+                        <MenuDash item="1"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
                             <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
@@ -59,7 +47,7 @@ return (  <div className="dashboard-page">
                                 <div className="component-buttons-sections--dashboard buttons-section-title--dashboard"><span className="username-buttons-section--dashboard">Hello Jerry!</span><span className="subtitle-buttons-section--dashboard">Let's get you started</span></div>
                                 <div className="container-buttons-sections--dashboard">
                                     <div className="component-buttons-sections--dashboard"> 
-                                        <div className="feature-button--dashboard" id="feature-button-one">
+                                        <div className="feature-button--dashboard" id="feature-button-one"  onClick={()=>{navigate("/builder/resume");}}>
                                             <div className="icon-feature-button"></div>
                                             <div><span className="title-feature-button">Resume</span><span className="subtitle-feature-button">Create from scratch</span></div>
                                         </div> 
@@ -83,7 +71,7 @@ return (  <div className="dashboard-page">
                                 <div className="horizontal-rule"><hr></hr></div>
                             </div>
                             <div className="section-content-holder--dashboard documents-section--dashboard">
-                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section">View all</span></div>
+                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section"  onClick={()=>{navigate("/documents");}}>View all</span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
                                          <div className="buttons-documents-component" id="selected-button-document"><span>All</span></div>
                                          <div className="buttons-documents-component"><span>Resumes</span></div>

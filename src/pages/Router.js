@@ -12,6 +12,8 @@ import Landingpage from './Landingpage.js';
 import Dashboard from './Dashboard.js';
 import Documents from './Documents.js';
 import Profile from './Profile.js';
+import Pricing from './Pricing.js';
+
 
 export const authContext = createContext();
 
@@ -120,6 +122,7 @@ return (  <BrowserRouter>
     <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
+    <Route path="/profile/pricing" element={authe?<Pricing />:<Navigate to="/login"/>} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

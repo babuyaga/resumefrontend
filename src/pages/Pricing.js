@@ -10,21 +10,24 @@ import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 
-function Profile() {
+function Pricing() {
 const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
 
 
-const documentComp=()=>{
-return (<div className="item-documents-section--dashboard">
-                                        <div className="image-item-documents--dashboard"></div>
+const PricingCard=(idname)=>{
+return (<div className="item-pricing-section--dashboard" id={idname}>
+                                        {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
-                                        <div className="title-item-documents--dashboard"><span>My Resume</span></div>
-                                        <div className="subtitle-item-documents--dashboard"><span>Last updated at 2:30 PM today</span></div>
-                                        <div className="tag-holder-item-documents--dashboard">
-                                                <div className="tags-document--dashboard"><span>Resume</span></div>
-                                                <div className="tags-document--dashboard"><span>Product</span></div>
+                                        <div className="title-item-pricing--dashboard"><span>{idname}</span></div>
+                                       
+                                        <div className="subtitle-item-pricing--dashboard">
+                                                <span><li></li>Create and Store Unlimited Resumes</span>
+                                                <span><li></li>Generate and store upto 25 different cover letters per week</span>       
+                                        </div>
+                                        <div className="tag-holder-item-pricing--dashboard">
+                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> 350</span></div></div>
                                         </div>
                                         </div>
                                     </div>);
@@ -36,7 +39,7 @@ return (  <div className="dashboard-page">
                 </div>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
-                        <MenuDash item="3"/>
+                        <MenuDash item="4"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
                             <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
@@ -44,17 +47,19 @@ return (  <div className="dashboard-page">
                             </div>
                         
                             <div className="section-content-holder--dashboard documents-section--dashboard">
-                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Profile</span><span className="viewall-documents--section"></span></div>
+                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Pricing</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
-                                         <div className="buttons-documents-component" id="selected-button-document"><span>Profile</span></div>
-                                         <div className="buttons-documents-component"><span>Security</span></div>
-                                         <div className="buttons-documents-component"><span>Billing</span></div>
-                                         <div className="buttons-documents-component"><span>Support</span></div>
+                                         <div className="buttons-documents-component" id="selected-button-pricing"><span>14 Days</span></div>
+                                         <div className="buttons-documents-component"><span>1 Month</span></div>
+                                         <div className="buttons-documents-component"><span>6 Months</span></div>
+                                         {/* <div className="buttons-documents-component"><span>12 Months</span></div> */}
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                    {documentComp()}
-                                    <div className="documents-loading--dashboard"><span>Loading...</span></div>
+                                    {PricingCard("Basic")}
+                                    {PricingCard("Regular")}
+                                    {PricingCard("Professional")}
+                                    {/* <div className="documents-loading--dashboard"><span>Loading...</span></div> */}
                                      </div>
                             </div>
               
@@ -69,4 +74,4 @@ return (  <div className="dashboard-page">
 
 }
 
-export default Profile;
+export default Pricing;

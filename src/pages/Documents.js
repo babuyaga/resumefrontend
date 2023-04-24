@@ -1,14 +1,8 @@
 import "./stylesheets/dashboard.css";
-import Googleicon from "../icons/Googleicon.js";
-import Downarrow from "../icons/Downarrow.js";
-import Uparrow from "../icons/Uparrow.js";
-import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
-import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
-import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
-
+import MenuDash from "../components/dashboard/MenuDash.js";
 
 function Documents() {
 const [checked,setchecked] = useState(false);
@@ -36,21 +30,7 @@ return (  <div className="dashboard-page">
                 </div>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
-                        <div className="menu-general--dashboard component-content--dashboard" style={{"marginTop":"20px"}}>
-                             <div className="component-menu--dashboard"><p>Menu</p></div>
-                             <div className="button-holder--menu component-menu--dashboard">
-                                 <div className="button-menu--dashboard"  onClick={()=>{navigate("/dashboard");}}><span>Dashboard</span></div>       
-                                 <div className="button-menu--dashboard" id="selected-button" onClick={()=>{navigate("/documents");}}><span>Documents</span></div>  
-                                 <div className="button-menu--dashboard"  onClick={()=>{navigate("/profile");}}><span>Profile</span></div>
-                                 <div className="button-menu--dashboard" onClick={()=>{navigate("/pricing");}}><span>Pricing</span></div>           
-                             </div>
-                             <div className="profile-holder--menu component-menu--dashboard">
-                                 <div className="profile-container--menu">
-                                    <div className="profile-block--menu"></div>
-                                 </div>
-                            </div> 
-                            
-                        </div>
+                        <MenuDash item="2"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
                             <div className="section-content-holder--dashboard conversion-banner-section--dashboard">

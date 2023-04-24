@@ -75,11 +75,42 @@ input[type=number] {
 .settings_icon:hover{
   transform: rotate(360deg);
 }
+.dashboard-back-button-holder--app{
+  display:none;
+  margin:-30px auto!important;
+  width:95vw;
+  max-width:1000px;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin:auto;
+  text-align: left;
+  font-weight:bold;
+}
+.dashboard-back-button-holder--app span{
+  margin:auto 0;
+}
+.dashboard-back-button{
+ flex-direction: row;
+ gap:5px;
+ display:flex;
+  margin:auto 0;
+  width:fit-content;
+  z-index:1;
+  }
 
+  .dashboard-back-button:hover{
+    cursor:pointer;
+  }
+.dashboard-back-button div{
+  rotate:90deg;
+}
 
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
 
-
+  .dashboard-back-button-holder--app{
+    display:flex;
+    margin:-10px auto -30px auto!important;}
 }
 
 
@@ -87,4 +118,7 @@ input[type=number] {
 .App{
   padding-top:80px;
 }
+
+.dashboard-back-button-holder--app{
+  display:flex;}
 }

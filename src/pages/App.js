@@ -10,6 +10,9 @@ import IndexHolder from '../components/indexholder.js';
 import  "../stylesheets/light.css";
 import  "../stylesheets/dark.css";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import Downarrow from '../icons/Downarrow.js';
+
 export const appuiContext = createContext();
 
 
@@ -24,7 +27,7 @@ function App({resumeheading}) {
 // {"title":"References","idno":1,"addmore":true},
 // {"title":"Personal Projects","idno":5,"addmore":true},
 // {"title":"Licenses and Certifications","idno":5,"addmore":true}];
-  
+const navigate = useNavigate();  
 
 const [toaststate,settoast] = useState([]); //saves the state of the toast message
 const [showset,setshowset] = useState({"display":false,"index":1});
@@ -196,7 +199,7 @@ return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval
      
     <form>
          <div style={{"display":"flex","flexDirection":"column","gap":"15px"}}>
-
+<div className="dashboard-back-button-holder--app"><div className="dashboard-back-button" onClick={()=>{navigate("/dashboard")}}><div><Downarrow/></div><span>Dashboard</span></div></div>
               {contentMaker(appval)}
 
           </div>
