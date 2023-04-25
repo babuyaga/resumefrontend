@@ -16,17 +16,17 @@ const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
 
 
-const PricingCard=(idname)=>{
-return (<div className="item-pricing-section--dashboard" id={idname}>
+const PricingCard=(idname,classnm,display)=>{
+return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
-                                        <div className="title-item-pricing--dashboard"><span>{idname}</span></div>
+                                        <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>
                                        
-                                        <div className="subtitle-item-pricing--dashboard">
+                                        <div className={`subtitle-item-pricing--dashboard`}>
                                                 <span><li></li>Create and Store Unlimited Resumes</span>
                                                 <span><li></li>Generate and store upto 25 different cover letters per week</span>       
                                         </div>
-                                        <div className="tag-holder-item-pricing--dashboard">
+                                        <div className={`tag-holder-item-pricing--dashboard`}>
                                                 <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> 350</span></div></div>
                                         </div>
                                         </div>
@@ -57,10 +57,17 @@ return (  <div className="dashboard-page">
                                          </div>
                                          <div className="buttons-documents-component" id="checkout-button--pricing"> <span>Checkout</span></div>
                                     </div>
-                                    <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                    {PricingCard("Basic")}
-                                    {PricingCard("Regular")}
-                                    {PricingCard("Professional")}
+                                 
+                                    <div className="component-documents-section--dashboard documents-display-section--dashboard pricing-display-section">
+                                    <div className="pricing-track-button left-pricing-button"></div> 
+                                    <div className="pricing-track">
+                                        <div className="hide-on-desktop">{PricingCard("Professional","tab-class")}</div>
+                                        {PricingCard("Basic","tab-class")}
+                                        {PricingCard("Regular","tab-class")}
+                                        {PricingCard("Professional","tab-class")}
+                                        <div className="hide-on-desktop">{PricingCard("Basic","tab-class")}</div>
+                                    </div>
+                                    <div className="pricing-track-button right-pricing-button"></div>
                                     {/* <div className="documents-loading--dashboard"><span>Loading...</span></div> */}
                                      </div>
                                      
