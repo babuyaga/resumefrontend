@@ -59,7 +59,7 @@ if(Tframe===tframes[0]){
   setTframe(tframes[3]);
   setTimeout(() => {
     setTframe(tframes[0]);  
-  }, 950);
+  }, 90);
 }else if(Tframe===tframes[3]){
   setTframe(tframes[0]);
 }

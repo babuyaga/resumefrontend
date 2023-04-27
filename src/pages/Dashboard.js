@@ -33,7 +33,7 @@ return (<div className="item-documents-section--dashboard">
 
 return (  <div className="dashboard-page">
                 <div className="navbar-general--dashboard">
-                        <div className="navbar-component-container--dashboard"></div>
+                        <div className="navbar-component-container--dashboard"><div className="navbar-logo--holder"></div></div>
                 </div>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}

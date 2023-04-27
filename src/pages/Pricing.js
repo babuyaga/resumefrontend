@@ -14,6 +14,47 @@ function Pricing() {
 const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
+const [Pframe,setPframe] = useState("frame-t");
+const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
+
+
+
+
+const moveright = ()=>{
+        console.log(Pframe);
+      if(Pframe===frames[2]){
+        setPframe(frames[3]);
+        setTimeout(() => {
+          setPframe(frames[0]);  
+        }, 90);
+      } else if(Pframe===frames[0]){
+        setPframe(frames[1]);
+      } else if(Pframe===frames[1]){
+        setPframe(frames[2]);
+      }
+      console.log(Pframe);
+      }
+      
+      
+const moveleft = ()=>{
+        console.log(Pframe);
+        if(Pframe===frames[2]){
+          setPframe(frames[1]);
+          setTimeout(() => {
+            setPframe(frames[4]);  
+          }, 1);   
+        } else if(Pframe===frames[4]){
+          setPframe(frames[3]);
+        } else if(Pframe===frames[3]){
+          setPframe(frames[2]);
+        }
+        console.log(Pframe);
+        }
+
+
+
+
+
 
 
 const PricingCard=(idname,classnm,display)=>{
@@ -28,6 +69,9 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
                                         </div>
                                         <div className={`tag-holder-item-pricing--dashboard`}>
                                                 <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> 350</span></div></div>
+                                        </div>
+                                        <div className={`tag-holder-item-pricing--dashboard`}>
+                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">Subscribe</span><span> Now</span></div></div>
                                         </div>
                                         </div>
                                     </div>);
@@ -57,20 +101,23 @@ return (  <div className="dashboard-page">
                                          </div>
                                          <div className="buttons-documents-component" id="checkout-button--pricing"> <span>Checkout</span></div>
                                     </div>
-                                 
-                                    <div className="component-documents-section--dashboard documents-display-section--dashboard pricing-display-section">
-                                    <div className="pricing-track-button left-pricing-button"></div> 
-                                    <div className="pricing-track">
-                                        <div className="hide-on-desktop">{PricingCard("Professional","tab-class")}</div>
-                                        {PricingCard("Basic","tab-class")}
-                                        {PricingCard("Regular","tab-class")}
-                                        {PricingCard("Professional","tab-class")}
-                                        <div className="hide-on-desktop">{PricingCard("Basic","tab-class")}</div>
-                                    </div>
-                                    <div className="pricing-track-button right-pricing-button"></div>
+                                 <div className="pricing-carousel-holder"> 
+                                        <div className="pricing-track-button left-pricing-button" onClick={()=>{moveleft()}}></div>
+                                              <div className="component-documents-section--dashboard documents-display-section--dashboard pricing-display-section">
+                                                    <div className="pricing-track" id={Pframe}>
+                                                        <div className="hide-on-desktop">{PricingCard("Regular","tab-class")}</div>
+                                                         <div className="hide-on-desktop">{PricingCard("Professional","tab-class")}</div>
+                                                        {PricingCard("Basic","tab-class")}
+                                                        {PricingCard("Regular","tab-class")}
+                                                        {PricingCard("Professional","tab-class")}
+                                                        <div className="hide-on-desktop">{PricingCard("Basic","tab-class")}</div>
+                                                        <div className="hide-on-desktop">{PricingCard("Regular","tab-class")}</div>
+                                                    </div>
+                                    
                                     {/* <div className="documents-loading--dashboard"><span>Loading...</span></div> */}
-                                     </div>
-                                     
+                                                </div>
+                                        <div className="pricing-track-button right-pricing-button" onClick={()=>{moveright()}}></div>
+                                </div> 
                             </div>
               
                         </div>

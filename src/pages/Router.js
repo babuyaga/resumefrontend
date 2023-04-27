@@ -122,7 +122,8 @@ return (  <BrowserRouter>
     <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
-    <Route path="/profile/pricing" element={authe?<Pricing />:<Navigate to="/login"/>} />
+    {/* <Route path="/profile/pricing" element={!authe?<Pricing />:<Navigate to="/login"/>} /> */}
+    <Route path="/profile/pricing" element={<Pricing />} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

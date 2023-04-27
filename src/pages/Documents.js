@@ -36,7 +36,7 @@ return (  <div className="dashboard-page">
                             <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
                                     <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
                             </div>
-                        
+                        <br></br>
                             <div className="section-content-holder--dashboard documents-section--dashboard">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">

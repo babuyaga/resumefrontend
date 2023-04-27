@@ -1,4 +1,5 @@
 import "./stylesheets/dashboard.css";
+import "./stylesheets/profile.css";
 import Googleicon from "../icons/Googleicon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
@@ -14,6 +15,8 @@ function Profile() {
 const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
+const [tab,setTab] = useState("Profile");
+const tabs =["Profile","Security","Billing","Account"];
 
 
 const documentComp=()=>{
@@ -42,18 +45,61 @@ return (  <div className="dashboard-page">
                             <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
                                     <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
                             </div>
-                        
+                            <br></br>
                             <div className="section-content-holder--dashboard documents-section--dashboard">
-                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Profile</span><span className="viewall-documents--section"></span></div>
+                                    <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">{tab}</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
-                                         <div className="buttons-documents-component" id="selected-button-document"><span>Profile</span></div>
-                                         <div className="buttons-documents-component"><span>Security</span></div>
-                                         <div className="buttons-documents-component"><span>Billing</span></div>
-                                         <div className="buttons-documents-component"><span>Support</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[0]?"selected-button-document":""} onClick={()=>{setTab(tabs[0]);}}><span>Profile</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[1]?"selected-button-document":""} onClick={()=>{setTab(tabs[1]);}}><span>Security</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[2]?"selected-button-document":""} onClick={()=>{setTab(tabs[2]);}}><span>Billing</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[3]?"selected-button-document":""} onClick={()=>{setTab(tabs[3]);}}><span>Account</span></div>
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                    {documentComp()}
+                                           <div className="personal-form-holder--profile" id={tab===tabs[0]?"selected-tab--profile":""}>
+                                                        <form className="personal-form--profile">
+                                                                <span>Name:</span>
+                                                                        <input type="text" name="name" />
+                                                                <span>Email:</span>                                                                        
+                                                                        <input disabled type="text"/>
+                                                                <span>Phone:</span>                                                                        
+                                                                        <input type="text"/>
+
+                                                        </form>
+                                           </div>
+                                           <div className="personal-form-holder--profile" id={tab===tabs[1]?"selected-tab--profile":""}>
+                                                        <form className="personal-form--profile" >
+                                                                <span>Current Password:</span>
+                                                                        <input type="text" name="name" />
+                                                                <span>New Password:</span>                                                                        
+                                                                        <input type="text"/>
+                                                                <span>Confirm Password:</span>                                                                        
+                                                                        <input type="text"/>
+
+                                                        </form>
+                                           </div>
+                                           <div className="personal-form-holder--profile" id={tab===tabs[2]?"selected-tab--profile":""}>
+                                                        <form className="personal-form--profile" >
+                                                                <span>Current Password:</span>
+                                                                        <input type="text" name="name" />
+                                                                <span>New Password:</span>                                                                        
+                                                                        <input type="text"/>
+                                                                <span>Confirm Password:</span>                                                                        
+                                                                        <input type="text"/>
+
+                                                        </form>
+                                           </div>
+                                           <div className="personal-form-holder--profile" id={tab===tabs[3]?"selected-tab--profile":""}>
+                                                        <form className="personal-form--profile" >
+                                                        <span>Name:</span>
+                                                                        <input type="text" name="name" />
+                                                                <span>Email:</span>                                                                        
+                                                                        <input disabled type="text"/>
+                                                                <span>Phone:</span>                                                                        
+                                                                        <input type="text"/>
+
+                                                        </form>
+                                           </div>
                                     <div className="documents-loading--dashboard"><span>Loading...</span></div>
                                      </div>
                             </div>

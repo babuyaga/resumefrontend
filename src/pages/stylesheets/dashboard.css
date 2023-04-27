@@ -21,7 +21,15 @@
   }
 
 
-
+.navbar-logo--holder{
+    height:100%;
+    width:250px;
+    display:block;
+    background-image: url("../../resources/resumebhai_logo.png");
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 65%;
+}
 
 .dashboard-page{
     display:flex;
@@ -42,6 +50,7 @@
     align-items: center;
     border:1px solid violet;
     background-color:white;
+    padding-left:10px;
 }
 
 .navbar-component-container--dashboard{
@@ -361,7 +370,7 @@ gap:10px;
 
 
 .item-pricing-section--dashboard{
-    min-width:320px;
+    min-width:300px;
     max-width:320px;
     height:fit-content;
     box-sizing: border-box;
@@ -370,7 +379,9 @@ gap:10px;
     font-size:18px;
     border-radius:10px;
 }
-
+.item-pricing-section--dashboard:hover{
+    cursor:pointer;
+}
 #Basic{
     border:1px solid black;
 }
@@ -381,9 +392,7 @@ background-color:#C0C7FF;
 #Professional{
     border:1px solid black;
 }
-.item-pricing-section--dashboard:hover{
-    cursor:pointer;
-}
+
 .title-item-pricing--dashboard{
     font-size:25px;
     font-weight:bold;
@@ -450,7 +459,12 @@ display:none;
   #pricing-buttons--dashboard{
     display:none;
    }
-
+.pricing-carousel-holder{
+    background-color:purple;
+    display:flex;
+    justify-content: space-between;
+    max-width:100%;
+}
 .pricing-track{
     display:flex;
     gap:20px;
@@ -458,29 +472,55 @@ display:none;
     width:fit-content;
     max-width:335px;
     padding:10px 0px 10px 15px;
-    margin:auto;
-    overflow:hidden;
+    margin:auto;    
+    
+}
+#frame-z{
+    transform:translateX(-320px);/*0professional*/
+}
+
+#frame-o{
+    transform:translateX(-640px);/*1basic*/
+}
+
+#frame-t{
+    transform:translateX(-960px); /*2regular*/
+}
+
+#frame-th{
+    transform:translateX(-1280px);/*3professional*/
+}
+
+
+#frame-f{
+    transform:translateX(-1600px);/*4Basic*/
 }
 
 .pricing-track-button{
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
     border-radius: 30px;
-    background-color: red;
-    margin:auto;
+    background-color: #0000004b;
+    border:1px solid black;
+    margin:auto 0;
+    z-index:2;
 }
 .pricing-display-section{
     flex-direction: row;
     gap:0;
     flex-wrap: nowrap;
+    overflow:hidden;
+    background-color: pink;
+    width:100%;
+    margin:0;
 }
 
 .left-pricing-button{
-    margin-right:-20px;
+    margin-right:-60px;
 }
 
 .right-pricing-button{
-    margin-left:-20px;
+    margin-left:-60px;
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1180px){
@@ -491,6 +531,11 @@ display:none;
         border-radius:5px;
         padding:10px;
         box-sizing: border-box;
+    }
+
+    .container-buttons-sections--dashboard{
+        max-width:85%;
+        padding-left:30px;
     }
     .item-documents-section--dashboard-invisible{
         opacity:0;
@@ -520,6 +565,57 @@ display:none;
    }
 
 }
+@media only screen and (min-width: 1024px) and (max-width: 1450px){
+.tab-class{
+    min-width:500px!important;
+}
+.pricing-track{
+   
+}
+#frame-z{
+    transform:translateX(-230px)!important;/*0professional*/
+}
+
+#frame-o{
+    transform:translateX(-640px);/*1basic*/
+}
+
+#frame-t{
+    transform:translateX(-660px)!important; /*2regular*/
+}
+
+#frame-th{
+    transform:translateX(-1280px);/*3professional*/
+}
+
+
+#frame-f{
+    transform:translateX(-1600px);/*4Basic*/
+}
+
+.section-content-holder--dashboard{
+    padding:0!important;
+}
+
+.text-callback-section--dashboard{
+    max-width:100%;
+    }
+
+.callback-section--dashboard{
+    padding-right:30px;
+}
+
+.section-content-holder--dashboard{
+    
+}
+
+.content-holder--dashboard{
+    margin-left:auto;
+    margin-right:30px;
+}
+}
+
+
 
 @media only screen and (min-width: 1450px){
     .pricing-track{
@@ -527,6 +623,7 @@ display:none;
         justify-content: space-between;
         width:100%;
         max-width:none;
+        padding:0;
     }
 
     .pricing-track-button{
@@ -540,6 +637,16 @@ display:none;
     .hide-on-desktop{
         display:none;
     }
+    .pricing-display-section{
+        width:100%;
+        margin:auto;
+    }
+
+    #frame-z, #frame-o,#frame-t,#frame-th, #frame-f{
+        transform:translateX(0px);
+    }
+
+
 }
 
 
@@ -591,6 +698,8 @@ display:none;
     font-weight:bold;
     gap:15px;
     background-color:white;
+    box-sizing:border-box;
+    min-width:280px;
     }
  .banner-text--dashboard:hover{
 cursor:pointer;
@@ -620,12 +729,12 @@ cursor:pointer;
 .button-menu--dashboard{
     width:100%;
     height:55px;
-    background-color:#FBFBFB;
+    background-color:#FFFFFF;
     display:flex;
     flex-direction: column;
     justify-content: center;
     padding-left:20px;
-    box-shadow:2px 2px 5px #00000012;
+    /* box-shadow:2px 2px 5px #00000012; */
     box-sizing: border-box;
     border-radius:2px;
     transition:all 0.2s;
@@ -633,11 +742,15 @@ cursor:pointer;
 
 
 #selected-button{
-    border-left:5px solid black;
+    border-left:5px solid navy;
+    box-shadow:2px 2px 5px #00000012;
+    color:navy;
+    transition:all 0.3s;
 }
 .button-menu--dashboard:hover{
     box-shadow:2px 2px 6px #00000022;
     cursor:pointer;
+    transition:all 0.3s;
 }
 
 .button-menu--dashboard:active{
