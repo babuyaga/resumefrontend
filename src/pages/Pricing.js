@@ -9,6 +9,7 @@ import {authContext} from "./Router.js";
 import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
+import NavbarDash from "../components/dashboard/NavbarDash";
 
 function Pricing() {
 const [checked,setchecked] = useState(false);
@@ -16,39 +17,40 @@ const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
 const [Pframe,setPframe] = useState("frame-t");
 const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
-
-
-
+const [flag,setFlag] = useState(true);
 
 const moveright = ()=>{
+if(flag){
+  setFlag(false);
+  setTimeout(()=>{
+setFlag(true);
+  },500)
         console.log(Pframe);
       if(Pframe===frames[2]){
-        setPframe(frames[3]);
-        setTimeout(() => {
-          setPframe(frames[0]);  
-        }, 90);
-      } else if(Pframe===frames[0]){
+        setPframe(frames[3]);   
+      }else if(Pframe===frames[3]){
         setPframe(frames[1]);
-      } else if(Pframe===frames[1]){
+      }else if(Pframe===frames[1]){
         setPframe(frames[2]);
       }
-      console.log(Pframe);
+    }
       }
       
       
 const moveleft = ()=>{
-        console.log(Pframe);
-        if(Pframe===frames[2]){
-          setPframe(frames[1]);
-          setTimeout(() => {
-            setPframe(frames[4]);  
-          }, 1);   
-        } else if(Pframe===frames[4]){
-          setPframe(frames[3]);
-        } else if(Pframe===frames[3]){
-          setPframe(frames[2]);
-        }
-        console.log(Pframe);
+  if(flag){
+    setFlag(false);
+    setTimeout(()=>{
+  setFlag(true);
+    },500)
+  console.log(Pframe);
+  if(Pframe===frames[2]){
+    setPframe(frames[1]);   
+  }else if(Pframe===frames[1]){
+    setPframe(frames[3]);
+  }else if(Pframe===frames[3]){
+    setPframe(frames[2]);
+  }}
         }
 
 
@@ -78,9 +80,7 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
 }
 
 return (  <div className="dashboard-page">
-                <div className="navbar-general--dashboard">
-                        <div className="navbar-component-container--dashboard"></div>
-                </div>
+               <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="4"/>

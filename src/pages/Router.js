@@ -88,8 +88,8 @@ function Router() {
   }
 
 
-  const handleSignout = (e)=>{
-    e.preventDefault();
+  const handleSignout = ()=>{
+    console.log("Signing Out");
     signOut(auth).then(()=>{
       console.log("Signout called");
       Cookies.set("tokenhhs",false,{ expires: 7 });
@@ -98,7 +98,7 @@ function Router() {
       setAuth(false);
       setUser(false);
       setToken(false);
-      // window.location.reload(false);
+      Navigate("/login");
         }).catch((error)=>{
       console.log("Error Signing Out");
     });

@@ -4,11 +4,12 @@ import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
 import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
-import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
-import NavBar from "../components/NavBar.js";
+
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
+import NavbarDash from "../components/dashboard/NavbarDash.js";
+import BannerDash from "../components/dashboard/BannerDash";
 
 
 function Dashboard() {
@@ -32,17 +33,13 @@ return (<div className="item-documents-section--dashboard">
 }
 
 return (  <div className="dashboard-page">
-                <div className="navbar-general--dashboard">
-                        <div className="navbar-component-container--dashboard"><div className="navbar-logo--holder"></div></div>
-                </div>
+                <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="1"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
-                            <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
-                                    <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
-                            </div>
+                        <BannerDash/>
                             <div className="section-content-holder--dashboard main-buttons-section--dashboard">
                                 <div className="component-buttons-sections--dashboard buttons-section-title--dashboard"><span className="username-buttons-section--dashboard">Hello Jerry!</span><span className="subtitle-buttons-section--dashboard">Let's get you started</span></div>
                                 <div className="container-buttons-sections--dashboard">

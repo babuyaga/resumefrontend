@@ -3,6 +3,8 @@ import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {authContext} from "./Router.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
+import NavbarDash from "../components/dashboard/NavbarDash.js";
+import BannerDash from "../components/dashboard/BannerDash";
 
 function Documents() {
 const [checked,setchecked] = useState(false);
@@ -25,17 +27,14 @@ return (<div className="item-documents-section--dashboard">
 }
 
 return (  <div className="dashboard-page">
-                <div className="navbar-general--dashboard">
-                        <div className="navbar-component-container--dashboard"></div>
-                </div>
+        
+                <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="2"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
-                            <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
-                                    <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
-                            </div>
+                            <BannerDash/>
                         <br></br>
                             <div className="section-content-holder--dashboard documents-section--dashboard">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section"></span></div>

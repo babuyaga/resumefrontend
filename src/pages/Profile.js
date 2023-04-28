@@ -10,13 +10,15 @@ import {authContext} from "./Router.js";
 import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
+import NavbarDash from "../components/dashboard/NavbarDash.js";
+import BannerDash from "../components/dashboard/BannerDash";
 
 function Profile() {
 const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
 const [tab,setTab] = useState("Profile");
-const tabs =["Profile","Security","Billing","Account"];
+const tabs =["Profile","Security","Billing","Info"];
 
 
 const documentComp=()=>{
@@ -34,69 +36,96 @@ return (<div className="item-documents-section--dashboard">
 }
 
 return (  <div className="dashboard-page">
-                <div className="navbar-general--dashboard">
-                        <div className="navbar-component-container--dashboard"></div>
-                </div>
+              
+                        <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="3"/>
                         
                         <div className="content-holder--dashboard component-content--dashboard">
-                            <div className="section-content-holder--dashboard conversion-banner-section--dashboard">
-                                    <div className="component-banner-section--dashboard banner-text--dashboard"><span>Get access to SOP Writer and other premium features at just INR 570</span></div>
-                            </div>
+                        <BannerDash/>
                             <br></br>
                             <div className="section-content-holder--dashboard documents-section--dashboard">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">{tab}</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
-                                         <div className="buttons-documents-component" id={tab===tabs[0]?"selected-button-document":""} onClick={()=>{setTab(tabs[0]);}}><span>Profile</span></div>
-                                         <div className="buttons-documents-component" id={tab===tabs[1]?"selected-button-document":""} onClick={()=>{setTab(tabs[1]);}}><span>Security</span></div>
-                                         <div className="buttons-documents-component" id={tab===tabs[2]?"selected-button-document":""} onClick={()=>{setTab(tabs[2]);}}><span>Billing</span></div>
-                                         <div className="buttons-documents-component" id={tab===tabs[3]?"selected-button-document":""} onClick={()=>{setTab(tabs[3]);}}><span>Account</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[0]?"selected-button-document":""} onClick={()=>{setTab(tabs[0]);}}><span>{tabs[0]}</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[1]?"selected-button-document":""} onClick={()=>{setTab(tabs[1]);}}><span>{tabs[1]}</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[2]?"selected-button-document":""} onClick={()=>{setTab(tabs[2]);}}><span>{tabs[2]}</span></div>
+                                         <div className="buttons-documents-component" id={tab===tabs[3]?"selected-button-document":""} onClick={()=>{setTab(tabs[3]);}}><span>{tabs[3]}</span></div>
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
                                            <div className="personal-form-holder--profile" id={tab===tabs[0]?"selected-tab--profile":""}>
-                                                        <form className="personal-form--profile">
-                                                                <span>Name:</span>
+                                                        <form className="personal-form--profile" >
+                                                                <div><span><b>Name:</b></span>
                                                                         <input type="text" name="name" />
-                                                                <span>Email:</span>                                                                        
-                                                                        <input disabled type="text"/>
-                                                                <span>Phone:</span>                                                                        
-                                                                        <input type="text"/>
+                                                                </div>
+                                                                <div> <span><b>Email:</b></span>                                                                        
+                                                                        <input type="email"/>
+                                                                </div>
+                                                                <div><span><b>Phone No:</b></span>                                                                        
+                                                                        <input type="number"/>
+                                                                </div>
 
                                                         </form>
                                            </div>
                                            <div className="personal-form-holder--profile" id={tab===tabs[1]?"selected-tab--profile":""}>
                                                         <form className="personal-form--profile" >
-                                                                <span>Current Password:</span>
+                                                                <div><span><b>Current Password:</b></span>
                                                                         <input type="text" name="name" />
-                                                                <span>New Password:</span>                                                                        
+                                                                </div>
+                                                                <div> <span><b>New Password:</b></span>                                                                        
                                                                         <input type="text"/>
-                                                                <span>Confirm Password:</span>                                                                        
+                                                                </div>
+                                                                <div><span><b>Confirm Password:</b></span>                                                                        
                                                                         <input type="text"/>
+                                                                </div>
 
                                                         </form>
                                            </div>
                                            <div className="personal-form-holder--profile" id={tab===tabs[2]?"selected-tab--profile":""}>
-                                                        <form className="personal-form--profile" >
-                                                                <span>Current Password:</span>
-                                                                        <input type="text" name="name" />
-                                                                <span>New Password:</span>                                                                        
-                                                                        <input type="text"/>
-                                                                <span>Confirm Password:</span>                                                                        
-                                                                        <input type="text"/>
-
-                                                        </form>
+                                                        <div className="billing-info--profile">
+                                                                    
+                                                                        <table>
+                                                                                  <tr>
+                                                                                        <th>Current Plan:</th>
+                                                                                        <td>Regular</td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                        <th>Expires on:</th>
+                                                                                        <td>12-06-2024</td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                        <th>Renews on:</th>
+                                                                                        <td>13-06-2024</td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                        <th>Renews with:</th>
+                                                                                        <td>Regular 1 Month</td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                        <th>Renews at:</th>
+                                                                                        <td>INR 1500</td>
+                                                                                 </tr>
+                                                                                 <tr>
+                                                                                        <th>Payment mode:</th>
+                                                                                        <td>UPI</td>
+                                                                                 </tr>
+                                                                        
+                                                                        </table>
+                                                        </div>
                                            </div>
                                            <div className="personal-form-holder--profile" id={tab===tabs[3]?"selected-tab--profile":""}>
-                                                        <form className="personal-form--profile" >
-                                                        <span>Name:</span>
+                                                         <form className="personal-form--profile" >
+                                                                <div><span><b>Name on resume:</b></span>
                                                                         <input type="text" name="name" />
-                                                                <span>Email:</span>                                                                        
-                                                                        <input disabled type="text"/>
-                                                                <span>Phone:</span>                                                                        
+                                                                </div>
+                                                                <div> <span><b>Email on resume:</b></span>                                                                        
                                                                         <input type="text"/>
+                                                                </div>
+                                                                <div><span><b>Number on resume:</b></span>                                                                        
+                                                                        <input type="text"/>
+                                                                </div>
 
                                                         </form>
                                            </div>

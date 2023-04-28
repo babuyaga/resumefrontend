@@ -23,12 +23,12 @@
 
 .navbar-logo--holder{
     height:100%;
-    width:250px;
+    width:65px;
     display:block;
     background-image: url("../../resources/resumebhai_logo.png");
-    background-position: left;
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: 65%;
+    background-size: cover;
 }
 
 .dashboard-page{
@@ -50,7 +50,6 @@
     align-items: center;
     border:1px solid violet;
     background-color:white;
-    padding-left:10px;
 }
 
 .navbar-component-container--dashboard{
@@ -59,6 +58,9 @@
     margin:auto;
     box-sizing: border-box;
     background-color:white;
+display:flex;
+justify-content: space-between;
+align-items: center;
 }
 .menu-general--dashboard,.menu-faux--dashboard{
     display:none;
@@ -460,7 +462,7 @@ display:none;
     display:none;
    }
 .pricing-carousel-holder{
-    background-color:purple;
+    background-color:transparent;
     display:flex;
     justify-content: space-between;
     max-width:100%;
@@ -473,6 +475,7 @@ display:none;
     max-width:335px;
     padding:10px 0px 10px 15px;
     margin:auto;    
+    transition: all 1s;
     
 }
 #frame-z{
@@ -510,7 +513,7 @@ display:none;
     gap:0;
     flex-wrap: nowrap;
     overflow:hidden;
-    background-color: pink;
+    background-color:transparent;
     width:100%;
     margin:0;
 }
@@ -522,6 +525,18 @@ display:none;
 .right-pricing-button{
     margin-left:-60px;
 }
+
+.hide-on-desktop{
+    opacity:0.2;
+    background-color:gray;
+}
+
+@media only screen and (min-width:700px) and (max-width:1024px){
+    .pricing-track{
+
+    }
+}
+
 
 @media only screen and (min-width: 1024px) and (max-width: 1180px){
     .item-documents-section--dashboard,.item-documents-section--dashboard-invisible{
@@ -569,23 +584,21 @@ display:none;
 .tab-class{
     min-width:500px!important;
 }
-.pricing-track{
-   
-}
+
 #frame-z{
     transform:translateX(-230px)!important;/*0professional*/
 }
 
 #frame-o{
-    transform:translateX(-640px);/*1basic*/
+    transform:translateX(-1140px);/*1basic*/
 }
 
 #frame-t{
-    transform:translateX(-660px)!important; /*2regular*/
+    transform:translateX(-1640px)!important; /*2regular*/
 }
 
 #frame-th{
-    transform:translateX(-1280px);/*3professional*/
+    transform:translateX(-2140px);/*3professional*/
 }
 
 
