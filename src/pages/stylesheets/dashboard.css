@@ -380,21 +380,31 @@ gap:10px;
     padding:30px 20px;
     font-size:18px;
     border-radius:10px;
+    transition:all 0.5s;
 }
 .item-pricing-section--dashboard:hover{
     cursor:pointer;
+    background-color:red;
+    background-color:#C0C7FF32;
 }
 #Basic{
     border:1px solid black;
 }
 
 #Regular{
-background-color:#C0C7FF;
+    border:1px solid black;
 }
 #Professional{
     border:1px solid black;
 }
 
+.selected-pricing-card{
+    border:none;
+    background-color:#C0C7FF;
+}
+.selected-pricing-card:hover{
+    background-color:#C0C7FF!important;
+}
 .title-item-pricing--dashboard{
     font-size:25px;
     font-weight:bold;
@@ -531,6 +541,10 @@ display:none;
     background-color:gray;
 }
 
+.hide-on-nondesktop{
+    display:none;
+}
+
 @media only screen and (min-width:700px) and (max-width:1024px){
     .pricing-track{
 
@@ -647,7 +661,7 @@ display:none;
         display:flex;
     }
 
-    .hide-on-desktop{
+    .hide-on-desktop,.hide-on-desktop2{
         display:none;
     }
     .pricing-display-section{
@@ -659,7 +673,9 @@ display:none;
         transform:translateX(0px);
     }
 
-
+.hide-on-nondesktop{
+    display:block;
+}
 }
 
 

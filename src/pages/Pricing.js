@@ -18,6 +18,8 @@ const navigate = useNavigate();
 const [Pframe,setPframe] = useState("frame-t");
 const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
 const [flag,setFlag] = useState(true);
+const [fr,setFr]= useState(2);
+
 
 const moveright = ()=>{
 if(flag){
@@ -28,10 +30,13 @@ setFlag(true);
         console.log(Pframe);
       if(Pframe===frames[2]){
         setPframe(frames[3]);   
+        setFr(3);
       }else if(Pframe===frames[3]){
         setPframe(frames[1]);
+        setFr(1);
       }else if(Pframe===frames[1]){
         setPframe(frames[2]);
+        setFr(2);
       }
     }
       }
@@ -45,11 +50,14 @@ const moveleft = ()=>{
     },500)
   console.log(Pframe);
   if(Pframe===frames[2]){
-    setPframe(frames[1]);   
+    setPframe(frames[1]);  
+    setFr(1); 
   }else if(Pframe===frames[1]){
     setPframe(frames[3]);
+    setFr(3);
   }else if(Pframe===frames[3]){
     setPframe(frames[2]);
+    setFr(2);
   }}
         }
 
@@ -59,7 +67,7 @@ const moveleft = ()=>{
 
 
 
-const PricingCard=(idname,classnm,display)=>{
+const PricingCard=(idname,classnm)=>{
 return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
@@ -107,9 +115,12 @@ return (  <div className="dashboard-page">
                                                     <div className="pricing-track" id={Pframe}>
                                                         <div className="hide-on-desktop">{PricingCard("Regular","tab-class")}</div>
                                                          <div className="hide-on-desktop">{PricingCard("Professional","tab-class")}</div>
-                                                        {PricingCard("Basic","tab-class")}
-                                                        {PricingCard("Regular","tab-class")}
-                                                        {PricingCard("Professional","tab-class")}
+                                                         <div onClick={()=>{setFr(1)}}  className="hide-on-nondesktop">{PricingCard("Basic",`tab-class ${fr===1?"selected-pricing-card":""}`)}</div>
+                                                         <div onClick={()=>{setFr(2)}}  className="hide-on-nondesktop">{PricingCard("Regular",`tab-class ${fr===2?"selected-pricing-card":""}`)}</div>
+                                                         <div onClick={()=>{setFr(3)}}  className="hide-on-nondesktop">{PricingCard("Professional",`tab-class ${fr===3?"selected-pricing-card":""}`)}</div>
+                                                         <div className="hide-on-desktop2">{PricingCard("Basic",`tab-class ${fr===1?"selected-pricing-card":""}`)}</div>
+                                                         <div className="hide-on-desktop2">{PricingCard("Regular",`tab-class ${fr===2?"selected-pricing-card":""}`)}</div>
+                                                         <div className="hide-on-desktop2">{PricingCard("Professional",`tab-class ${fr===3?"selected-pricing-card":""}`)}</div>
                                                         <div className="hide-on-desktop">{PricingCard("Basic","tab-class")}</div>
                                                         <div className="hide-on-desktop">{PricingCard("Regular","tab-class")}</div>
                                                     </div>
@@ -118,6 +129,7 @@ return (  <div className="dashboard-page">
                                                 </div>
                                         <div className="pricing-track-button right-pricing-button" onClick={()=>{moveright()}}></div>
                                 </div> 
+                                
                             </div>
               
                         </div>
