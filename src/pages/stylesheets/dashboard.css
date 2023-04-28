@@ -139,13 +139,13 @@ display:flex;
     box-sizing: border-box;
 }
 #feature-button-one{
-    background-color:#fdffb6ab;
+    background-color:#E7F9F6;
 }
 #feature-button-two{
-    background-color:#caffbf;
+    background-color:#F8F1FF;
 }
 #feature-button-three{
-    background-color:#ffd6a5ab;
+    background-color:#eaf6fb;
     justify-content: space-around;
     gap:0px;
 }
@@ -326,7 +326,7 @@ flex-direction: column;
     flex-direction: column;
     align-items: center;
     height:45px;
-    background-color:black;
+
 }
 .expert-help--button:hover{
     cursor:pointer;
@@ -410,14 +410,19 @@ gap:10px;
     font-weight:bold;
 }
 #price-tag{
-    color:#000000a2;
     display:flex;
     gap:5px;
 }
-
 #currency-price-tag{
-color:#0000005b;
+    color:#0000005b;
+    }
+    
+.selected-pricing-card #price-tag{
+    color:black;
 }
+.selected-pricing-card .buttons-pricing--dashboard{
+    background-color:#ffffffab;
+    }
 
 .subtitle-item-pricing--dashboard{
     display:flex;
@@ -437,13 +442,18 @@ color:#0000005b;
     padding:15px 20px;
     width:100%;
     box-sizing: border-box;
-    background-color:pink;
-    border-radius:10px;
+    background-color:#C0FFD63b;
+    border-radius:5px;
     font-weight:bold;
+   display:flex;
     color:#000000ab;
     display:flex;
     gap:5px;
 }
+
+
+
+
 #checkout-button--pricing{
  width:250px;
  height:45px;
@@ -978,7 +988,7 @@ margin-bottom:5px;
     flex-direction: column;
     align-items: center;
     height:45px;
-    background-color:black;
+    background-color:#A435F0;
 }
 .expert-help--button:hover{
     cursor:pointer;

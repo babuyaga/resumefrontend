@@ -19,7 +19,24 @@ const [Pframe,setPframe] = useState("frame-t");
 const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
 const [flag,setFlag] = useState(true);
 const [fr,setFr]= useState(2);
+const [period,setPeriod] = useState(0);
 
+const plans = {
+  "basic":["basic-14-days","basic-1-month","basic-3-months"],
+  "regular":["regular-14-days","regular-1-month","regular-3-months"],
+  "professional":["professional-14-days","professional-1-month","professional-3-months"]
+};
+
+
+const assignPlan = ()=>{
+  if(fr===1){
+console.log(plans["basic"][period]);
+  }else if(fr===2){
+    console.log(plans["regular"][period]);
+  }else if(fr===3){
+    console.log(plans["professional"][period]);
+  }
+}
 
 const moveright = ()=>{
 if(flag){
@@ -80,7 +97,7 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
                                         <div className={`tag-holder-item-pricing--dashboard`}>
                                                 <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> 350</span></div></div>
                                         </div>
-                                        <div className={`tag-holder-item-pricing--dashboard`}>
+                                        <div className={`tag-holder-item-pricing--dashboard hide-on-desktop2`}>
                                                 <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">Subscribe</span><span> Now</span></div></div>
                                         </div>
                                         </div>
@@ -102,12 +119,12 @@ return (  <div className="dashboard-page">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Pricing</span><span className="viewall-documents--section"></span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
                                         <div className="documents-buttons--dashboard">
-                                         <div className="buttons-documents-component" id="selected-button-pricing"><span>14 Days</span></div>
-                                         <div className="buttons-documents-component"><span>1 Month</span></div>
-                                         <div className="buttons-documents-component"><span>6 Months</span></div>
+                                         <div className="buttons-documents-component" id={period===0?`selected-button-pricing`:""} onClick={()=>{setPeriod(0);}}><span>14 Days</span></div>
+                                         <div className="buttons-documents-component" id={period===1?`selected-button-pricing`:""} onClick={()=>{setPeriod(1);}}><span>1 Month</span></div>
+                                         <div className="buttons-documents-component" id={period===2?`selected-button-pricing`:""} onClick={()=>{setPeriod(2);}}><span>3 Months</span></div>
                                          {/* <div className="buttons-documents-component"><span>12 Months</span></div> */}
                                          </div>
-                                         <div className="buttons-documents-component" id="checkout-button--pricing"> <span>Checkout</span></div>
+                                         <div className="buttons-documents-component" id="checkout-button--pricing" onClick={()=>{assignPlan();}}> <span>Checkout</span></div>
                                     </div>
                                  <div className="pricing-carousel-holder"> 
                                         <div className="pricing-track-button left-pricing-button" onClick={()=>{moveleft()}}></div>
