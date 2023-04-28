@@ -22,19 +22,35 @@ const [fr,setFr]= useState(2);
 const [period,setPeriod] = useState(0);
 
 const plans = {
-  "basic":["basic-14-days","basic-1-month","basic-3-months"],
-  "regular":["regular-14-days","regular-1-month","regular-3-months"],
-  "professional":["professional-14-days","professional-1-month","professional-3-months"]
+  "Basic":["basic-14-days","basic-1-month","basic-3-months"],
+  "Regular":["regular-14-days","regular-1-month","regular-3-months"],
+  "Professional":["professional-14-days","professional-1-month","professional-3-months"]
 };
+
+const pricing = {
+  "basic-14-days": 200,
+  "basic-1-month": 350,
+  "basic-3-months": 950,
+  "regular-14-days":550,
+  "regular-1-month": 950,
+  "regular-3-months":2700,
+  "professional-14-days":1800,
+  "professional-1-month": 3200,
+  "professional-3-months":8500
+};
+
+const plandetails = {"Basic":["Create and download unlimited resumes in hundreds of templates", "AI support for two fields of maximum 100 characters per resume"],
+"Regular":["Create and download Unlimited resumes in hundreds of templates", "Unlimited AI support for all fields in all resumes","Generate unlimited AI powered cover letters"],
+"Professional":["Create and download Unlimited resumes in hundreds of templates", "Unlimited AI support for all fields in all resumes","Generate unlimited AI powered cover letters","Generate 4 Statement Of Purposes' (SOPs) per week of maximum 10 Pages","45 minute Expert SOP consultation worth 2500 INR FREE on 3 Month subscription of the professional plan"]};
 
 
 const assignPlan = ()=>{
   if(fr===1){
-console.log(plans["basic"][period]);
+console.log(plans["Basic"][period]);
   }else if(fr===2){
-    console.log(plans["regular"][period]);
+    console.log(plans["Regular"][period]);
   }else if(fr===3){
-    console.log(plans["professional"][period]);
+    console.log(plans["Professional"][period]);
   }
 }
 
@@ -91,14 +107,17 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
                                         <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>
                                        
                                         <div className={`subtitle-item-pricing--dashboard`}>
-                                                <span><li></li>Create and Store Unlimited Resumes</span>
-                                                <span><li></li>Generate and store upto 25 different cover letters per week</span>       
+                                          {plandetails[idname].map(element => 
+                                            <span><li></li>{element}</span>
+                                          )}
+                                              
                                         </div>
                                         <div className={`tag-holder-item-pricing--dashboard`}>
-                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> 350</span></div></div>
+                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> {pricing[plans[idname][period]]}</span></div></div>
                                         </div>
+                                        
                                         <div className={`tag-holder-item-pricing--dashboard hide-on-desktop2`}>
-                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">Subscribe</span><span> Now</span></div></div>
+                                                <div className="sub-buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">Subscribe</span><span> Now</span></div></div>
                                         </div>
                                         </div>
                                     </div>);
@@ -132,9 +151,9 @@ return (  <div className="dashboard-page">
                                                     <div className="pricing-track" id={Pframe}>
                                                         <div className="hide-on-desktop">{PricingCard("Regular","tab-class")}</div>
                                                          <div className="hide-on-desktop">{PricingCard("Professional","tab-class")}</div>
-                                                         <div onClick={()=>{setFr(1)}}  className="hide-on-nondesktop">{PricingCard("Basic",`tab-class ${fr===1?"selected-pricing-card":""}`)}</div>
-                                                         <div onClick={()=>{setFr(2)}}  className="hide-on-nondesktop">{PricingCard("Regular",`tab-class ${fr===2?"selected-pricing-card":""}`)}</div>
-                                                         <div onClick={()=>{setFr(3)}}  className="hide-on-nondesktop">{PricingCard("Professional",`tab-class ${fr===3?"selected-pricing-card":""}`)}</div>
+                                                         <div onClick={()=>{setFr(1)}}  className="item-pricing-container--dashboard-desktop hide-on-nondesktop">{PricingCard("Basic",`tab-class ${fr===1?"selected-pricing-card":""}`)}</div>
+                                                         <div onClick={()=>{setFr(2)}}  className="item-pricing-container--dashboard-desktop hide-on-nondesktop">{PricingCard("Regular",`tab-class ${fr===2?"selected-pricing-card":""}`)}</div>
+                                                         <div onClick={()=>{setFr(3)}}  className="item-pricing-container--dashboard-desktop hide-on-nondesktop">{PricingCard("Professional",`tab-class ${fr===3?"selected-pricing-card":""}`)}</div>
                                                          <div className="hide-on-desktop2">{PricingCard("Basic",`tab-class ${fr===1?"selected-pricing-card":""}`)}</div>
                                                          <div className="hide-on-desktop2">{PricingCard("Regular",`tab-class ${fr===2?"selected-pricing-card":""}`)}</div>
                                                          <div className="hide-on-desktop2">{PricingCard("Professional",`tab-class ${fr===3?"selected-pricing-card":""}`)}</div>

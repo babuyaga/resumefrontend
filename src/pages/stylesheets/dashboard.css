@@ -214,9 +214,11 @@ display:flex;
 }
 
 #selected-button-pricing{
-    background-color:#C0C7FF;
+    background-color:#1C1D1F;
     box-shadow:0px 0px 0px #0000003b;
     cursor:default;
+    color:white;
+    font-weight:500;
 }
 .buttons-documents-component span{
     margin:auto;
@@ -378,15 +380,20 @@ gap:10px;
     box-sizing: border-box;
     margin:auto 0;
     padding:30px 20px;
-    font-size:18px;
+    font-size:15px;
     border-radius:10px;
     transition:all 0.5s;
 }
 .item-pricing-section--dashboard:hover{
-    cursor:pointer;
     background-color:red;
     background-color:#C0C7FF32;
 }
+
+.item-pricing-container--dashboard-desktop:hover{
+    cursor:pointer;
+}
+
+
 #Basic{
     border:1px solid black;
 }
@@ -420,16 +427,23 @@ gap:10px;
 .selected-pricing-card #price-tag{
     color:black;
 }
+
 .selected-pricing-card .buttons-pricing--dashboard{
-    background-color:#ffffffab;
+    background-color:transparent;
     }
+
+.selected-pricing-card .sub-buttons-pricing--dashboard{
+    background-color:#ffffffab;
+    border:5px solid #C0FFD6;
+    box-sizing: border-box;
+}
 
 .subtitle-item-pricing--dashboard{
     display:flex;
     flex-direction: column;
     gap:10px;
     margin:15px 0px;
-    height:200px;
+    height:fit-content;
 }
 .subtitle-item-pricing--dashboard span{
     display:flex;
@@ -438,11 +452,10 @@ gap:10px;
     display:flex;
 }
 
-.buttons-pricing--dashboard{
+.buttons-pricing--dashboard, .sub-buttons-pricing--dashboard{
     padding:15px 20px;
     width:100%;
     box-sizing: border-box;
-    background-color:#C0FFD63b;
     border-radius:5px;
     font-weight:bold;
    display:flex;
@@ -451,8 +464,19 @@ gap:10px;
     gap:5px;
 }
 
+.sub-buttons-pricing--dashboard{
+    box-shadow:5px 5px 10px #0000006b;
+    transition:all 0.2s;
+}
 
+.sub-buttons-pricing--dashboard:hover{
+    cursor:pointer;
+}
 
+.sub-buttons-pricing--dashboard:active{
+    box-shadow:2px 2px 8px #00000000;
+    margin:2px -2px -2px 2px;
+}
 
 #checkout-button--pricing{
  width:250px;
@@ -549,6 +573,8 @@ display:none;
 .hide-on-desktop{
     opacity:0.2;
     background-color:gray;
+    border-radius:10px;
+    height:fit-content;
 }
 
 .hide-on-nondesktop{
@@ -686,6 +712,15 @@ display:none;
 .hide-on-nondesktop{
     display:block;
 }
+
+.selected-pricing-card .buttons-pricing--dashboard{
+    background-color:#ffffffab;
+    }
+
+    .buttons-pricing--dashboard, .sub-buttons-pricing--dashboard{
+        background-color:#C0FFD63b;
+    }
+
 }
 
 
@@ -988,7 +1023,7 @@ margin-bottom:5px;
     flex-direction: column;
     align-items: center;
     height:45px;
-    background-color:#A435F0;
+    background-color:#7253F0;
 }
 .expert-help--button:hover{
     cursor:pointer;
