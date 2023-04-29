@@ -10,6 +10,8 @@ import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import NavbarDash from "../components/dashboard/NavbarDash";
+import axios from "axios";
+
 
 function Pricing() {
 const [checked,setchecked] = useState(false);
@@ -20,12 +22,18 @@ const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
 const [flag,setFlag] = useState(true);
 const [fr,setFr]= useState(2);
 const [period,setPeriod] = useState(0);
+const [purchaseAmt,setPurchase] = useState(0);
+
 
 const plans = {
   "Basic":["basic-14-days","basic-1-month","basic-3-months"],
   "Regular":["regular-14-days","regular-1-month","regular-3-months"],
   "Professional":["professional-14-days","professional-1-month","professional-3-months"]
 };
+
+
+
+
 
 const pricing = {
   "basic-14-days": 200,
@@ -47,12 +55,82 @@ const plandetails = {"Basic":["Create and download unlimited resumes in hundreds
 const assignPlan = ()=>{
   if(fr===1){
 console.log(plans["Basic"][period]);
+setPurchase(pricing[plans["Basic"][period]]);
+activateCheckout(pricing[plans["Basic"][period]]);
   }else if(fr===2){
     console.log(plans["Regular"][period]);
+  
+setPurchase(pricing[plans["Regular"][period]]);
+activateCheckout(pricing[plans["Regular"][period]]);
   }else if(fr===3){
     console.log(plans["Professional"][period]);
-  }
+    
+setPurchase(pricing[plans["Professional"][period]]);
+  
+activateCheckout(pricing[plans["Professional"][period]]);
 }
+
+
+
+}
+
+
+
+const displayRazorpay = (orderid)=>{
+  var options = {
+    "key": "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
+    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp", //your business name
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "prefill": {
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+// var rzp1 = new Razorpay(options);
+// rzp1.open();
+}
+
+
+const loadRazorpay = (orderid)=>{
+
+  return new Promise(resolve=>{
+    console.log(orderid);
+    const script =document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    document.body.appendChild(script);
+    script.onload = displayRazorpay(orderid);
+    resolve();
+  })
+
+
+}
+
+
+const activateCheckout = (amt)=>{
+  axios.post('http://localhost:5000/createorder', {
+  amount: amt
+})
+  .then(response => {
+    loadRazorpay(response.data.orderId);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+
 
 const moveright = ()=>{
 if(flag){
