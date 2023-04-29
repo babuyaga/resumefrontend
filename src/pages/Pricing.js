@@ -36,15 +36,15 @@ const plans = {
 
 
 const pricing = {
-  "basic-14-days": 200,
-  "basic-1-month": 350,
-  "basic-3-months": 950,
-  "regular-14-days":550,
-  "regular-1-month": 950,
-  "regular-3-months":2700,
-  "professional-14-days":1800,
-  "professional-1-month": 3200,
-  "professional-3-months":8500
+  "basic-14-days": 20000,
+  "basic-1-month": 35000,
+  "basic-3-months": 95000,
+  "regular-14-days":55000,
+  "regular-1-month": 95000,
+  "regular-3-months":270000,
+  "professional-14-days":180000,
+  "professional-1-month": 320000,
+  "professional-3-months":850000
 };
 
 const plandetails = {"Basic":["Create and download unlimited resumes in hundreds of templates", "AI support for two fields of maximum 100 characters per resume"],
@@ -76,19 +76,25 @@ activateCheckout(pricing[plans["Professional"][period]]);
 
 
 
-const displayRazorpay = (orderid)=>{
+async function displayRazorpay(orderid){
+
+const res = await loadRazorpay();
+if(!res){
+  alert("That shit didn't work fam");
+  return
+}
   var options = {
-    "key": "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
-    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "key": "rzp_test_XK3PGkXLm7qLnp", // Enter the Key ID generated from the Dashboard
+    "amount": (purchaseAmt), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "Acme Corp", //your business name
+    "name": "resumebhAI.com", //your business name
     "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
+    "image": "",
     "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
     "prefill": {
-        "name": "Gaurav Kumar", //your customer's name
-        "email": "gaurav.kumar@example.com",
+        "name": "Gaurav", //your customer's name
+        "email": "chutiya@gmail.com",
         "contact": "9000090000"
     },
     "notes": {
@@ -98,22 +104,26 @@ const displayRazorpay = (orderid)=>{
         "color": "#3399cc"
     }
 };
-// var rzp1 = new Razorpay(options);
-// rzp1.open();
+const rzp1 = new window.Razorpay(options);
+rzp1.open();
 }
 
 
-const loadRazorpay = (orderid)=>{
+const loadRazorpay = ()=>{
 
-  return new Promise(resolve=>{
-    console.log(orderid);
+  return new Promise((resolve)=>{
     const script =document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    
+    script.onload = ()=>{
+      resolve(true)
+    }
+    script.onerror = ()=>{
+      resolve(false)
+    }
     document.body.appendChild(script);
-    script.onload = displayRazorpay(orderid);
-    resolve();
   })
-
+  
 
 }
 
@@ -123,7 +133,7 @@ const activateCheckout = (amt)=>{
   amount: amt
 })
   .then(response => {
-    loadRazorpay(response.data.orderId);
+    displayRazorpay(response.data.orderId);
   })
   .catch(error => {
     console.error(error);
@@ -191,7 +201,7 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
                                               
                                         </div>
                                         <div className={`tag-holder-item-pricing--dashboard`}>
-                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> {pricing[plans[idname][period]]}</span></div></div>
+                                                <div className="buttons-pricing--dashboard"> <div className="title-item-pricing--dashboard" id="price-tag"><span id="currency-price-tag">INR</span><span> {((pricing[plans[idname][period]])/100)}</span></div></div>
                                         </div>
                                         
                                         <div className={`tag-holder-item-pricing--dashboard hide-on-desktop2`}>
