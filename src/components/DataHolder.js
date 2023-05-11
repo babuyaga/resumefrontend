@@ -49,7 +49,7 @@ export function sectionData(){
 
 export async function getServer(setstate,url){
   if(!url){
-    url = 'http://localhost:5000/postrequest';
+    url = `${process.env.REACT_APP_API_URL}/postrequest`;
   }
   
   var sectiondata = [ {
@@ -81,7 +81,7 @@ export async function saveData(dataSave,url){
 
   console.log("savedata called");
   if(!url){
-    url = 'http://localhost:5000/saveresume';
+    url = `${process.env.REACT_APP_API_URL}/saveresume`;
   }
   
   var sectiondata = [ {

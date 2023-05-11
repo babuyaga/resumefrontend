@@ -32,47 +32,61 @@ function Router() {
   const [authe,setAuth] = useState( (Cookies.get("authe")==="true")?true:false);
   const [user,setUser] = useState( Cookies.get("user") || false);
   const [data,setdata] = useState("");
-
+const verifytoken_URL = "http://localhost:5000/api/login";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyDklzqovWelTnf1ihgLQ24LdiH-MSz6E3g",
-    authDomain: "hosting-ac30c.firebaseapp.com",
-    projectId: "hosting-ac30c",
-    storageBucket: "hosting-ac30c.appspot.com",
-    messagingSenderId: "926611148467",
-    appId: "1:926611148467:web:43e0b5f1a7d388c86baac6"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId:  process.env.REACT_APP_FIREBASE_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID 
   };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   auth.languageCode = 'it';
 
+
+
+function verifyTokenAPI(tok,user){
+  axios.post(verifytoken_URL,{userDetails:user},
+    {
+      headers: {
+        'authorization': `${tok}` 
+      }})
+  .then((res)=>{
+          console.log("response from server is",res);
+        setToken(tok);
+        setAuth(true);
+        setUser(user);
+        Cookies.set("tokenhhs",tok,{ expires: 1 });
+        Cookies.set("authe",true,{ expires: 1 });
+        Cookies.set("user",user,{ expires: 1 });
+             
+      }).catch((err)=>{
+        console.log("Error Verifying Token By the backend",err);
+      })
+}
+
+
   const loginWithGoogle = ()=>{
 
     signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-     // The signed-in user info.
+    .then((result) => 
+            {
+               // This gives you a Google Access Token. You can use it to access the Google API.
+               const credential = GoogleAuthProvider.credentialFromResult(result);
+              // The signed-in user info.
       
-      const user = result.user;
+               const user = result.user;
   
-    user.getIdToken().then((tokenn)=>{
-      setToken(tokenn);
-      setAuth(true);
-      setUser(user);
-      Cookies.set("tokenhhs",tokenn,{ expires: 1 });
-      Cookies.set("authe",true,{ expires: 1 });
-      Cookies.set("user",user,{ expires: 1 });
-      // window.location.reload(false);
-      Navigate("/dashboard");
-
-    })
-    
-    
-      })
-  
-  .catch((error) => {
+               user.getIdToken().then((tokenn)=>
+                {
+                  verifyTokenAPI(tokenn,user);
+                })
+            
+    }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -98,9 +112,9 @@ function Router() {
       setAuth(false);
       setUser(false);
       setToken(false);
-      Navigate("/login");
+    
         }).catch((error)=>{
-      console.log("Error Signing Out");
+      console.log("Error Signing Out: ",error);
     });
     
   }

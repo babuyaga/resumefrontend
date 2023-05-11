@@ -1,12 +1,6 @@
 import "./stylesheets/dashboard.css";
-import Googleicon from "../icons/Googleicon.js";
-import Downarrow from "../icons/Downarrow.js";
-import Uparrow from "../icons/Uparrow.js";
-import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
-import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
-import NavBar from "../components/NavBar.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import NavbarDash from "../components/dashboard/NavbarDash";
@@ -23,7 +17,10 @@ const [flag,setFlag] = useState(true);
 const [fr,setFr]= useState(2);
 const [period,setPeriod] = useState(0);
 const [purchaseAmt,setPurchase] = useState(0);
+const API_PAYMENT_URL = process.env.REACT_APP_API_PAYMENT_URL;
+const [test,setTest] = useState("noresponse");
 
+axios.defaults.withCredentials = true;
 
 const plans = {
   "Basic":["basic-14-days","basic-1-month","basic-3-months"],
@@ -56,18 +53,18 @@ const assignPlan = ()=>{
   if(fr===1){
 console.log(plans["Basic"][period]);
 setPurchase(pricing[plans["Basic"][period]]);
-activateCheckout(pricing[plans["Basic"][period]]);
+activateCheckout(plans["Basic"][period]);
   }else if(fr===2){
     console.log(plans["Regular"][period]);
   
 setPurchase(pricing[plans["Regular"][period]]);
-activateCheckout(pricing[plans["Regular"][period]]);
+activateCheckout(plans["Regular"][period]);
   }else if(fr===3){
     console.log(plans["Professional"][period]);
     
 setPurchase(pricing[plans["Professional"][period]]);
   
-activateCheckout(pricing[plans["Professional"][period]]);
+activateCheckout(plans["Professional"][period]);
 }
 
 
@@ -91,11 +88,11 @@ if(!res){
     "description": "Test Transaction",
     "image": "",
     "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "callback_url": "https://purchase.resumebhai.com/v1/status",
     "prefill": {
         "name": "Gaurav", //your customer's name
-        "email": "chutiya@gmail.com",
-        "contact": "9000090000"
+        "email": "Gaurav@gmail.com",
+        "contact": "9999999999"
     },
     "notes": {
         "address": "Razorpay Corporate Office"
@@ -128,15 +125,30 @@ const loadRazorpay = ()=>{
 }
 
 
-const activateCheckout = (amt)=>{
-  axios.post('http://localhost:5000/createorder', {
-  amount: amt
+const activateCheckout = (p)=>{
+  axios.post(API_PAYMENT_URL, {
+  plan: p
 })
   .then(response => {
     displayRazorpay(response.data.orderId);
   })
   .catch(error => {
     console.error(error);
+  });
+}
+
+
+
+
+const testFunc = ()=>{
+  axios.post("http://localhost:5000/test", {
+  stuff:"stuff"
+})
+  .then(response => {
+   setTest(response);
+  })
+  .catch(error => {
+    setTest(error);
   });
 }
 
@@ -190,6 +202,7 @@ const moveleft = ()=>{
 
 const PricingCard=(idname,classnm)=>{
 return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
+  <button onClick={testFunc}>Test `</button>
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
                                         <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>

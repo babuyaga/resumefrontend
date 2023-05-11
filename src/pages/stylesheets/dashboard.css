@@ -711,6 +711,7 @@ display:none;
 
 .hide-on-nondesktop{
     display:block;
+    height:fit-content;
 }
 
 .selected-pricing-card .buttons-pricing--dashboard{

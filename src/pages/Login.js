@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle,authe} = useContext(authContext);
+const {loginWithGoogle,authe} = useContext(authContext);
 const navigate = useNavigate();
 
 useEffect(()=>{
