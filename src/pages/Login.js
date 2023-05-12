@@ -3,16 +3,48 @@ import Googleicon from "../icons/Googleicon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
 import Staricon from "../icons/Staricon.js";
+import Eyeopen from "../icons/Eyeopen.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
 function Login() {
 const [checked,setchecked] = useState(false);
-const {loginWithGoogle,authe} = useContext(authContext);
+const {loginWithGoogle,authe,loginWithEmailAndPassword} = useContext(authContext);
 const navigate = useNavigate();
+const [displayName,setUserName] = useState( Cookies.get("displayName") || false);
+const [userEmail,setUserEmail] = useState("");
+const [userPassword,setUserPass] = useState("");
+const [passwordError,setPassError] = useState("");
+const [emailError,setEmailError] = useState("");
+
+
+const onEmailChange=(e)=>{
+setUserEmail(e.target.value);
+}
+
+
+const validateEmail= ()=>{
+
+}
+
+
+const validatePassword= ()=>{
+    
+}
+
+
+const validateBoth= ()=>{
+    
+}
+
+const onPasswordChange=(e)=>{
+    setUserPass(e.target.value);
+}
+
 
 useEffect(()=>{
     if(authe){
@@ -20,16 +52,23 @@ useEffect(()=>{
     }
 },[authe])
 
+const loginWithEandP =()=>{
+loginWithEmailAndPassword(userEmail,userPassword);
+}
 
 return (  <div className="login-page"> 
                     <div className="login-box">
                     
                         <div className="login-box-partition">
-                            <div className="login-box-partition--section partition-logo"><h2>LOGO</h2></div>
+                            <div className="login-box-partition--section partition-logo"><h2></h2></div>
                                 <div className="login-box-partition--section partition-top">
                                     <div className="login-box-partition--section-holder">
-                                        <h2>Hey Jerry,</h2>
+                                        <span style={displayName?{}:{"display":"none"}}><h2>Hey {displayName},</h2>
                                         <p> Welcome back! Please enter your details.</p> 
+                                        </span>
+                                        <span style={displayName?{"display":"none"}:{}}><h2>Hey There!</h2>
+                                        <p> Let's get started!</p> 
+                                        </span>
                                         <button className="google-login--button" onClick={loginWithGoogle}> <Googleicon/> <span>Log in with Google</span> </button>
                                      
                                     </div>
@@ -38,12 +77,12 @@ return (  <div className="login-page">
                                  <div className="login-box-partition--section partition-bottom"> 
                                      <div className="login-box-partition--section-holder">
                                         <form className="form-login"> 
-                                        <input className="inputbox-login" type="email" name="email" placeholder="Email"/>
-                                        <input className="inputbox-login" type="password" name="password" placeholder="Password"/>
+                                        <input className="inputbox-login" type="email" value={userEmail} onChange={onEmailChange} name="email" placeholder="Email"/>
+                                        <input className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="Password"/>
                                         <div className="checkboxholder-login"><div onClick={()=>{console.log("checked"); setchecked(!checked);}} className="login-checkbox--component"><input type="checkbox" name="remember me" checked={checked} className="checkbox-login"/><p>Remember me</p></div><span><p>Forgot password</p></span></div>
                                         </form>
                                         
-                                        <button className="loginwithEmail-button"> Log in</button>
+                                        <button className="loginwithEmail-button" onClick={loginWithEandP}> Log in</button>
                                         <div className="finaltext--holder"><span>Don't have an account?</span><span className="Signuptext-login"> <Link to="/signup">Sign up for free</Link></span></div>
                                     </div>
                                     <br></br>

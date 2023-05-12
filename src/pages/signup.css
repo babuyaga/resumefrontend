@@ -205,10 +205,6 @@ margin-left:auto;
 
             .imageside, .imageside-signup{
                 display:flex;
-                background-image:url("../resources/profilepicture.jpg");
-                background-position: center;
-                background-size:cover; 
-                background-repeat: no-repeat;  
                 overflow:hidden;
                 height:95%;
                 width:95%;

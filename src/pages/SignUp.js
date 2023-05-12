@@ -6,11 +6,39 @@ import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle} = useContext(authContext);
+const {createUserEmail,authe,loginWithGoogle,SignUperror} = useContext(authContext);
+const [userEmail,setUserEmail] = useState("");
+const [userPassword,setUserPass] = useState("");
+const [userName,setUserName] = useState("");
 
+const navigate = useNavigate();
+
+const onUserNameChange=(e)=>{
+    setUserName(e.target.value);
+    }
+
+const onEmailChange=(e)=>{
+    setUserEmail(e.target.value);
+    }
+    
+    const onPasswordChange=(e)=>{
+        setUserPass(e.target.value);
+    }
+
+    useEffect(()=>{
+        if(authe){
+            navigate("/dashboard");
+        }
+    },[authe])
+
+
+ const SignupWithEandP =()=>{
+    createUserEmail(userName,userEmail,userPassword);
+        }
 
 return (  <div className="signup-page"> 
                     <div className="signup-box signup-box">
@@ -29,13 +57,13 @@ return (  <div className="signup-page">
                                  <div className="signup-box-partition--section partition-bottom"> 
                                      <div className="signup-box-partition--section-holder">
                                         <form className="form-signup"> 
-                                        <input className="inputbox-signup" type="text" name="username" placeholder="Name"/>
-                                        <input className="inputbox-signup" type="email" name="email" placeholder="Email"/>
-                                        <input className="inputbox-signup" type="password" name="password" placeholder="Password"/>
-                                        <br></br>
+                                        <input className="inputbox-signup" type="text" name="username" value={userName} onChange={onUserNameChange} placeholder="Name"/>
+                                        <input className="inputbox-signup"  type="email" value={userEmail} onChange={onEmailChange} name="email" placeholder="Email"/>
+                                        <input className="inputbox-signup" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="Password"/>
                                         </form>
                                         
-                                        <button className="loginwithEmail-button"> Sign up</button>
+                                        <button className="loginwithEmail-button" onClick={SignupWithEandP}> Sign up</button>
+                                        <span>{SignUperror}</span>
                                         <div className="finaltext--holder"><span>Already have an account?</span><span className="Signuptext-login"> <Link to="/login">Click here to log in</Link></span></div>
                                    <br></br>
                                     </div>

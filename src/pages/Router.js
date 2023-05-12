@@ -7,7 +7,7 @@ import SignUp from "./SignUp.js";
 import Error404 from "./Error404.js";
 import axios from "axios";
 import {initializeApp} from 'firebase/app';
-import {getAuth,GoogleAuthProvider,signInWithPopup,signOut} from "firebase/auth";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,updateProfile} from "firebase/auth";
 import Landingpage from './Landingpage.js';
 import Dashboard from './Dashboard.js';
 import Documents from './Documents.js';
@@ -26,13 +26,15 @@ function Router() {
   });
 
 
- 
 
   const [token,setToken] = useState( Cookies.get("tokenhhs") || false);
   const [authe,setAuth] = useState( (Cookies.get("authe")==="true")?true:false);
   const [user,setUser] = useState( Cookies.get("user") || false);
   const [data,setdata] = useState("");
+  const [SignInerror,setSignInError] = useState("");
+  const [SignUperror,setSignUpError] = useState("");
 const verifytoken_URL = "http://localhost:5000/api/login";
+const sessionEnd_URL = "http://localhost:5000/api/logout";
 
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -80,7 +82,7 @@ function verifyTokenAPI(tok,user){
               // The signed-in user info.
       
                const user = result.user;
-  
+                 console.log("Google user is", user);
                user.getIdToken().then((tokenn)=>
                 {
                   verifyTokenAPI(tokenn,user);
@@ -102,9 +104,74 @@ function verifyTokenAPI(tok,user){
   }
 
 
+  const loginWithEmailAndPassword = (userEmail,userPassword)=>{
+
+    signInWithEmailAndPassword(auth,userEmail,userPassword)
+    .then((userCredential) => 
+            {const user = userCredential.user;
+              console.log("User Credentials are",user);
+              user.getIdToken().then((tokenn)=>
+              {
+                verifyTokenAPI(tokenn,user);
+              })            
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(errorCode);
+     
+      // ...
+    });
+  
+  }
+
+
+const createUserEmail = (userName,userEmail,userPassword)=>{
+
+  createUserWithEmailAndPassword(auth,userEmail,userPassword)
+  .then((userCredential) => 
+  { 
+    const user = userCredential.user;
+    console.log("User Credentials are",user);
+    user.getIdToken().then((tokenn)=>
+    {
+      verifyTokenAPI(tokenn,user);
+    })       
+
+    updateProfile(user,{
+      displayName:userName
+    }).then(()=>{console.log("Profile Updated");});
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message; 
+    if(errorCode==="auth/email-already-in-use"){
+      setSignUpError("Email already in use, try signing in.")
+    }
+  });
+
+}
+
+
+
+const sessionSignOut = ()=> {
+  axios.post(sessionEnd_URL)
+  .then((res)=>{
+          console.log("response from server is",res);            
+      }).catch((err)=>{
+        console.log("Error Verifying Token By the backend",err);
+      })
+}
+
   const handleSignout = ()=>{
     console.log("Signing Out");
     signOut(auth).then(()=>{
+      
       console.log("Signout called");
       Cookies.set("tokenhhs",false,{ expires: 7 });
       Cookies.set("user",false,{ expires: 7 });
@@ -112,7 +179,7 @@ function verifyTokenAPI(tok,user){
       setAuth(false);
       setUser(false);
       setToken(false);
-    
+    sessionSignOut();
         }).catch((error)=>{
       console.log("Error Signing Out: ",error);
     });
@@ -122,7 +189,7 @@ function verifyTokenAPI(tok,user){
 
   
 return (  <BrowserRouter>
-<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth}}>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror}}>
     <Routes>
     {/* <Route index element={<Error404 />} />  */}
     <Route path="/login" element={<Login/>}>

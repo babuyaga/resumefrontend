@@ -208,10 +208,6 @@ margin-left:auto;
 
             .imageside{
                 display:flex;
-                background-image:url("../resources/profilepicture.jpg");
-                background-position: center;
-                background-size:cover; 
-                background-repeat: no-repeat;  
                 }
                 .reviewtext{
                 background-color:#0000002a;

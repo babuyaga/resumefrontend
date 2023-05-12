@@ -145,9 +145,11 @@ const testFunc = ()=>{
   stuff:"stuff"
 })
   .then(response => {
-   setTest(response);
+    console.log("Response recieved",response.data);
+   setTest(response.data);
   })
   .catch(error => {
+    console.log("Error recieved",error);
     setTest(error);
   });
 }
@@ -202,7 +204,7 @@ const moveleft = ()=>{
 
 const PricingCard=(idname,classnm)=>{
 return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
-  <button onClick={testFunc}>Test `</button>
+  <button onClick={testFunc}>Test {`${test}`}</button>
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
                                         <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>
