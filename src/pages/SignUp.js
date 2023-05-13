@@ -7,7 +7,7 @@ import {authContext} from "./Router.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function SignUp() {
 const [checked,setchecked] = useState(false);
 const {createUserEmail,authe,loginWithGoogle,SignUperror} = useContext(authContext);
@@ -37,7 +37,13 @@ const onEmailChange=(e)=>{
 
 
  const SignupWithEandP =()=>{
-    createUserEmail(userName,userEmail,userPassword);
+   axios.post("http://localhost:5000/api/newuser",{
+    userDetails:{email:userEmail,
+    password:userPassword,
+    username:userName
+ }}).then(()=>{
+     navigate("/login")}
+   );
         }
 
 return (  <div className="signup-page"> 

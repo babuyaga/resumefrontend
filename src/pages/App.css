@@ -25,7 +25,10 @@ html,body{
   background-color: var(--background_color);
   scroll-behavior: smooth;
 }
-
+.error-text-style{
+  font-size:13px;
+  color:red;
+}
 
 
 @media (prefers-reduced-motion: no-preference) {
