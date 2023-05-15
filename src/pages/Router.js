@@ -2,7 +2,6 @@ import Cookies from 'js-cookie';
 import { BrowserRouter, Routes, Route,Navigate} from "react-router-dom";
 import {useEffect,useState,createContext} from "react";
 import Login from "./Login.js";
-import ResetPassword from "./ResetPassword.js";
 import App from "./App.js";
 import SignUp from "./SignUp.js";
 import Error404 from "./Error404.js";
@@ -14,6 +13,8 @@ import Dashboard from './Dashboard.js';
 import Documents from './Documents.js';
 import Profile from './Profile.js';
 import Pricing from './Pricing.js';
+import ResetLink from './Resetlink.js';
+import ResetPassword from './Resetpassword.js';
 
 
 export const authContext = createContext();
@@ -200,7 +201,8 @@ return (  <BrowserRouter>
     <Route path="/builder/resume" element={authe?<App />:<Navigate to="/login"/>} />
     <Route path="/statement-of-purpose-writing" element={<Landingpage />} />
     <Route path="/signup" element={<SignUp />} />
-    <Route path="/resetpassword" element={<ResetPassword />} />
+    <Route path="/resetpassword" element={<ResetLink />} />
+    <Route path="/resetpassword/aabbcc" element={<ResetPassword/>} />
     <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />

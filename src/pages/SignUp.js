@@ -9,10 +9,10 @@ import Uparrow from "../icons/Uparrow.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 function SignUp() {
-const [checked,setchecked] = useState(false);
 const {createUserEmail,authe,loginWithGoogle,SignUperror} = useContext(authContext);
 const [userEmail,setUserEmail] = useState("");
 const [userPassword,setUserPass] = useState("");
+const [CnfPassword,setCnfPass] = useState("");
 const [userName,setUserName] = useState("");
 
 const navigate = useNavigate();
@@ -29,6 +29,10 @@ const onEmailChange=(e)=>{
         setUserPass(e.target.value);
     }
 
+    const onCnfPasswordChange=(e)=>{
+        setCnfPass(e.target.value);
+       
+    }
     useEffect(()=>{
         if(authe){
             navigate("/dashboard");
@@ -66,6 +70,7 @@ return (  <div className="signup-page">
                                         <input className="inputbox-signup" type="text" name="username" value={userName} onChange={onUserNameChange} placeholder="Name"/>
                                         <input className="inputbox-signup"  type="email" value={userEmail} onChange={onEmailChange} name="email" placeholder="Email"/>
                                         <input className="inputbox-signup" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="Password"/>
+                                        <input className="inputbox-signup" type="password" value={CnfPassword} onChange={onCnfPasswordChange}  name="cnfpassword" placeholder="Confirm Password"/>
                                         </form>
                                         
                                         <button className="loginwithEmail-button" onClick={SignupWithEandP}> Sign up</button>
