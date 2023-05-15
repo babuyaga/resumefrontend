@@ -40,26 +40,48 @@ const onPasswordChange=(e)=>{
     
 if(!validatePassword(e.target.value)){
 var details = validatePassword(e.target.value,true);
-    setPassError({message:"Password not upto mark",details:details});
+    setPassError({message:"Weak Password",details:details});
    
 }else{
-    setPassError("All good");
+    setPassError({message:"This works",details:"",code:true});
 }
 
 if(statusMessage){
     setStatusmessage({message:false,action:false,code:false});
 }
 
+if(e.target.value!=cnfPassword){
+    setcnfPassError({message:"Not matching bruv"});
+}else{
+    setcnfPassError({message:"Super"});
 }
 
 
+
+}
+
+const displayValidation = (item)=>{
+    if(item){
+return item.map((e,i)=><li>{(e.message)}</li>);
+}
+}
 
 const onCnfPasswordChange=(e)=>{
-    setUserPass(e.target.value);
+    setCnfPass(e.target.value);
+
+if(e.target.value!=userPassword){
+    setcnfPassError({message:"Not matching bruv"});
+}else{
+    setcnfPassError({message:"Super"});
+}
 
 
 if(statusMessage){
     setStatusmessage({message:false,action:false,code:false});
+}
+
+if(e.target.value===""){
+    setcnfPassError({message:""});
 }
 
 }
@@ -102,28 +124,31 @@ axios.get("http://localhost:5000/api/sendresetrequest").then((res)=>{
 return (  <div className="login-page"> 
                     <div className="login-box">
                     
-                        <div className="login-box-partition" style={{margin:"auto"}}>
+                        <div className="login-box-partition" style={{margin:"0 auto 0 auto"}}>
                             <div className="login-box-partition--section partition-logo"><h2></h2></div>
                                 <div className="login-box-partition--section partition-top">
                              
                                 </div>
 
-                                 <div className="login-box-partition--section partition-bottom"> 
+                                 <div className="login-box-partition--section partition-bottom" style={{justifyContent:"flex-end"}}> 
                                      <div className="login-box-partition--section-holder">
                                         <form className="form-login"> 
-                                        <input className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="Password"/><span className="error-text-style">{passwordError.message}</span>
-                                        <input className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style">{cnfpasswordError}</span>
+                                        <input className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="New Password"/><span className="error-text-style">{passwordError.message}</span>
+                                        <input className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style">{cnfpasswordError.message}</span>
                                        
                                         </form>
                                         
                                         <button className="loginwithEmail-button" onClick={sendResetEmail}> Submit</button>
-                                        <ul></ul>
+                                        <ul style={{height:"200px"}}>{displayValidation(passwordError.details)}</ul>
                                         <div className="finaltext--holder"><span style={(!statusMessage.code)?{color:"red"}:""}>{statusMessage.message}</span><span className="Signuptext-login"> <Link to="/login">{statusMessage?statusMessage.action:""}</Link></span></div>
                                     </div>
+                               
                                     <br></br>
+                                
                                 </div>
+                        
                         </div>
-                        <div className="login-box-partition" >
+                        {/* <div className="login-box-partition" >
                         <div className="login-box-partition--section partition-logo"><h2></h2></div>
                                 <div className="login-box-partition--section partition-top">
                              
@@ -141,7 +166,7 @@ return (  <div className="login-page">
                                     </div>
                                     <br></br>
                                 </div>
-                        </div> 
+                        </div>  */}
 
                     </div>
 </div>);
