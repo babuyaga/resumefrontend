@@ -1,5 +1,5 @@
 import "./resetlink.css";
-import Googleicon from "../icons/Googleicon.js";
+import Loadericon from "../icons/Loadericon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
 import Staricon from "../icons/Staricon.js";
@@ -54,18 +54,18 @@ async function sendResetEmail(){
  console.log("Email Sending function called");
 console.log(emailError);
 if(!emailError){
-
+    setStatusmessage({message:"",action:"",code:false,status:"loading"});
 
 try{
 axios.post("http://localhost:5000/api/sendresetrequest",{useremail:userEmail}).then((res)=>{
     if(res.data.code==="auth/user-not-found"){
-        setStatusmessage({message:"User not found",action:"Sign up",code:false});
+        setStatusmessage({message:"User not found",action:"Sign up",code:false,status:"loaded"});
     }else if(res.data.code==="Success"){
-        setStatusmessage({message:"Password reset email sent",action:"Login",code:true});
+        setStatusmessage({message:"Password reset email sent",action:"",code:true,status:"loaded"});
     }else if(res.data.code===11000){
-        setStatusmessage({message:"Password reset link already sent.",action:"Login",code:false});
+        setStatusmessage({message:"Password reset link already sent.",action:"Login",code:false,status:"loaded"});
     }else{
-        setStatusmessage({message:"Could not reset password.",action:"",code:false});
+        setStatusmessage({message:"Could not reset password.",action:"",code:false,status:"loaded"});
     }
 });
 
@@ -96,7 +96,8 @@ return (  <div className="login-page">
                                         </form>
                                         
                                         <button className="loginwithEmail-button" onClick={sendResetEmail}> Reset Password</button>
-                                        <div className="finaltext--holder"><span style={(!statusMessage.code)?{color:"red"}:""}>{statusMessage.message}</span><span className="Signuptext-login"> <Link to="/login">{statusMessage?statusMessage.action:""}</Link></span></div>
+                                        
+                                        <div className="finaltext--holder"><span style={(!statusMessage.code)?{color:"red"}:{}}>{statusMessage.message}<span style={statusMessage.status==="loading"?{opacity:"1"}:{opacity:"0"}}><Loadericon/></span></span><span className="Signuptext-login"> <Link to="/login">{statusMessage?statusMessage.action:""}</Link></span></div>
                                     </div>
                                     <br></br>
                                 </div>

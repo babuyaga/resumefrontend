@@ -5,6 +5,9 @@ import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
 import { useNavigate,useParams } from "react-router-dom";
 import axios from 'axios';
+import Loadericon from "../icons/Loadericon.js";
+
+axios.defaults.withCredentials = true;
 const passwordValidator = require('password-validator');
 
 
@@ -18,7 +21,7 @@ const [passwordError,setPassError] = useState({message:"",code:false,color:"blac
 const [cnfpasswordError,setcnfPassError] = useState({message:"",code:false,color:"black"});
 const { linkid } = useParams();
 const [submitStatus,setSubmitStatus] = useState({message:"",code:false,color:"Red"});
-
+const backendUrl = `http://localhost:5000`;
 
 
 const validatePassword= (pswd,flag)=>{
@@ -37,7 +40,7 @@ const validatePassword= (pswd,flag)=>{
 
     const displayValidation = (item)=>{
         if(item){
-            return item.map((e,i)=><li>{(e.message)}</li>);
+            return item.map((e,i)=><span>{(e.message)}</span>);
         }
     }
 
@@ -47,10 +50,10 @@ const onPasswordChange=(e)=>{
         if(validatePassword(e.target.value)){
             setPassError({message:"This works",details:details,code:false,color:"green"});   
                 if((cnfPassword===e.target.value)&&(cnfPassword!="")){
-                   setSubmitStatus({message:"Can submit",code:true,color:"Green"});
-                   setcnfPassError({message:"Passwords match",code:false,color:"red"}); 
+                   setSubmitStatus({message:"",code:true,color:"Green"});
+                   setcnfPassError({message:"Passwords match",code:false,color:"Green"}); 
                 }else{
-                    setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
+                    setSubmitStatus({message:"",code:false,color:"Red"});
                 }
 
                 
@@ -68,18 +71,18 @@ const onCnfPasswordChange=(e)=>{
     setCnfPass(e.target.value);
 
     if((e.target.value===userPassword)&&(e.target.value!="")&&validatePassword(userPassword)){
-        setcnfPassError({message:"Passwords match",code:false,color:"red"});   
-        setSubmitStatus({message:"Can submit",code:true,color:"Green"});
+        setcnfPassError({message:"Passwords match",code:false,color:"Green"});   
+        setSubmitStatus({message:"",code:true,color:"Green"});
   
      
     }else{
-        setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
+        setSubmitStatus({message:"",code:false,color:"Red"});
 
         if((e.target.value!=userPassword)){
             setcnfPassError({message:"Passwords don't match",code:false,color:"red"});   
          }else{
-             setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
-             setcnfPassError({message:"Passwords match",code:false,color:"red"}); 
+             setSubmitStatus({message:"",code:false,color:"Red"});
+             setcnfPassError({message:"Passwords match",code:false,color:"Green"}); 
          }
 
          if(e.target.value===""){
@@ -107,10 +110,10 @@ useEffect(()=>{
 
 
 async function getResetDetails(){
-   await axios.get(`http://localhost:5000/api/getresetpassword/${linkid }`).then((res)=>{console.log(res);
+   await axios.get(`${backendUrl}/api/getresetpassword/${linkid}`).then((res)=>{console.log(res);
    if(res.data.status===200){
     setloading("Success");
-    console.log(res.data.url);
+    setUrl(`${backendUrl}${res.data.url}`);
    }else if(res.data.status===404){
     setloading("Failure");
    }
@@ -120,9 +123,19 @@ async function getResetDetails(){
 
 
 async function resetPassword(){
+    setSubmitStatus({...submitStatus,status:"loading"});
+
 if(!submitStatus.code){
-submitStatus({message:"Could not submit password change request",code:false,color:"red"})
-}
+setSubmitStatus({message:"Could not submit password change request ",code:false,color:"red",status:"loaded"})
+}else{
+        axios.post(posturl,{userpassword:userPassword}).then((res)=>{
+        if(res.data.status===200){
+            setSubmitStatus({message:"Password Updated",code:true,color:"green",action:"Login",status:"loaded"});
+        }else{
+            setSubmitStatus({message:"Unable to update password",code:false,color:"red",action:"",status:"loaded"})
+        }
+        })
+    }
  
 }
 
@@ -137,16 +150,17 @@ return (  <div className="login-page">
 
                                  <div className="login-box-partition--section partition-bottom" style={{justifyContent:"flex-end"}}> 
                                      <div className="login-box-partition--section-holder">
-                                        <form className="form-login"> 
-                                        <input style={(passwordError.code)?{borderBottom:"1px solid red",color:"red"}:{borderBottom:"1px solid #39FF14",color:"#39FF14"}} className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="New Password"/><span className="error-text-style">{passwordError.message}</span>
-                                        <input style={(cnfpasswordError.code)?{color:"red"}:{borderBottom:"1px solid #39FF14",color:"#39FF14"}}  className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:"red"}:{color:"#39FF14"}}>{cnfpasswordError.message}</span>
+                                        <form className="form-login" > 
+                                        <input style={(passwordError.code)?{borderBottom:"1px solid red",color:passwordError.color}:{}} className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="New Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:passwordError.color}:{}}>{passwordError.message}</span>
+                                        <input style={(cnfpasswordError.code)?{color:cnfpasswordError.color}:{}}  className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:cnfpasswordError.color}:{}}>{cnfpasswordError.message}</span>
                                        
                                         </form>
                                         
                                         <button className="loginwithEmail-button" onClick={resetPassword}> Submit</button>
-                                        <span>{submitStatus?submitStatus.message:""}</span>
-                                        <ul style={{height:"200px"}}>{displayValidation(passwordError.details)}</ul>
-                                        <div className="finaltext--holder"><span className="Signuptext-login"> <Link to="/login">{submitStatus?submitStatus.action:""}</Link></span></div>
+                                        <span style={{fontSize:"13px",height:"30px",textAlign:"center"}}>{submitStatus?submitStatus.message:""}<span style={submitStatus.status==="loading"?{opacity:"1"}:{opacity:"0"}}><Loadericon/></span></span>
+                                        
+                                        <span style={{height:"200px",fontSize:"14px"}}>{displayValidation(passwordError.details)}</span>
+                                      
                                     </div>
                                
                                     <br></br>

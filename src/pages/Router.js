@@ -20,7 +20,7 @@ import ResetPassword from './Resetpassword.js';
 export const authContext = createContext();
 
 function Router() {
-  
+  axios.defaults.withCredentials = true;
   const provider = new GoogleAuthProvider();
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   provider.setCustomParameters({
