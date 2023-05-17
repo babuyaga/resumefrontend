@@ -202,7 +202,7 @@ return (  <BrowserRouter>
     <Route path="/statement-of-purpose-writing" element={<Landingpage />} />
     <Route path="/signup" element={<SignUp />} />
     <Route path="/resetpassword" element={<ResetLink />} />
-    <Route path="/resetpassword/aabbcc" element={<ResetPassword/>} />
+    <Route path="/resetpassword/:linkid" element={<ResetPassword/>} />
     <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />

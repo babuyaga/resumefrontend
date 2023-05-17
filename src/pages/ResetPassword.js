@@ -3,23 +3,23 @@ import Eyeopen from "../icons/Eyeopen.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import axios from 'axios';
 const passwordValidator = require('password-validator');
 
 
 function ResetPassword() {
-const [checked,setchecked] = useState(false);
-const {authe} = useContext(authContext);
+const [loading,setloading] = useState(true);
+const [posturl,setUrl] = useState("");
 const navigate = useNavigate();
 const [userPassword,setUserPass] = useState("");
 const [cnfPassword,setCnfPass] = useState("");
-const [passwordError,setPassError] = useState("");
-const [cnfpasswordError,setcnfPassError] = useState("");
+const [passwordError,setPassError] = useState({message:"",code:false,color:"black"});
+const [cnfpasswordError,setcnfPassError] = useState({message:"",code:false,color:"black"});
+const { linkid } = useParams();
+const [submitStatus,setSubmitStatus] = useState({message:"",code:false,color:"Red"});
 
 
-
-const [statusMessage,setStatusmessage] = useState({message:false,action:false,code:false});
 
 const validatePassword= (pswd,flag)=>{
     var passwordSchema = new passwordValidator();    
@@ -35,96 +35,101 @@ const validatePassword= (pswd,flag)=>{
     return passwordSchema.validate(pswd);
     }
 
+    const displayValidation = (item)=>{
+        if(item){
+            return item.map((e,i)=><li>{(e.message)}</li>);
+        }
+    }
+
 const onPasswordChange=(e)=>{
-    setUserPass(e.target.value);
-    
-if(!validatePassword(e.target.value)){
-var details = validatePassword(e.target.value,true);
-    setPassError({message:"Weak Password",details:details});
-   
-}else{
-    setPassError({message:"This works",details:"",code:true});
-}
+        setUserPass(e.target.value);
+        var details = validatePassword(e.target.value,true);
+        if(validatePassword(e.target.value)){
+            setPassError({message:"This works",details:details,code:false,color:"green"});   
+                if((cnfPassword===e.target.value)&&(cnfPassword!="")){
+                   setSubmitStatus({message:"Can submit",code:true,color:"Green"});
+                   setcnfPassError({message:"Passwords match",code:false,color:"red"}); 
+                }else{
+                    setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
+                }
 
-if(statusMessage){
-    setStatusmessage({message:false,action:false,code:false});
-}
+                
 
-if(e.target.value!=cnfPassword){
-    setcnfPassError({message:"Not matching bruv"});
-}else{
-    setcnfPassError({message:"Super"});
-}
+            }else{
+                setPassError({message:"Weak Password",details:details,code:true,color:"red"});  
+                if(e.target.value===""){
+                    setPassError({message:"Field cannot be empty",details:details,code:true,color:"red"});
+                } 
+                 }
+    }
 
-
-
-}
-
-const displayValidation = (item)=>{
-    if(item){
-return item.map((e,i)=><li>{(e.message)}</li>);
-}
-}
 
 const onCnfPasswordChange=(e)=>{
     setCnfPass(e.target.value);
 
-if(e.target.value!=userPassword){
-    setcnfPassError({message:"Not matching bruv"});
-}else{
-    setcnfPassError({message:"Super"});
+    if((e.target.value===userPassword)&&(e.target.value!="")&&validatePassword(userPassword)){
+        setcnfPassError({message:"Passwords match",code:false,color:"red"});   
+        setSubmitStatus({message:"Can submit",code:true,color:"Green"});
+  
+     
+    }else{
+        setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
+
+        if((e.target.value!=userPassword)){
+            setcnfPassError({message:"Passwords don't match",code:false,color:"red"});   
+         }else{
+             setSubmitStatus({message:"Can't submit",code:false,color:"Red"});
+             setcnfPassError({message:"Passwords match",code:false,color:"red"}); 
+         }
+
+         if(e.target.value===""){
+            setcnfPassError({message:"Field cannot be empty",code:false,color:"red"});
+        } 
+
+     }
+
 }
 
 
-if(statusMessage){
-    setStatusmessage({message:false,action:false,code:false});
-}
 
-if(e.target.value===""){
-    setcnfPassError({message:""});
-}
-
-}
 
 
 
 useEffect(()=>{
-    if(authe){
-        navigate("/dashboard");
-    }
-},[authe])
 
-async function sendResetEmail(){
-
-if(true){
+    setTimeout(()=>{
+        getResetDetails();    
+    },1000)
+ 
+},[linkid]);
 
 
-try{
-axios.get("http://localhost:5000/api/sendresetrequest").then((res)=>{
-    if(res.data.code==="auth/user-not-found"){
-        setStatusmessage({message:"User not found",action:"Sign up",code:false});
-    }else if(res.data.code==="Success"){
-        setStatusmessage({message:"Password reset email sent",action:"Login",code:true});
-    }else if(res.data.code===11000){
-        setStatusmessage({message:"Password reset link already sent.",action:"Login",code:false});
-    }else{
-        setStatusmessage({message:"Could not reset password.",action:"",code:false});
-    }
+
+
+async function getResetDetails(){
+   await axios.get(`http://localhost:5000/api/getresetpassword/${linkid }`).then((res)=>{console.log(res);
+   if(res.data.status===200){
+    setloading("Success");
+    console.log(res.data.url);
+   }else if(res.data.status===404){
+    setloading("Failure");
+   }
 });
+   }
 
-}catch(e){
-    setStatusmessage(e);
+
+
+async function resetPassword(){
+if(!submitStatus.code){
+submitStatus({message:"Could not submit password change request",code:false,color:"red"})
 }
-
-
-}
-
+ 
 }
 
 return (  <div className="login-page"> 
                     <div className="login-box">
                     
-                        <div className="login-box-partition" style={{margin:"0 auto 0 auto"}}>
+                        <div className="login-box-partition" style={!(loading==="Success")?{display:"none",margin:"auto"}:{margin:"auto"}}>
                             <div className="login-box-partition--section partition-logo"><h2></h2></div>
                                 <div className="login-box-partition--section partition-top">
                              
@@ -133,14 +138,15 @@ return (  <div className="login-page">
                                  <div className="login-box-partition--section partition-bottom" style={{justifyContent:"flex-end"}}> 
                                      <div className="login-box-partition--section-holder">
                                         <form className="form-login"> 
-                                        <input className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="New Password"/><span className="error-text-style">{passwordError.message}</span>
-                                        <input className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style">{cnfpasswordError.message}</span>
+                                        <input style={(passwordError.code)?{borderBottom:"1px solid red",color:"red"}:{borderBottom:"1px solid #39FF14",color:"#39FF14"}} className="inputbox-login" type="password" value={userPassword} onChange={onPasswordChange}  name="password" placeholder="New Password"/><span className="error-text-style">{passwordError.message}</span>
+                                        <input style={(cnfpasswordError.code)?{color:"red"}:{borderBottom:"1px solid #39FF14",color:"#39FF14"}}  className="inputbox-login" type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="password" placeholder="Confirm Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:"red"}:{color:"#39FF14"}}>{cnfpasswordError.message}</span>
                                        
                                         </form>
                                         
-                                        <button className="loginwithEmail-button" onClick={sendResetEmail}> Submit</button>
+                                        <button className="loginwithEmail-button" onClick={resetPassword}> Submit</button>
+                                        <span>{submitStatus?submitStatus.message:""}</span>
                                         <ul style={{height:"200px"}}>{displayValidation(passwordError.details)}</ul>
-                                        <div className="finaltext--holder"><span style={(!statusMessage.code)?{color:"red"}:""}>{statusMessage.message}</span><span className="Signuptext-login"> <Link to="/login">{statusMessage?statusMessage.action:""}</Link></span></div>
+                                        <div className="finaltext--holder"><span className="Signuptext-login"> <Link to="/login">{submitStatus?submitStatus.action:""}</Link></span></div>
                                     </div>
                                
                                     <br></br>
@@ -148,6 +154,10 @@ return (  <div className="login-page">
                                 </div>
                         
                         </div>
+
+                        <div className="login-box-partition" style={loading===true?{margin:"auto"}:{display:"none",margin:"auto"}}>Loading...</div>
+                        
+                        <div className="login-box-partition" style={(loading==="Failure")?{margin:"auto"}:{display:"none",margin:"auto"}}><h1>Page does not exist</h1></div>
                         {/* <div className="login-box-partition" >
                         <div className="login-box-partition--section partition-logo"><h2></h2></div>
                                 <div className="login-box-partition--section partition-top">
