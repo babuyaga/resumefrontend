@@ -1,6 +1,6 @@
 .signup-page{
 width:100%;
-height:100%;
+height:fit-content;
 display:flex;
 background-color: #E6E8EC;
 overflow:visible;
@@ -182,6 +182,7 @@ margin-left:auto;
         display:flex;
         position:fixed;
         background-color: #E6E8EC;
+        height:100%;
         }
 
 
