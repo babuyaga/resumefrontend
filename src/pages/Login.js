@@ -1,4 +1,4 @@
-import "./login.css";
+import "./stylesheets/login.css";
 import Googleicon from "../icons/Googleicon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
@@ -51,9 +51,9 @@ useEffect(()=>{
     if(authe){
         navigate("/dashboard");
     }
-},[authe])
+},[authe]);
 
-const loginWithEandP =()=>{
+const loginWithEandP =() =>{
 loginWithEmailAndPassword(userEmail,userPassword);
 }
 

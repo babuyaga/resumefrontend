@@ -8,8 +8,9 @@ import Switch from "react-switch";
 
 
 function NavBar({buttonsLeft,buttonsRight,logo}) {
-const {handleSignout} = useContext(authContext);
+const {handleSignout,setLoading} = useContext(authContext);
 const {showset,setshowset,appval,addAppval,theme,settheme} = useContext(appuiContext);
+
 const [flagstate,setflag] = useState((theme==="dark")?false:true);
 const openSetting=(e)=>{e.preventDefault();
   setshowset({"display":true,"index":appval.length,"navbar":true}); //if settings pop up is opened via the navbar and add section is clicked. Add the section at the very end by setting index as appval.length

@@ -12,13 +12,23 @@ import NavbarDash from "../components/dashboard/NavbarDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
 
 
+
 function Dashboard() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle} = useContext(authContext);
+const {setLoading} = useContext(authContext);
 const navigate = useNavigate();
 
+useEffect(()=>{
+
+
+return ()=>{
+    setTimeout(()=>{setLoading(false)},1000);
+}
+
+},[]);
 
 const documentComp=()=>{
+
 return (<div className="item-documents-section--dashboard">
                                         <div className="image-item-documents--dashboard"></div>
                                         <div>
@@ -32,7 +42,9 @@ return (<div className="item-documents-section--dashboard">
                                     </div>);
 }
 
-return (  <div className="dashboard-page">
+return (  
+<div className="dashboard-page" >
+
                 <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}

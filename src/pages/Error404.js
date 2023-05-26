@@ -1,4 +1,4 @@
-import "./errorpage.css";
+import "./stylesheets/errorpage.css";
 
 function Error404() {
 

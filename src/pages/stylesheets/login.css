@@ -12,13 +12,20 @@ h2{
 }
 
 
-p,h1,h2,span {
+h1,h2,span {
     padding-bottom:3px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
 }
+a{
+    color: #000000ab;
+    text-decoration:none;
+}
 
+a:hover{
+    color:black;
+}
 
 .login-box{
     width:50%;
@@ -64,6 +71,7 @@ margin: 20px 0px;
 .or-holder p{
 padding-bottom:5px;
 margin:auto 0;
+user-select: none;
 }
 
 .or-holder hr{
@@ -123,15 +131,20 @@ border-radius:0px;
 width:fit-content;
 margin:auto 8px auto 0;
 }
-.checkboxholder-login p{
-padding-bottom:3px;
-}
+
 
 .checkboxholder-login{
 display: flex;
 flex-direction: row;
 
 font-size:14px;
+}
+
+
+.checkboxholder-login p{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .checkboxholder-login span{

@@ -1,4 +1,4 @@
-import "./landingpage.css";
+import "./stylesheets/landingpage.css";
 import Googleicon from "../icons/Googleicon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";

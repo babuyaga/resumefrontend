@@ -100,7 +100,7 @@ p,h1,h2,span {
 .hero-comp-two{
     width:100%;
     height:350px;
-    background-image:url("../resources/Hero-Image.svg");
+    background-image:url("../../resources/Hero-Image.svg");
     background-position:center;
     background-size:contain;
     background-repeat:no-repeat;
@@ -266,20 +266,20 @@ width:150px;
 }
 
 .sop-image{
-    background-image:url('../resources/SOP-Image.svg');
+    background-image:url('../../resources/SOP-Image.svg');
     background-size:40%;
 }
 
 .resume-image{
-    background-image:url('../resources/resume-image.svg');
+    background-image:url('../../resources/resume-image.svg');
     background-size:60%;
 }
 .cover-letter-image{
-    background-image:url('../resources/cover-letter-image.svg');
+    background-image:url('../../resources/cover-letter-image.svg');
     background-size:50%;
 }
 .getstarted-image{
-    background-image:url('../resources/sign-up-image.svg');
+    background-image:url('../../resources/sign-up-image.svg');
     background-size:70%;
 }
 .getstarted-title p{

@@ -1,6 +1,6 @@
-.signup-page{
+.login-page{
 width:100%;
-height:fit-content;
+height:100%;
 display:flex;
 background-color: #E6E8EC;
 overflow:visible;
@@ -12,7 +12,7 @@ h2{
 }
 
 
-p,h1,h2,span {
+h1,h2,span {
     padding-bottom:3px;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
@@ -20,7 +20,7 @@ p,h1,h2,span {
 }
 
 
-.signup-box{
+.login-box{
     width:50%;
     min-width: 355px;
      height:fit-content;
@@ -32,7 +32,7 @@ p,h1,h2,span {
     box-shadow:8px 8px 20px #0000002b;
 }
 
-.signup-box-partition{
+.login-box-partition{
 height:fit-content;
 width:100%;
 display:flex;
@@ -41,7 +41,7 @@ justify-content: center;
 align-items: center;
 }
 
-.signup-box-partition--section{
+.login-box-partition--section{
 flex-grow: 1;
 width:100%;
 }
@@ -104,42 +104,41 @@ margin-left:10px;
 
 
 
-.signup-box-partition--section-holder{
+.login-box-partition--section-holder{
 gap:1px;
 max-width:300px;
 }
-.form-signup{
+.form-login{
 display:flex;
 flex-direction:column;
 gap:5px;
 }
-.inputbox-signup{
+.inputbox-login{
 height:40px;
 padding:0;
 border-bottom:1px solid gray;
 border-radius:0px;
 }
-.checkbox-signup{
+.checkbox-login{
 width:fit-content;
 margin:auto 8px auto 0;
 }
-.checkboxholder-signup p{
-padding-bottom:3px;
-}
 
-.checkboxholder-signup{
+
+
+.checkboxholder-login{
 display: flex;
 flex-direction: row;
 
 font-size:14px;
 }
 
-.checkboxholder-signup span{
+.checkboxholder-login span{
 margin-left:auto;
 font-weight:500;
 
 }
-.signup-checkbox--component{
+.login-checkbox--component{
 display:flex;
 }
 .loginwithEmail-button{
@@ -167,33 +166,35 @@ font-weight:bold;
 margin-left:auto;
 }
 
-.imageside,.imageside-signup{
+.imageside{
     display:none;
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
  
 
 }
-
+.finaltext--holder{
+    display:flex;
+    gap:5px;
+}
 
 @media only screen and (min-width: 1024px) {
 
-    .signup-page{
+    .login-page{
         display:flex;
         position:fixed;
         background-color: #E6E8EC;
-        height:100%;
         }
 
 
-    .signup-box{
-        flex-direction:row-reverse !important;
+    .login-box{
+        flex-direction:row!important;
         width:1024px;
         height:650px;
+    
     }
 
-    
-    .signup-box-partition{
+    .login-box-partition{
         height:100%;
         width:50%;}
 
@@ -204,16 +205,9 @@ margin-left:auto;
             }
 
 
-            .imageside, .imageside-signup{
+            .imageside{
                 display:flex;
-                overflow:hidden;
-                height:95%;
-                width:95%;
-                border-radius:10px;
                 }
-            
- 
- 
                 .reviewtext{
                 background-color:#0000002a;
                 display:flex;
@@ -235,17 +229,17 @@ margin-left:auto;
                 font-size:15px !important;
                 height:45px;
                 }
-                .name-credential--arrows-signup{
+                .name-credential--arrows-login{
                 display:flex;
                 flex-direction: row;
                 }
-                .name-credential--arrows-signup div{
+                .name-credential--arrows-login div{
                 flex-grow:1;
                 justify-content: center;
                 align-items: center;
                 }
                 
-                .review-stars--signup{
+                .review-stars--login{
                 text-align:right;
                 display:flex;
                 flex-direction: column;
@@ -253,12 +247,12 @@ margin-left:auto;
                 padding:40px 0 15px 0px;
                 }
                 
-                .review-stars--signup span{
+                .review-stars--login span{
                 padding:0;
                 margin-right:auto;
                 }
                 
-                .review-stars--signup div{
+                .review-stars--login div{
                 margin-left:auto;
                 display:flex;
                 }
@@ -270,7 +264,8 @@ margin-left:auto;
                 background-color:transparent;
                 border:1px solid white;
                 margin: 0px 10px;
-         
+                transform: rotateZ(90deg);
+                color:white;
                 }
                 
                 

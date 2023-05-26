@@ -1,4 +1,4 @@
-import "./signup.css";
+import "./stylesheets/signup.css";
 import Googleicon from "../icons/Googleicon.js";
 
 import {useState,useEffect,useContext,createContext,useRef} from "react";
@@ -62,9 +62,23 @@ const displayValidation = (item)=>{
 const postStatus= ()=>{
 
     if((emailError.code)||(passwordError.code)||(cnfpasswordError.code)||(userNameError.code)){
+
         setSubmitStatus({message:"",code:false,color:""});
+        console.log("status");
+    console.log((userNameError.code));
+    console.log((emailError.code))
+    console.log((passwordError.code))
+    console.log((cnfpasswordError.code))
+    
     }else{
         setSubmitStatus({message:"",code:true,color:""});
+        console.log("status");
+        console.log("status");
+        console.log((userNameError.code));
+        console.log((emailError.code))
+        console.log((passwordError.code))
+        console.log((cnfpasswordError.code))
+
     }
 }
 
@@ -76,7 +90,7 @@ const onUserNameChange=(e)=>{
     }else{
         setUserNameError({message:"",code:false,color:"",backgroundcolor:""});
     }
-    postStatus();
+
     }
 
 
@@ -87,13 +101,9 @@ const onEmailChange=(e)=>{
    
         validateEmail(e.target.value);
    
-    
-    if(submitStatus){
-       setSubmitStatus({message:false,action:false,code:false});
-    }
     console.log(emailError);
 
-    postStatus();
+   
     }
     
 
@@ -102,12 +112,13 @@ const onPasswordChange=(e)=>{
         setUserPass(e.target.value);
         var details = validatePassword(e.target.value,true);
         if(validatePassword(e.target.value)){
-            setPassError({message:"This works",details:details,code:false,color:"green",backgroundcolor:""});   
+            setPassError({message:"This password works",details:details,code:false,color:"green",backgroundcolor:""});   
                 if((cnfPassword===e.target.value)&&(cnfPassword!="")){
-                   setSubmitStatus({message:"",code:true,color:"Green"});
+                 
                    setcnfPassError({message:"Passwords match",code:false,color:"Green",backgroundcolor:""}); 
                 }else{
-                    setSubmitStatus({message:"",code:false,color:"Red"});
+                    setcnfPassError({message:"Passwords don't match",code:true,backgroundcolor:"#FFCCCB"}); 
+                 
                 }
 
                 
@@ -118,7 +129,7 @@ const onPasswordChange=(e)=>{
                     setPassError({message:"Password cannot be empty",details:details,code:true,color:"red",backgroundcolor:"#FFCCCB"});
                 } 
                  }
-                 postStatus();
+               
                 }
 
 
@@ -127,16 +138,13 @@ const onCnfPasswordChange=(e)=>{
 
     if((e.target.value===userPassword)&&(e.target.value!="")&&validatePassword(userPassword)){
         setcnfPassError({message:"Passwords match",code:false,color:"Green",backgroundcolor:"#FFCCCB"});   
-        setSubmitStatus({message:"",code:true,color:"Green",backgroundcolor:""});
-  
-     
     }else{
-        setSubmitStatus({message:"",code:false,color:"Red"});
+       
 
         if((e.target.value!=userPassword)){
             setcnfPassError({message:"Passwords don't match",code:true,backgroundcolor:"#FFCCCB"});   
          }else{
-             setSubmitStatus({message:"",code:false,color:"Red"});
+           
              setcnfPassError({message:"Passwords match",code:false,backgroundcolor:""}); 
          }
 
@@ -145,7 +153,7 @@ const onCnfPasswordChange=(e)=>{
         } 
 
      }
-     postStatus();
+  
 }
 
 
@@ -160,43 +168,39 @@ const onCnfPasswordChange=(e)=>{
 
 if(userName===""){
     setUserNameError({message:"Name cannot be empty",code:true,color:"",backgroundcolor:"#FFCCCB"});
+} else if(userEmail===""){
+    setEmailError({message:"Email cannot be empty",code:true,backgroundcolor:"#FFCCCB"});
+} else if((userPassword==="")){
+    setPassError({message:"Password cannot be empty",code:true,color:"red",backgroundcolor:"#FFCCCB"});
+} else if((cnfPassword==="")){
+    setcnfPassError({message:"Confirm your password",code:true,backgroundcolor:"#FFCCCB"});
 }else{
-    setUserNameError({message:"",code:false,color:"",backgroundcolor:""});
-}
 
+    
 
+    if((emailError.code)||(passwordError.code)||(cnfpasswordError.code)||(userNameError.code)){
+        console.log("Error");
+    }
+    else {
     setLoading(true);
-    setTimeout(()=>{
-        setLoading(false);
-    },2000);
-
-    console.log(emailError);
-    if(!emailError){
-        setSubmitStatus({message:"",action:"",code:false,status:"loading"});
     
     try{
-    axios.post("http://localhost:5000/api/sendresetrequest",{useremail:userEmail}).then((res)=>{
-        if(res.data.code==="auth/user-not-found"){
-            setSubmitStatus({message:"User not found",action:"Sign up",code:true,status:"loaded"});
-        }else if(res.data.code==="Success"){
-            setSubmitStatus({message:"Password reset email sent",action:"",code:false,status:"loaded"});
-        }else if(res.data.code===11000){
-            setSubmitStatus({message:"Password reset link already sent.",action:"Login",code:false,status:"loaded"});
-        }else{
-            setSubmitStatus({message:"Could not reset password.",action:"",code:true,status:"loaded"});
-        }
+    axios.post("http://localhost:5000/api/createnewuser",{useremail:userEmail,username:userName,userpassword:userPassword}).then((res)=>{
+  console.log(res);
+  setLoading(false);
     });
     
     }catch(e){
-        setSubmitStatus(e);
+        setSubmitStatus({message:"Could not create new user",error:e,action:"Login",code:true,status:"loaded"});
+        setLoading(false);
     }
     
     
-    }
+ 
 
 
-
-    
+}
+}
         }
 
 return (  <div className="signup-page"> 
@@ -221,7 +225,7 @@ return (  <div className="signup-page">
                                         <input className="inputbox-signup"   style={userNameError.code?{backgroundColor:userNameError.backgroundcolor}:{}} type="text" name="username" value={userName} onChange={onUserNameChange} placeholder="Legal Name"/><span className="error-text-style">{userNameError.message}</span>
                                         <input className="inputbox-signup"  style={emailError.code?{backgroundColor:emailError.backgroundcolor}:{}} type="email" value={userEmail} onChange={onEmailChange} name="email" placeholder="Email"/>
                                         <input className="inputbox-signup" style={passwordError.code?{backgroundColor:passwordError.backgroundcolor}:{}} type="password" value={userPassword} onChange={onPasswordChange} onFocus={()=>{setshowChild(true)}} onBlur={()=>{setshowChild(false)}} name="password" placeholder="Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:passwordError.color}:{}}>{passwordError.message}<span style={showChild?{display:"block"}:{display:"none"}} >{displayValidation(passwordError.details)}</span></span>
-                                        <input className="inputbox-signup" style={cnfpasswordError.code?{backgroundColor:passwordError.backgroundcolor}:{}} type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="cnfPassword" placeholder="Confirm Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:cnfpasswordError.color}:{}}>{cnfpasswordError.message}</span>
+                                        <input className="inputbox-signup" style={cnfpasswordError.code?{backgroundColor:cnfpasswordError.backgroundcolor}:{}} type="password" value={cnfPassword} onChange={onCnfPasswordChange}  name="cnfPassword" placeholder="Confirm Password"/><span className="error-text-style" style={!(cnfpasswordError.code)?{color:cnfpasswordError.color}:{}}>{cnfpasswordError.message}</span>
                                         </form>
 
                                         <button className="loginwithEmail-button" onClick={SignupWithEandP} style={loading?{display:"none"}:{display:"flex"}}> Sign up</button><span style={loading?{display:"flex",justifyContent:"center",margin:"8px 0"}:{display:"none"}}><Loadericon/></span>

@@ -1,5 +1,5 @@
-function Loadericon(){
-return(<svg width="45px" height="45px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+function Loadericon({wi,hi}){
+return(<svg width={wi?wi:"45px"} height={hi?hi:"45px"} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 <g transform="rotate(0 50 50)">
   <rect x="47" y="24" rx="0" ry="0" width="6" height="12" fill="#1d3f72">
     <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1.2048192771084336s" begin="-1.104417670682731s" repeatCount="indefinite"></animate>

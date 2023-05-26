@@ -1,6 +1,6 @@
 import SectionBox from '../components/SectionBox.js';
 import '../components/stylesheets/SectionBox.css';
-import './App.css';
+import './stylesheets/App.css';
 import ToastMessage from '../components/ToastMessage.js';
 import {useState,useEffect,createContext} from "react";
 import NavBar from "../components/NavBar.js";

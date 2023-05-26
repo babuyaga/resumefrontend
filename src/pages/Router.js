@@ -5,6 +5,7 @@ import Login from "./Login.js";
 import App from "./App.js";
 import SignUp from "./SignUp.js";
 import Error404 from "./Error404.js";
+import Loaderscreen from './Loaderscreen.js';
 import axios from "axios";
 import {initializeApp} from 'firebase/app';
 import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword,updateProfile} from "firebase/auth";
@@ -15,7 +16,8 @@ import Profile from './Profile.js';
 import Pricing from './Pricing.js';
 import ResetLink from './Resetlink.js';
 import ResetPassword from './Resetpassword.js';
-
+import Loadericon from '../icons/Loadericon.js';
+import ToastMessage from '../components/ToastMessage.js';
 
 export const authContext = createContext();
 
@@ -35,6 +37,7 @@ function Router() {
   const [data,setdata] = useState("");
   const [SignInerror,setSignInError] = useState("");
   const [SignUperror,setSignUpError] = useState("");
+  const [loading,setLoading] = useState(false);
 const verifytoken_URL = "http://localhost:5000/api/login";
 const sessionEnd_URL = "http://localhost:5000/api/logout";
 
@@ -67,15 +70,16 @@ function verifyTokenAPI(tok,user){
         Cookies.set("tokenhhs",tok,{ expires: 1 });
         Cookies.set("authe",true,{ expires: 1 });
         Cookies.set("user",user,{ expires: 1 });
-             
+       
       }).catch((err)=>{
         console.log("Error Verifying Token By the backend",err);
+        setLoading(false);
       })
 }
 
 
   const loginWithGoogle = ()=>{
-
+   setLoading(true);
     signInWithPopup(auth, provider)
     .then((result) => 
             {
@@ -125,8 +129,6 @@ function verifyTokenAPI(tok,user){
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       console.log(errorCode);
-     
-      // ...
     });
   
   }
@@ -171,6 +173,8 @@ const sessionSignOut = ()=> {
 }
 
   const handleSignout = ()=>{
+
+
     console.log("Signing Out");
     signOut(auth).then(()=>{
       
@@ -188,11 +192,20 @@ const sessionSignOut = ()=> {
     
   }
 
+  useEffect(()=>{
+    setLoading(true);
 
+    return ()=>{
+        setTimeout(()=>{setLoading(false)},1000);
+    }
+    
+    },[authe]);
   
 return (  <BrowserRouter>
-<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror}}>
+    <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, setLoading}}>
     <Routes>
+  
     {/* <Route index element={<Error404 />} />  */}
     <Route path="/login" element={<Login/>}>
     
@@ -206,8 +219,9 @@ return (  <BrowserRouter>
     <Route path="/dashboard" element={authe?<Dashboard />:<Navigate to="/login"/>} />
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
-    {/* <Route path="/profile/pricing" element={!authe?<Pricing />:<Navigate to="/login"/>} /> */}
-    <Route path="/profile/pricing" element={<Pricing />} />
+    <Route path="/profile/pricing" element={authe?<Pricing />:<Navigate to="/login"/>} />
+
+    
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

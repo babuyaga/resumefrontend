@@ -87,6 +87,7 @@ return (  <div className="dashboard-page">
                                                         <div className="billing-info--profile">
                                                                     
                                                                         <table>
+                                                                                <tbody>
                                                                                   <tr>
                                                                                         <th>Current Plan:</th>
                                                                                         <td>Regular</td>
@@ -111,7 +112,7 @@ return (  <div className="dashboard-page">
                                                                                         <th>Payment mode:</th>
                                                                                         <td>UPI</td>
                                                                                  </tr>
-                                                                        
+                                                                                 </tbody>
                                                                         </table>
                                                         </div>
                                            </div>

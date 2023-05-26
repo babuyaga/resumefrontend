@@ -1,4 +1,4 @@
-import "./resetlink.css";
+import "./stylesheets/resetlink.css";
 import Loadericon from "../icons/Loadericon.js";
 import Downarrow from "../icons/Downarrow.js";
 import Uparrow from "../icons/Uparrow.js";
