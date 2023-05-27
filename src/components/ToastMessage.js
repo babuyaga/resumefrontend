@@ -1,19 +1,25 @@
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./stylesheets/ToastMessage.css";
+import Closeicon_S from "../icons/Closeicon_simple";
 
-
-function ToastMessage({ toastobject,index,type}) {
+function ToastMessage({ toastobject,type,index}) {
 
 const [isVisible,setIsVisible] = useState(true);
+useEffect(()=>{
 
-setTimeout(()=>{
-  setIsVisible(false);
-}, 5000);
+  return ()=>{
+    setTimeout(()=>{
+      setIsVisible(false);
+    }, 5000);    
+  }
+},[]);
+
+console.log("Called");
 
   return (
 <div>    
-   {isVisible?<div className={type==="1"?"toastmessage":"minor_update"}><p>{toastobject.value}</p></div>:null}
+   {isVisible?<div className={type==="1"?"toastmessage":"minor_update"}><p>{toastobject.value}</p><div className="toast-close" onClick={()=>{setIsVisible(false)}}><Closeicon_S/></div></div>:null}
    </div>     
 
   );

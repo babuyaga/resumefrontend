@@ -38,6 +38,9 @@ function Router() {
   const [SignInerror,setSignInError] = useState("");
   const [SignUperror,setSignUpError] = useState("");
   const [loading,setLoading] = useState(false);
+
+
+const [toaststate,settoast] = useState([]);
 const verifytoken_URL = "http://localhost:5000/api/login";
 const sessionEnd_URL = "http://localhost:5000/api/logout";
 
@@ -98,6 +101,7 @@ function verifyTokenAPI(tok,user){
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
+      settoast({value:`Login Failed ${errorMessage}`});
       // The email of the user's account used.
       const email = error.customData.email;
       // The AuthCredential type that was used.
@@ -125,6 +129,7 @@ function verifyTokenAPI(tok,user){
       const errorCode = error.code;
       const errorMessage = error.message;
       // The email of the user's account used.
+      settoast([{value:`Login Failed ${errorMessage}`}]);
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
@@ -156,6 +161,7 @@ const createUserEmail = (userName,userEmail,userPassword)=>{
     const errorMessage = error.message; 
     if(errorCode==="auth/email-already-in-use"){
       setSignUpError("Email already in use, try signing in.")
+      
     }
   });
 
@@ -192,17 +198,19 @@ const sessionSignOut = ()=> {
     
   }
 
+
   useEffect(()=>{
     setLoading(true);
 
     return ()=>{
-        setTimeout(()=>{setLoading(false)},1000);
+        setTimeout(()=>{setLoading(false)},50);
     }
     
     },[authe]);
   
 return (  <BrowserRouter>
     <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
+    <div className="toastmessage_holder">{toaststate.map((e,i)=><ToastMessage toastobject={e} key={Math.random()} index={i} type={e.messagetype}/>)}</div>
 <authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, setLoading}}>
     <Routes>
   
