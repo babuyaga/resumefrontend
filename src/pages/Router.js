@@ -22,7 +22,7 @@ import ToastMessage from '../components/ToastMessage.js';
 export const authContext = createContext();
 
 function Router() {
-  axios.defaults.withCredentials = true;
+ 
   const provider = new GoogleAuthProvider();
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   provider.setCustomParameters({
@@ -66,6 +66,7 @@ function verifyTokenAPI(tok,user){
         'authorization': `${tok}` 
       }})
   .then((res)=>{
+    if(res.data.status===200){
           console.log("response from server is",res);
         setToken(tok);
         setAuth(true);
@@ -73,7 +74,15 @@ function verifyTokenAPI(tok,user){
         Cookies.set("tokenhhs",tok,{ expires: 1 });
         Cookies.set("authe",true,{ expires: 1 });
         Cookies.set("user",user,{ expires: 1 });
-       
+    } else{
+      setToken(false);
+      setAuth(false);
+      setUser(false);
+      Cookies.set("tokenhhs",false,{ expires: 1 });
+      Cookies.set("authe",false,{ expires: 1 });
+      Cookies.set("user",false,{ expires: 1 });
+      setLoading(false);
+    }
       }).catch((err)=>{
         console.log("Error Verifying Token By the backend",err);
         setLoading(false);

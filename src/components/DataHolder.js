@@ -48,8 +48,8 @@ export function sectionData(){
 
 
 export async function getServer(setstate,url){
-  if(!url){
-    url = `${process.env.REACT_APP_API_URL}/postrequest`;
+  if(url){
+    url = `${process.env.REACT_APP_APPLICATION_TEST_URL}/getresume`;
   }
   
   var sectiondata = [ {
@@ -80,8 +80,8 @@ setstate(json);
 export async function saveData(dataSave,url){
 
   console.log("savedata called");
-  if(!url){
-    url = `${process.env.REACT_APP_API_URL}/saveresume`;
+  if(url){
+    url = `${process.env.REACT_APP_APPLICATION_TEST_URL}/saveresume`;
   }
   
   var sectiondata = [ {
