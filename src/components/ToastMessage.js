@@ -11,7 +11,7 @@ useEffect(()=>{
   return ()=>{
     setTimeout(()=>{
       setIsVisible(false);
-    }, 5000);    
+    }, 3000);    
   }
 },[]);
 

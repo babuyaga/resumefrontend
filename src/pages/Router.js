@@ -33,14 +33,19 @@ function Router() {
 
   const [token,setToken] = useState( Cookies.get("tokenhhs") || false);
   const [authe,setAuth] = useState( (Cookies.get("authe")==="true")?true:false);
-  const [user,setUser] = useState( Cookies.get("user") || false);
-  const [data,setdata] = useState("");
+  const [userData,setUser] = useState( Cookies.get("user") || false);
+  
+  useEffect(()=>{if(Cookies.get("user")){
+    setUser(JSON.parse(Cookies.get("user")));
+  }},[]);
+
+  console.log(userData);
   const [SignInerror,setSignInError] = useState("");
   const [SignUperror,setSignUpError] = useState("");
   const [loading,setLoading] = useState(false);
+  const [toaststate,settoast] = useState([]);
 
 
-const [toaststate,settoast] = useState([]);
 const verifytoken_URL = "http://localhost:5000/api/login";
 const sessionEnd_URL = "http://localhost:5000/api/logout";
 
@@ -67,13 +72,13 @@ function verifyTokenAPI(tok,user){
       }})
   .then((res)=>{
     if(res.data.status===200){
-          console.log("response from server is",res);
+          console.log("response from server is",res.data);
         setToken(tok);
         setAuth(true);
-        setUser(user);
+        setUser(res.data.userData);
         Cookies.set("tokenhhs",tok,{ expires: 1 });
         Cookies.set("authe",true,{ expires: 1 });
-        Cookies.set("user",user,{ expires: 1 });
+        Cookies.set("user",JSON.stringify(res.data.userData),{ expires: 1 });
     } else{
       setToken(false);
       setAuth(false);
@@ -220,7 +225,7 @@ const sessionSignOut = ()=> {
 return (  <BrowserRouter>
     <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
     <div className="toastmessage_holder">{toaststate.map((e,i)=><ToastMessage toastobject={e} key={Math.random()} index={i} type={e.messagetype}/>)}</div>
-<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, setLoading}}>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, setLoading,userData,settoast}}>
     <Routes>
   
     {/* <Route index element={<Error404 />} />  */}

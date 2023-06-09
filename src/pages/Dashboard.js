@@ -15,7 +15,7 @@ import BannerDash from "../components/dashboard/BannerDash";
 
 function Dashboard() {
 const [checked,setchecked] = useState(false);
-const {setLoading} = useContext(authContext);
+const {setLoading,userData} = useContext(authContext);
 const navigate = useNavigate();
 
 useEffect(()=>{
@@ -53,8 +53,9 @@ return (
                         <div className="content-holder--dashboard component-content--dashboard">
                         <BannerDash/>
                             <div className="section-content-holder--dashboard main-buttons-section--dashboard">
-                                <div className="component-buttons-sections--dashboard buttons-section-title--dashboard"><span className="username-buttons-section--dashboard">Hello Jerry!</span><span className="subtitle-buttons-section--dashboard">Let's get you started</span></div>
+                                <div className="component-buttons-sections--dashboard buttons-section-title--dashboard"><span className="username-buttons-section--dashboard">Hello {userData.name?userData.name.split(" ")[0]:","}</span><span className="subtitle-buttons-section--dashboard">Let's get you started</span></div>
                                 <div className="container-buttons-sections--dashboard">
+                                    {console.log()}
                                     <div className="component-buttons-sections--dashboard"> 
                                         <div className="feature-button--dashboard" id="feature-button-one"  onClick={()=>{navigate("/builder/resume");}}>
                                             <div className="icon-feature-button"></div>

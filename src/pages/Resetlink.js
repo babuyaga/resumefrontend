@@ -58,6 +58,9 @@ if(!emailError){
 
 try{
 axios.post("http://localhost:5000/api/sendresetrequest",{useremail:userEmail}).then((res)=>{
+
+console.log(res.data);
+
     if(res.data.code==="auth/user-not-found"){
         setStatusmessage({message:"User not found",action:"Sign up",code:false,status:"loaded"});
     }else if(res.data.code==="Success"){

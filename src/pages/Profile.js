@@ -15,7 +15,7 @@ import BannerDash from "../components/dashboard/BannerDash";
 
 function Profile() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle} = useContext(authContext);
+const {handleSignout,loginWithGoogle,userData} = useContext(authContext);
 const navigate = useNavigate();
 const [tab,setTab] = useState("Profile");
 const tabs =["Profile","Security","Billing","Info"];
@@ -90,27 +90,27 @@ return (  <div className="dashboard-page">
                                                                                 <tbody>
                                                                                   <tr>
                                                                                         <th>Current Plan:</th>
-                                                                                        <td>Regular</td>
+                                                                                        <td>{userData.plan.planName}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Expires on:</th>
-                                                                                        <td>12-06-2024</td>
+                                                                                        <td>{userData.plan.endDate.split("T")[0]}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews on:</th>
-                                                                                        <td>13-06-2024</td>
+                                                                                        <td>{userData.plan.endDate.split("T")[0]}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews with:</th>
-                                                                                        <td>Regular 1 Month</td>
+                                                                                        <td>{userData.plan.renewalPlan}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews at:</th>
-                                                                                        <td>INR 1500</td>
+                                                                                        <td>INR {userData.plan.renewalPrice}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Payment mode:</th>
-                                                                                        <td>UPI</td>
+                                                                                        <td>{userData.plan.paymentMode}</td>
                                                                                  </tr>
                                                                                  </tbody>
                                                                         </table>
@@ -119,13 +119,13 @@ return (  <div className="dashboard-page">
                                            <div className="personal-form-holder--profile" id={tab===tabs[3]?"selected-tab--profile":""}>
                                                          <form className="personal-form--profile" >
                                                                 <div><span><b>Name on resume:</b></span>
-                                                                        <input type="text" name="name" />
+                                                                        <input type="text" name="name" value={userData.name}/>
                                                                 </div>
                                                                 <div> <span><b>Email on resume:</b></span>                                                                        
-                                                                        <input type="text"/>
+                                                                        <input type="text" name="email" value={userData.email}/>
                                                                 </div>
                                                                 <div><span><b>Number on resume:</b></span>                                                                        
-                                                                        <input type="text"/>
+                                                                        <input type="text" name="phone" value={userData.phoneNumber}/>
                                                                 </div>
 
                                                         </form>

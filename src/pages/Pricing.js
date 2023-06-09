@@ -9,7 +9,7 @@ import axios from "axios";
 
 function Pricing() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle} = useContext(authContext);
+const {handleSignout,loginWithGoogle,settoast,setLoading} = useContext(authContext);
 const navigate = useNavigate();
 const [Pframe,setPframe] = useState("frame-t");
 const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
@@ -74,10 +74,12 @@ activateCheckout(plans["Professional"][period]);
 
 
 async function displayRazorpay(orderid){
-
+  setLoading(true);
+if(orderid){
+  settoast([]);
 const res = await loadRazorpay();
 if(!res){
-  alert("That shit didn't work fam");
+  alert("That didn't work fam");
   return
 }
   var options = {
@@ -85,24 +87,35 @@ if(!res){
     "amount": (purchaseAmt), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "resumebhAI.com", //your business name
-    "description": "Test Transaction",
+    "description": "Make your resumes and SOPs amazing!",
     "image": "",
     "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "https://purchase.resumebhai.com/v1/status",
+    "callback_url": "",
     "prefill": {
         "name": "Gaurav", //your customer's name
         "email": "Gaurav@gmail.com",
-        "contact": "9999999999"
+        "contact": "7997083937"
     },
     "notes": {
         "address": "Razorpay Corporate Office"
     },
     "theme": {
-        "color": "#3399cc"
+        "color": "#FFFFFF"
+    },
+    "modal": {
+      "ondismiss": function(){
+          setLoading(false);
+      }
     }
 };
 const rzp1 = new window.Razorpay(options);
+
 rzp1.open();
+
+}else{
+  settoast([{value:`Whoa there! you are already on a better plan, try upgrading to a higher plan!`,messagetype:"1"}]);
+  setLoading(false);
+}
 }
 
 
@@ -125,9 +138,9 @@ const loadRazorpay = ()=>{
 }
 
 
-const activateCheckout = (p)=>{
+const activateCheckout = (PLAN)=>{
   axios.post(API_PAYMENT_URL, {
-  plan: p
+  plan: PLAN
 })
   .then(response => {
     displayRazorpay(response.data.orderId);
@@ -204,7 +217,7 @@ const moveleft = ()=>{
 
 const PricingCard=(idname,classnm)=>{
 return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
-  <button onClick={testFunc}>Test {`${test}`}</button>
+  {/* <button onClick={testFunc}>Test {`${test}`}</button> */}
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>
                                         <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>
