@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import NavbarDash from "../components/dashboard/NavbarDash";
 import axios from "axios";
-
+import PurchasePopUp from "../components/pricing/PurchasePopUp";
 
 function Pricing() {
 const [checked,setchecked] = useState(false);
-const {handleSignout,loginWithGoogle,settoast,setLoading} = useContext(authContext);
+const {handleSignout,loginWithGoogle,settoast,loading,setLoading,setPaymentStatus} = useContext(authContext);
 const navigate = useNavigate();
 const [Pframe,setPframe] = useState("frame-t");
 const frames = ["frame-z","frame-o","frame-t","frame-th","frame-f"];
@@ -50,6 +50,7 @@ const plandetails = {"Basic":["Create and download unlimited resumes in hundreds
 
 
 const assignPlan = ()=>{
+  setLoading(true);
   if(fr===1){
 console.log(plans["Basic"][period]);
 setPurchase(pricing[plans["Basic"][period]]);
@@ -74,7 +75,7 @@ activateCheckout(plans["Professional"][period]);
 
 
 async function displayRazorpay(orderid){
-  setLoading(true);
+  
 if(orderid){
   settoast([]);
 const res = await loadRazorpay();
@@ -90,7 +91,7 @@ if(!res){
     "description": "Make your resumes and SOPs amazing!",
     "image": "",
     "order_id": orderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    "callback_url": "",
+    "handler":onPayment,
     "prefill": {
         "name": "Gaurav", //your customer's name
         "email": "Gaurav@gmail.com",
@@ -103,9 +104,7 @@ if(!res){
         "color": "#FFFFFF"
     },
     "modal": {
-      "ondismiss": function(){
-          setLoading(false);
-      }
+      "ondismiss": onDismiss
     }
 };
 const rzp1 = new window.Razorpay(options);
@@ -139,6 +138,9 @@ const loadRazorpay = ()=>{
 
 
 const activateCheckout = (PLAN)=>{
+
+if(!loading){
+  
   axios.post(API_PAYMENT_URL, {
   plan: PLAN
 })
@@ -149,7 +151,20 @@ const activateCheckout = (PLAN)=>{
     console.error(error);
   });
 }
+}
 
+const onDismiss=()=>{
+  setLoading(false);
+}
+
+const onPayment=(res)=>{
+console.log("Razorpay response is",res);
+  setLoading(false);
+  setPaymentStatus("loading");
+   setTimeout(()=>{
+    setPaymentStatus("success");
+   },3000)
+}
 
 
 
@@ -217,6 +232,7 @@ const moveleft = ()=>{
 
 const PricingCard=(idname,classnm)=>{
 return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idname} >
+  
   {/* <button onClick={testFunc}>Test {`${test}`}</button> */}
                                         {/* <div className="image-item-documents--dashboard"></div> */}
                                         <div>

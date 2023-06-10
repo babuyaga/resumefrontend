@@ -18,7 +18,7 @@ import ResetLink from './Resetlink.js';
 import ResetPassword from './Resetpassword.js';
 import Loadericon from '../icons/Loadericon.js';
 import ToastMessage from '../components/ToastMessage.js';
-
+import PurchasePopUp from '../components/pricing/PurchasePopUp.js';
 export const authContext = createContext();
 
 function Router() {
@@ -44,7 +44,7 @@ function Router() {
   const [SignUperror,setSignUpError] = useState("");
   const [loading,setLoading] = useState(false);
   const [toaststate,settoast] = useState([]);
-
+const [paymentStatus,setPaymentStatus] = useState("");
 
 const verifytoken_URL = "http://localhost:5000/api/login";
 const sessionEnd_URL = "http://localhost:5000/api/logout";
@@ -223,9 +223,11 @@ const sessionSignOut = ()=> {
     },[authe]);
   
 return (  <BrowserRouter>
+
     <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
+    <PurchasePopUp status={paymentStatus}/>
     <div className="toastmessage_holder">{toaststate.map((e,i)=><ToastMessage toastobject={e} key={Math.random()} index={i} type={e.messagetype}/>)}</div>
-<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, setLoading,userData,settoast}}>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, loading,setLoading,userData,settoast,setPaymentStatus}}>
     <Routes>
   
     {/* <Route index element={<Error404 />} />  */}
