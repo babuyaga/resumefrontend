@@ -1,10 +1,16 @@
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import "../stylesheets/purchasepopup.css";
 import Loadericon from "../../icons/Loadericon";
+import PartyPopper from "../../icons/PartyPopper";
+import PurchaseFail from "../../icons/PurchaseFail";
+import { useNavigate } from "react-router-dom";
+import { authContext} from "../../pages/Router";
 
 
 function PurchasePopUp({status}){
-    
+    const navigate = useNavigate();
+    const {setPaymentStatus} = useContext(authContext);
+
 
     useEffect(()=>{
         if(status==="loading"){
@@ -12,15 +18,23 @@ function PurchasePopUp({status}){
         }
     });
 
+  const closePopUp=()=>{
+    setPaymentStatus("");
+    navigate("/dashboard");
+  }
+
 return (<div className="popup-container-scrim" style={status?{}:{"display":"none"}}>
                      <div className="purchase-success-popup-holder" style={status==="success"?{}:{"display":"none"}}>
                         <div className="closebutton-holder"></div>
+                      <PartyPopper wi="140px" hi="140px"/>
                         <h2>Your purchase is complete!</h2>
                         <p>You will recieve a confirmation email with the order details</p>
-                        <button>Go to dashboard</button>
+                        <button onClick={closePopUp}>Go to dashboard</button>
+                        <br></br>
                     </div>    
                     <div className="purchase-success-popup-holder" style={status==="failed"?{}:{"display":"none"}}>
                         <div className="closebutton-holder"></div>
+                        <PurchaseFail wi="140px" hi="140px"/>
                         <h2>Your purchase has failed!</h2>
                         <p>Any amount debited will be refunded back to your account</p>
                         <button>Retry Purchase</button>

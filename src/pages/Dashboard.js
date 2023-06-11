@@ -8,7 +8,6 @@ import {authContext} from "./Router.js";
 
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
-import NavbarDash from "../components/dashboard/NavbarDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
 
 
@@ -45,7 +44,6 @@ return (<div className="item-documents-section--dashboard">
 return (  
 <div className="dashboard-page" >
 
-                <NavbarDash/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="1"/>

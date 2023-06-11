@@ -14,15 +14,19 @@
 }
 
 .purchase-success-popup-holder{
-    width:380px;
+    width:350px;
+    font-size:13px;
     height:480px;
     background-color:white;
+    padding:20px;
+    box-sizing: border-box;
     border-radius:20px;
     border:1px solid black;
     display:flex;
     flex-direction:column;
     justify-content: center;
     gap:10px;
+    text-align: center;
     align-items: center;
 }
 
@@ -37,6 +41,8 @@
     .purchase-success-popup-holder{
         width:600px;
         height:400px;
+        font-size:17px;
+        text-align: center;
     }
 
     

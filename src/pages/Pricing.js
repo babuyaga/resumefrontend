@@ -275,7 +275,7 @@ return (  <div className="dashboard-page">
                                          <div className="buttons-documents-component" id={period===2?`selected-button-pricing`:""} onClick={()=>{setPeriod(2);}}><span>3 Months</span></div>
                                          {/* <div className="buttons-documents-component"><span>12 Months</span></div> */}
                                          </div>
-                                         <div className="buttons-documents-component" id="checkout-button--pricing" onClick={()=>{assignPlan();}}> <span>Checkout</span></div>
+                                         <button className="buttons-documents-component" id={loading?"checkout-button--pricing-clicked":"checkout-button--pricing"} onClick={()=>{assignPlan();}}> <span>Checkout</span></button>
                                     </div>
                                  <div className="pricing-carousel-holder"> 
                                         <div className="pricing-track-button left-pricing-button" onClick={()=>{moveleft()}}></div>

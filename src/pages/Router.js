@@ -19,7 +19,13 @@ import ResetPassword from './Resetpassword.js';
 import Loadericon from '../icons/Loadericon.js';
 import ToastMessage from '../components/ToastMessage.js';
 import PurchasePopUp from '../components/pricing/PurchasePopUp.js';
+import SopApp from './SopApp.js';
+import NavbarDash from '../components/dashboard/NavbarDash.js';
+
 export const authContext = createContext();
+
+
+
 
 function Router() {
  
@@ -225,9 +231,11 @@ const sessionSignOut = ()=> {
 return (  <BrowserRouter>
 
     <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
-    <PurchasePopUp status={paymentStatus}/>
+    
     <div className="toastmessage_holder">{toaststate.map((e,i)=><ToastMessage toastobject={e} key={Math.random()} index={i} type={e.messagetype}/>)}</div>
 <authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, loading,setLoading,userData,settoast,setPaymentStatus}}>
+<PurchasePopUp status={paymentStatus}/>
+<NavbarDash/>
     <Routes>
   
     {/* <Route index element={<Error404 />} />  */}
@@ -244,8 +252,7 @@ return (  <BrowserRouter>
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
     <Route path="/profile/pricing" element={authe?<Pricing />:<Navigate to="/login"/>} />
-
-    
+    <Route path="/sopapp" element={authe?<SopApp/>:<Navigate to="/login"/>} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>
