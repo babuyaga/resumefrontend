@@ -1,0 +1,100 @@
+.sop-popup-container-scrim{
+    background-color: #000000cf;
+    display:flex;
+    height:100%;
+    width:100%;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    position: fixed;
+    top:0;
+    z-index:7;
+}
+
+.sop-popup-holder{
+    width:350px;
+    font-size:13px;
+    height:480px;
+    background-color:white;
+    padding:20px;
+    box-sizing: border-box;
+    border-radius:10px;
+    border:1px solid black;
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    gap:5px;
+    text-align: left;
+    z-index:9;
+}
+
+
+.sop-popup-holder p{
+    margin:0;
+    font-size:13px;
+}
+
+.sopapp-resume-holder{
+    border:1px solid black;
+   height:100%;
+   padding:10px;
+   overflow-y:scroll;
+   overflow-x: hidden;
+   padding-left:15px;
+}
+
+.resume-list-item{
+    width:100%;
+    height:90px;
+    border:1px solid black;
+    margin:15px auto;
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    padding:10px;
+    box-sizing: border-box;
+    box-shadow: 6px 7px 5px #00000081;
+    user-select: none;
+}
+
+.resume-list-item:hover{
+    cursor:pointer;
+}
+
+.resume-list-item:active{
+    box-shadow: 2px 2px 5px #00000081;
+}
+
+.resume-list-item-cover{
+    width:55px;
+    height:55px;
+    background-color:black;
+    margin:auto 0 ;
+}
+
+::-webkit-scrollbar-thumb{
+background-color:#0000002b;
+}
+
+.resume-list-item-text{
+height:55px;
+padding:2px;
+display:flex;
+flex-direction: column;
+justify-content: space-between;
+gap:10px;
+}
+
+.resume-list-item-text h4{
+    margin:0;
+}
+@media only screen and (min-width: 768px) {
+    .sop-popup-holder{
+        width:400px;
+        height:600px;
+        font-size:17px;
+    }
+
+    
+}

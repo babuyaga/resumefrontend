@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    margin-top:55px;
+    margin-top:0px;
     scroll-behavior:auto!important;
 }
 
@@ -53,6 +53,8 @@ textarea {
     min-width:85px;
     padding:0 10px;
     margin:auto 0;
+    border-radius:5px;
+    border:1px solid black;
 }
 
 .sop-app-navbar span{
@@ -60,8 +62,7 @@ textarea {
 }
 
 .right-buttons--navbar{
-    display:flex;
-    gap:10px;
+    display:none;
 }
 
 .dashboard-back-button-holder--sop{
@@ -93,13 +94,44 @@ text-align:center;
 outline:none;
 border:none;
 }
+
+#save-button-sopapp{
+    background-color:#10A37F;
+color:white;
+font-weight:500;
+outline:none;
+border:none;
+}
+.right-buttons--navbar-footer{
+    display:flex;
+    gap:10px;
+    margin:auto;
+}
+
 @media only screen and (min-width: 768px) {
+   
     .purchase-success-popup-holder{
         width:600px;
         height:400px;
         font-size:17px;
         text-align: center;
     }
+ 
+}
+@media only screen and (min-width: 900px) {
+    .right-buttons--navbar{
+        display:flex;
+        gap:10px;
+    }
+    
+}
 
+@media only screen and (min-width: 1024px) {
+    .sop-app-page{
+        margin-top:55px;
+    }
+    .right-buttons--navbar-footer{
+        margin:auto 0;
+    }
     
 }

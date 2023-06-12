@@ -14,7 +14,7 @@ import BannerDash from "../components/dashboard/BannerDash";
 
 function Dashboard() {
 const [checked,setchecked] = useState(false);
-const {setLoading,userData} = useContext(authContext);
+const {setLoading,userData,showSop,setShowSOP} = useContext(authContext);
 const navigate = useNavigate();
 
 useEffect(()=>{
@@ -61,7 +61,7 @@ return (
                                         </div> 
                                     </div>
                                     <div className="component-buttons-sections--dashboard"> 
-                                        <div className="feature-button--dashboard" id="feature-button-two">
+                                        <div className="feature-button--dashboard" id="feature-button-two" onClick={()=>{setShowSOP(true)}}>
                                             <div className="icon-feature-button"></div>
                                             <div><span className="title-feature-button">SOP</span><span className="subtitle-feature-button">Generate custom SOP</span></div>
                                         </div> 
