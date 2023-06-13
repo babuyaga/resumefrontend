@@ -5,26 +5,31 @@ import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import NavbarDash from "../components/dashboard/NavbarDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
+import Document from "../components/dashboard/Document";
+import axios from "axios";
+
 
 function Documents() {
 const [checked,setchecked] = useState(false);
 const {handleSignout,loginWithGoogle} = useContext(authContext);
 const navigate = useNavigate();
 
-
-const documentComp=()=>{
-return (<div className="item-documents-section--dashboard">
-                                        <div className="image-item-documents--dashboard"></div>
-                                        <div>
-                                        <div className="title-item-documents--dashboard"><span>My Resume</span></div>
-                                        <div className="subtitle-item-documents--dashboard"><span>Last updated at 2:30 PM today</span></div>
-                                        <div className="tag-holder-item-documents--dashboard">
-                                                <div className="tags-document--dashboard"><span>Resume</span></div>
-                                                <div className="tags-document--dashboard"><span>Product</span></div>
-                                        </div>
-                                        </div>
-                                    </div>);
+const [docs,setdocs] = useState(["loading"]);
+const contentMaker = (value)=>{
+const html =  value.map((e,i)=> <Document resumename={e.resumename} updatedAt={e.updatedAt} tags={e.tags}/> );
+return html;   
 }
+
+
+useEffect(()=>{
+    axios.get("http://localhost:5000/api/getsops").then((res)=>{
+        console.log("resumes",res.data.resumes);
+        setdocs(res.data.resumes);
+        });
+},[])
+
+
+
 
 return (  <div className="dashboard-page">
         
@@ -46,10 +51,10 @@ return (  <div className="dashboard-page">
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                    {documentComp()}
-                                    {documentComp()}
-                                    {documentComp()}
-                                    {documentComp()}
+                                    {
+                                       contentMaker(docs)
+                                       }  
+                                           
                                     <div className="documents-loading--dashboard"><span>Loading...</span></div>
                                      </div>
                             </div>

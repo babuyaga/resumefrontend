@@ -1,13 +1,8 @@
 import "./stylesheets/dashboard.css";
 import "./stylesheets/profile.css";
-import Googleicon from "../icons/Googleicon.js";
-import Downarrow from "../icons/Downarrow.js";
-import Uparrow from "../icons/Uparrow.js";
-import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
-import {Link} from "react-router-dom";
 import {authContext} from "./Router.js";
-import NavBar from "../components/NavBar.js";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import NavbarDash from "../components/dashboard/NavbarDash.js";
@@ -19,21 +14,18 @@ const {handleSignout,loginWithGoogle,userData} = useContext(authContext);
 const navigate = useNavigate();
 const [tab,setTab] = useState("Profile");
 const tabs =["Profile","Security","Billing","Info"];
+const [userInfo,setuserInfo] = useState();
 
 
-const documentComp=()=>{
-return (<div className="item-documents-section--dashboard">
-                                        <div className="image-item-documents--dashboard"></div>
-                                        <div>
-                                        <div className="title-item-documents--dashboard"><span>My Resume</span></div>
-                                        <div className="subtitle-item-documents--dashboard"><span>Last updated at 2:30 PM today</span></div>
-                                        <div className="tag-holder-item-documents--dashboard">
-                                                <div className="tags-document--dashboard"><span>Resume</span></div>
-                                                <div className="tags-document--dashboard"><span>Product</span></div>
-                                        </div>
-                                        </div>
-                                    </div>);
-}
+useEffect(()=>{
+        axios.get("http://localhost:5000/api/login/user").then((res)=>{
+            console.log(res.data.userData);
+            setuserInfo(res.data.userData);
+            });
+    },[tab])
+    
+
+
 
 return (  <div className="dashboard-page">
               
@@ -54,17 +46,17 @@ return (  <div className="dashboard-page">
                                          <div className="buttons-documents-component" id={tab===tabs[3]?"selected-button-document":""} onClick={()=>{setTab(tabs[3]);}}><span>{tabs[3]}</span></div>
 
                                     </div>
-                                    <div className="component-documents-section--dashboard documents-display-section--dashboard">
+                                    <div className="component-documents-section--dashboard profile-display-section--dashboard">
                                            <div className="personal-form-holder--profile" id={tab===tabs[0]?"selected-tab--profile":""}>
                                                         <form className="personal-form--profile" >
                                                                 <div><span><b>Name:</b></span>
-                                                                        <input type="text" name="name" />
+                                                                        <input type="text" name="name" value={userInfo?userInfo.name:""} />
                                                                 </div>
                                                                 <div> <span><b>Email:</b></span>                                                                        
-                                                                        <input type="email"/>
+                                                                        <input type="email" value={userInfo?userInfo.email:""}/>
                                                                 </div>
                                                                 <div><span><b>Phone No:</b></span>                                                                        
-                                                                        <input type="number"/>
+                                                                        <input type="number" value={userInfo?userInfo.phoneNumber:""}/>
                                                                 </div>
 
                                                         </form>
@@ -90,27 +82,27 @@ return (  <div className="dashboard-page">
                                                                                 <tbody>
                                                                                   <tr>
                                                                                         <th>Current Plan:</th>
-                                                                                        <td>{userData.plan.planName}</td>
+                                                                                        <td>{userInfo?userInfo.plan.planName:""}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Expires on:</th>
-                                                                                        <td>{userData.plan.endDate.split("T")[0]}</td>
+                                                                                        <td>{userInfo?userInfo.plan.endDate.split("T")[0]:""}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews on:</th>
-                                                                                        <td>{userData.plan.endDate.split("T")[0]}</td>
+                                                                                        <td>{userInfo?userInfo.plan.endDate.split("T")[0]:""}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews with:</th>
-                                                                                        <td>{userData.plan.renewalPlan}</td>
+                                                                                        <td>{userInfo?userInfo.plan.renewalPlan:""}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Renews at:</th>
-                                                                                        <td>INR {userData.plan.renewalPrice}</td>
+                                                                                        <td>INR {userInfo?userInfo.plan.renewalPrice:""}</td>
                                                                                  </tr>
                                                                                  <tr>
                                                                                         <th>Payment mode:</th>
-                                                                                        <td>{userData.plan.paymentMode}</td>
+                                                                                        <td>{userInfo?userInfo.plan.paymentMode:""}</td>
                                                                                  </tr>
                                                                                  </tbody>
                                                                         </table>
@@ -119,13 +111,13 @@ return (  <div className="dashboard-page">
                                            <div className="personal-form-holder--profile" id={tab===tabs[3]?"selected-tab--profile":""}>
                                                          <form className="personal-form--profile" >
                                                                 <div><span><b>Name on resume:</b></span>
-                                                                        <input type="text" name="name" value={userData.name}/>
+                                                                        <input type="text" name="name" value={userData.name?userData.name:""}/>
                                                                 </div>
                                                                 <div> <span><b>Email on resume:</b></span>                                                                        
-                                                                        <input type="text" name="email" value={userData.email}/>
+                                                                        <input type="text" name="email" value={userData.email?userData.email:""}/>
                                                                 </div>
                                                                 <div><span><b>Number on resume:</b></span>                                                                        
-                                                                        <input type="text" name="phone" value={userData.phoneNumber}/>
+                                                                        <input type="text" name="phone" value={userData.phoneNumber?userData.phoneNumber:""}/>
                                                                 </div>
 
                                                         </form>

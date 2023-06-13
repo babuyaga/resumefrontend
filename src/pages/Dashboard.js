@@ -5,11 +5,13 @@ import Uparrow from "../icons/Uparrow.js";
 import Staricon from "../icons/Staricon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {authContext} from "./Router.js";
-
+import Document from "../components/dashboard/Document";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
 import Loadericon from "../icons/Loadericon";
+import axios from "axios";
+
 
 
 
@@ -17,9 +19,13 @@ function Dashboard() {
 const [checked,setchecked] = useState(false);
 const {setLoading,userData,showSop,setShowSOP} = useContext(authContext);
 const navigate = useNavigate();
-
+const [docs,setdocs] = useState(["loading"]);
+const contentMaker = (value)=>{
+const html =  value.map((e,i)=> <Document resumename={e.resumename} updatedAt={e.updatedAt} tags={e.tags}/> );
+return html;   
+}
+   
 useEffect(()=>{
-
 
 return ()=>{
     setTimeout(()=>{setLoading(false)},1000);
@@ -27,20 +33,16 @@ return ()=>{
 
 },[]);
 
-const documentComp=()=>{
 
-return (<div className="item-documents-section--dashboard">
-                                        <div className="image-item-documents--dashboard"></div>
-                                        <div>
-                                        <div className="title-item-documents--dashboard"><span>My Resume</span></div>
-                                        <div className="subtitle-item-documents--dashboard"><span>Last updated at 2:30 PM today</span></div>
-                                        <div className="tag-holder-item-documents--dashboard">
-                                                <div className="tags-document--dashboard"><span>Resume</span></div>
-                                                <div className="tags-document--dashboard"><span>Product</span></div>
-                                        </div>
-                                        </div>
-                                    </div>);
-}
+useEffect(()=>{
+    axios.get("http://localhost:5000/api/getsops").then((res)=>{
+        console.log("resumes",res.data.resumes);
+        setdocs(res.data.resumes);
+        });
+},[])
+
+
+
 
 return (  
 <div className="dashboard-page" >
@@ -89,11 +91,14 @@ return (
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                    {documentComp()}
-                                    {documentComp()}
-                                    {documentComp()}
-                                    {documentComp()}
-                                    <div className="documents-loading--dashboard"><span><Loadericon/></span></div>
+                                       {
+                                       contentMaker(docs)
+                                       }    
+                                       {     
+                                             contentMaker(docs)
+                                       
+                                       }                      
+                                   <div className="documents-loading--dashboard" style={docs[0]==="loading"?{}:{"display":"none"}}><span><Loadericon/></span></div>
                                      </div>
                             </div>
                             <div className="section-content-holder--dashboard callback-section--dashboard">
