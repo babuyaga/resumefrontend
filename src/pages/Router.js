@@ -257,7 +257,7 @@ return (  <BrowserRouter>
     <Route path="/documents" element={authe?<Documents />:<Navigate to="/login"/>} />
     <Route path="/profile" element={authe?<Profile />:<Navigate to="/login"/>} />
     <Route path="/profile/pricing" element={authe?<Pricing />:<Navigate to="/login"/>} />
-    <Route path="/sopapp" element={authe?<SopApp/>:<Navigate to="/login"/>} />
+    <Route path="/SOpwriter" element={authe?<SopApp/>:<Navigate to="/login"/>} />
     <Route path="*" element={<Navigate to="/login"/>}/>
     
     </Routes>

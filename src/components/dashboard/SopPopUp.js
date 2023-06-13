@@ -20,8 +20,17 @@ function SopPopUp(){
     }
   }
 
+  const openSop=(e)=>{
+    navigate("/SOPWriter");
+    setShowSOP(false);
+  }
+
 return (<div className="sop-popup-container-scrim" ref={parentRef} onClick={closePopUp} style={showSop?{}:{"display":"none"}}>
-                     
+                     <style>
+                     {showSop?`body{
+                        overflow:hidden;
+                        }`:""}
+                     </style>
                      <div className="sop-popup-holder">
                         <div className="closebutton-holder"></div>
                         <h2>Choose a resume</h2>
@@ -29,7 +38,7 @@ return (<div className="sop-popup-container-scrim" ref={parentRef} onClick={clos
 
                         <br></br>
                         <div className="sopapp-resume-holder">
-                        <div className="resume-list-item">
+                        <div className="resume-list-item" onClick={openSop}>
                            <div className="resume-list-item-cover"></div>  
                           <div className="resume-list-item-text">
                                       <h4>Resume Name</h4>

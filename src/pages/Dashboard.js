@@ -9,6 +9,7 @@ import {authContext} from "./Router.js";
 import { useNavigate } from "react-router-dom";
 import MenuDash from "../components/dashboard/MenuDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
+import Loadericon from "../icons/Loadericon";
 
 
 
@@ -92,7 +93,7 @@ return (
                                     {documentComp()}
                                     {documentComp()}
                                     {documentComp()}
-                                    <div className="documents-loading--dashboard"><span>Loading...</span></div>
+                                    <div className="documents-loading--dashboard"><span><Loadericon/></span></div>
                                      </div>
                             </div>
                             <div className="section-content-holder--dashboard callback-section--dashboard">
