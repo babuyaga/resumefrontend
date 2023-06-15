@@ -22,6 +22,7 @@ import PurchasePopUp from '../components/pricing/PurchasePopUp.js';
 import SopApp from './SopApp.js';
 import NavbarDash from '../components/dashboard/NavbarDash.js';
 import SopPopUp from '../components/dashboard/SopPopUp.js';
+import DeleteDoc from '../components/dashboard/DeleteDoc.js';
 
 
 export const authContext = createContext();
@@ -54,7 +55,7 @@ function Router() {
   const [toaststate,settoast] = useState([]);
 const [paymentStatus,setPaymentStatus] = useState("");
 const [showSop,setShowSOP] = useState("");
-
+const [showDelete,setShowDelete] = useState(false);
 
 const verifytoken_URL = "http://localhost:5000/api/login";
 const sessionEnd_URL = "http://localhost:5000/api/logout";
@@ -237,10 +238,11 @@ return (  <BrowserRouter>
     <div style={loading?{display:""}:{display:"none"}}><Loaderscreen/></div>
     
     <div className="toastmessage_holder">{toaststate.map((e,i)=><ToastMessage toastobject={e} key={Math.random()} index={i} type={e.messagetype}/>)}</div>
-<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, loading,setLoading,userData,settoast,setPaymentStatus,showSop,setShowSOP}}>
+<authContext.Provider value={{handleSignout,loginWithGoogle,authe,setAuth,loginWithEmailAndPassword,createUserEmail,SignUperror, loading,setLoading,userData,settoast,setPaymentStatus,showSop,setShowSOP,showDelete,setShowDelete}}>
 <PurchasePopUp status={paymentStatus}/>
 <NavbarDash/>
 <SopPopUp/>
+<DeleteDoc/>
     <Routes>
   
     {/* <Route index element={<Error404 />} />  */}

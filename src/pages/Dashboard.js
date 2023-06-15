@@ -27,9 +27,9 @@ const contentMaker = (value,type)=>{
 let html;
 
     if(type==="sop"){
-      html =  value.map((e,i)=> <Document resumename={e.sopname} updatedAt={e.updatedAt} tags={e.tags}/> );
+      html =  value.map((e,i)=> <Document key={`sop${i}`} docname={e.sopname} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
     }else if(type==="resume"){
-    html =  value.map((e,i)=> <Document resumename={e.resumename} updatedAt={e.updatedAt} tags={e.tags}/> );
+    html =  value.map((e,i)=> <Document key={`resume${i}`} docname={e.resumename} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
     }
 return html;   
 }
@@ -52,7 +52,7 @@ useEffect(()=>{
 
 useEffect(()=>{
     axios.get("http://localhost:5000/api/getsops").then((res)=>{
-        console.log("resumes",res.data.sops);
+        console.log("sops",res.data.sops);
         setsopdocs(res.data.sops);
             });
 },[])

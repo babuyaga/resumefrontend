@@ -1,9 +1,13 @@
 import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {authContext} from "../../pages/Router";
 import { useNavigate } from "react-router-dom";
-import "./stylesheets/navbardash.css";
+import Trashicon from "../../icons/Trashicon";
 
-function Document({resumename,updatedAt,tags}) {
+
+
+function Document({docname,updatedAt,tags,docid}) {
+const {showDelete,setShowDelete} = useContext(authContext);
+
 const dateTimeObj = new Date(updatedAt);
 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 let today = new Date();
@@ -19,16 +23,19 @@ const formattedTime = dateTimeObj.toLocaleTimeString(options);
 
 // }
 
-console.log("Documetn called");
+console.log("Document called");
 return (    <div className="item-documents-section--dashboard">
 <div className="image-item-documents--dashboard"></div>
 <div>
-<div className="title-item-documents--dashboard"><span>{resumename?resumename:""}</span></div>
+<div className="title-item-documents--dashboard"><span>{docname?docname:""}</span></div>
 <div className="subtitle-item-documents--dashboard"><span>Last updated at {formattedTime?formattedTime:""}<br></br> {connector?connector:""} {formattedDate?formattedDate:""}</span></div>
 <div className="tag-holder-item-documents--dashboard">
-        {tags?tags.forEach((e,i)=>{<div className="tags-document--dashboard"><span>{e}</span></div>}):""}
+        {tags.length>1?tags.slice(0,2).map((e,i)=><div key={i} className="tags-document--dashboard"><span>{e}</span></div>):""}{tags.length>2?<div className="tags-left-document--dashboard"><span>+{tags.length-2}</span></div>:""}
+        <div className="trashicon-documents--dashboard-desktop" onClick={()=>{setShowDelete({id:docid,name:docname})}}><Trashicon wi="19" hi="19"/></div>
 </div>
+
 </div>
+<div className="trashicon-documents--dashboard-mobile" onClick={()=>{setShowDelete({id:docid,name:docname})}}><Trashicon/></div>
 </div>
 );
 
