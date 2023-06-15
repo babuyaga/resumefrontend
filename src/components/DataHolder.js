@@ -49,7 +49,7 @@ export function sectionData(){
 
 export async function getServer(setstate,url){
   if(url){
-    url = `${process.env.REACT_APP_APPLICATION_TEST_URL}/getresume`;
+    url = `http://localhost:5000/newresume`;
   }
   
   var sectiondata = [ {
@@ -64,15 +64,14 @@ export async function getServer(setstate,url){
   const data = [...sectiondata];
 
 const res = await fetch(url,{
-  method:'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
+  method:'GET'
 });
 
 const json = await res.json();
-setstate(json);
+console.log("new resume data from server",json.resumeObj);
+const data_ = JSON.parse(json.resumeObj.value)
+
+setstate(data_);
 }
 
 

@@ -19,7 +19,7 @@ const [userInfo,setuserInfo] = useState();
 
 useEffect(()=>{
         axios.get("http://localhost:5000/api/login/user").then((res)=>{
-            console.log(res.data.userData);
+            console.log("data",res.data);
             setuserInfo(res.data.userData);
             });
     },[tab])

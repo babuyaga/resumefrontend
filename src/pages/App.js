@@ -10,16 +10,19 @@ import IndexHolder from '../components/indexholder.js';
 import  "../stylesheets/light.css";
 import  "../stylesheets/dark.css";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import Downarrow from '../icons/Downarrow.js';
+
+
 
 export const appuiContext = createContext();
 
 
-function App({resumeheading}) {
+function App() {
+//   const { linkid } = useParams();
+// console.log(linkid);
 
-
-  let getDataurl = "http://localhost:5000/getresume";
+  let getDataurl = "http://localhost:5000/newresume";
   let saveUrl = 'http://localhost:5000/saveresume'; 
 // const forlater=[
 // {"title":"Work Experience","idno":4,"addmore":true},
@@ -36,7 +39,9 @@ const [theme,settheme] = useState(Cookies.get("theme") ||"light");
 const [hoveron,sethover] = useState(false);
 const [appval, setappval] = useState(["init"]);
 const [hoverindex,sethovindex] = useState(0);
-
+const openSetting=(e)=>{e.preventDefault();
+  setshowset({"display":true,"index":appval.length,"navbar":true}); //if settings pop up is opened via the navbar and add section is clicked. Add the section at the very end by setting index as appval.length
+}
 
 useEffect(()=>{
   getServer(setappval,getDataurl);
@@ -186,25 +191,50 @@ const contentMaker = (value)=>{
  return value.map((e,i)=> <div><IndexHolder sectionid={`indexholder_${i}`} itemindex={i}/>   <SectionBox sectionid={`sectionbox_${i}`} compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={pushAppValclient}  errorFunc={(y)=>{updateToast(y)}} classname="section_box" /> {i===(appval.length-1)?<IndexHolder sectionid={`indexholder_${i+1}`} itemindex={i+1}/>:""}</div>)
 }
 
-  
+const navBar = ()=>{
+  return (   <div className="sop-app-navbar">
+  <div className="dashboard-back-button-holder--sop"><div className="dashboard-back-button-sop" onClick={()=>{navigate("/dashboard")}}><div><Downarrow/></div><span>Dashboard</span></div></div>
+   <span><input value="Untitled SOP"></input></span>
+   <div className="right-buttons--navbar">
+   <button id="save-button-sopapp">Save</button>
+   
+   <button onClick={openSetting}>Add section</button>
+   <button>Download</button>
+   </div>
+  </div>);
+}
 
 
 return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,appval,theme,settheme,hoveron,sethover,pushAppValclient,swaporder,hoverindex,sethovindex}}>
   <div>   <SettingBox/> 
     <div className={`App ${theme}`}>
-       
-   <NavBar/>
+
   
       <div  className="toastmessage_holder">  {toaststate.map((e,i)=><ToastMessage toastobject={e} key={i} index={i} type={e.messagetype}/>)} </div>
      
     <form>
          <div style={{"display":"flex","flexDirection":"column","gap":"15px"}}>
-<div className="dashboard-back-button-holder--app"><div className="dashboard-back-button" onClick={()=>{navigate("/dashboard")}}><div><Downarrow/></div><span>Dashboard</span></div></div>
+<div className="dashboard-back-button-holder--app">
+  
+{navBar()}
+
+  </div>
+
               {contentMaker(appval)}
 
           </div>
 </form>
-    </div></div>
+    </div>
+    
+    
+    <div className="dashboard-back-button-holder--app">
+  
+{navBar()}
+
+  </div>
+    
+    </div>
+    
     </appuiContext.Provider>);
 
 

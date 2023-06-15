@@ -16,12 +16,21 @@ import axios from "axios";
 
 
 function Dashboard() {
-const [checked,setchecked] = useState(false);
+const [selected,setselect] = useState("all");
 const {setLoading,userData,showSop,setShowSOP} = useContext(authContext);
 const navigate = useNavigate();
-const [docs,setdocs] = useState(["loading"]);
-const contentMaker = (value)=>{
-const html =  value.map((e,i)=> <Document resumename={e.resumename} updatedAt={e.updatedAt} tags={e.tags}/> );
+const [resumedocs,setresumedocs] = useState([]);
+const [sopdocs,setsopdocs] = useState([]);
+
+
+const contentMaker = (value,type)=>{
+let html;
+
+    if(type==="sop"){
+      html =  value.map((e,i)=> <Document resumename={e.sopname} updatedAt={e.updatedAt} tags={e.tags}/> );
+    }else if(type==="resume"){
+    html =  value.map((e,i)=> <Document resumename={e.resumename} updatedAt={e.updatedAt} tags={e.tags}/> );
+    }
 return html;   
 }
    
@@ -35,10 +44,17 @@ return ()=>{
 
 
 useEffect(()=>{
-    axios.get("http://localhost:5000/api/getsops").then((res)=>{
+    axios.get("http://localhost:5000/api/getresumes").then((res)=>{
         console.log("resumes",res.data.resumes);
-        setdocs(res.data.resumes);
+        setresumedocs(res.data.resumes);
         });
+},[])
+
+useEffect(()=>{
+    axios.get("http://localhost:5000/api/getsops").then((res)=>{
+        console.log("resumes",res.data.sops);
+        setsopdocs(res.data.sops);
+            });
 },[])
 
 
@@ -84,21 +100,17 @@ return (
                             <div className="section-content-holder--dashboard documents-section--dashboard">
                                     <div className="component-documents-section--dashboard documents-section-title--dashboard"><span className="title-documents--section">Your Documents</span><span className="viewall-documents--section"  onClick={()=>{navigate("/documents");}}>View all</span></div>
                                     <div className="component-documents-section--dashboard documents-buttons--dashboard">
-                                         <div className="buttons-documents-component" id="selected-button-document"><span>All</span></div>
-                                         <div className="buttons-documents-component"><span>Resumes</span></div>
-                                         <div className="buttons-documents-component"><span>SOPs</span></div>
-                                         <div className="buttons-documents-component"><span>Cover Letters</span></div>
+                                         <div className="buttons-documents-component" id={selected==="all"?"selected-button-document":""} onClick={()=>{setselect("all")}}><span>All</span></div>
+                                         <div className="buttons-documents-component" id={selected==="resumes"?"selected-button-document":""} onClick={()=>{setselect("resumes")}}><span>Resumes</span></div>
+                                         <div className="buttons-documents-component" id={selected==="sops"?"selected-button-document":""} onClick={()=>{setselect("sops")}}><span>SOPs</span></div>
+                                         <div className="buttons-documents-component" id={selected==="cover"?"selected-button-document":""}><span>Cover Letters</span></div>
 
                                     </div>
                                     <div className="component-documents-section--dashboard documents-display-section--dashboard">
-                                       {
-                                       contentMaker(docs)
-                                       }    
-                                       {     
-                                             contentMaker(docs)
-                                       
-                                       }                      
-                                   <div className="documents-loading--dashboard" style={docs[0]==="loading"?{}:{"display":"none"}}><span><Loadericon/></span></div>
+                                       {(selected==="resumes")||(selected==="all")?contentMaker(resumedocs,"resume"):""}    
+                                    {(selected==="sops")||(selected==="all")?contentMaker(sopdocs,"sop"):""}    
+                                                         
+                                   <div className="documents-loading--dashboard" style={(resumedocs.length===0)||(sopdocs.length===0)?{}:{"display":"none"}}><span><Loadericon/></span></div>
                                      </div>
                             </div>
                             <div className="section-content-holder--dashboard callback-section--dashboard">
