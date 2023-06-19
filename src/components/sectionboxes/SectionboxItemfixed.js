@@ -14,7 +14,7 @@ import {moveup_,movedown_, deletechild_} from "../UIstates.js";
 var styles = {display:""};
 var stylez = {display:""};
 
-//COMPID is 3
+//COMPID is 2
 
 
 
@@ -47,8 +47,6 @@ const updatesectione =(e) =>{
   updatesection();
   };
 
-  const secupdateflag =(flag) =>{
-   }
 
   const deletesec_comp = (e)=>{
   e.preventDefault();
@@ -68,7 +66,6 @@ const moveup =(e) =>{e.preventDefault();
 const movedown = (e)=>{e.preventDefault();
   movedown_(secvalue,uistate,updatesecvalue,updateuistate,compid);}
   return (
-
     <div className="section_box__item section_form__holder">2
     <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
           <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>

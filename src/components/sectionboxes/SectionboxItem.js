@@ -62,8 +62,6 @@ const updatesection =() =>{
  const tempupvalue = [...secvalue];
  tempupvalue[compid] = objValue;
  updatesecvalue(tempupvalue);
-
-
 }
 
 

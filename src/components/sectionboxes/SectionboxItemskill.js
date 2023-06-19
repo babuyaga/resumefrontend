@@ -17,7 +17,6 @@ var opthtml = options.map((item,i) => (<option value={i} key={i}>{item}</option>
 
 function SectionboxItemskill({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
 
-const compref_id = secname + compid;
 const top = uistate[compid];
 const objValue = secvalue[compid];
 objValue.name = objValue.name?objValue.name:"";

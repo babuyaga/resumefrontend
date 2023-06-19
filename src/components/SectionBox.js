@@ -201,22 +201,22 @@ function contentmaker(item_id){
 
 switch(item_id){
   case 1:
-  return (sectionval.map((e, i) => <SectionboxItemref        uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title} sectionindex={index}/>));
+  return (sectionval.map((e, i) => <SectionboxItemref        uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_1`} compid={i} secname = {compData.title} sectionindex={index}/>));
   break;
   case 2:
-  return (sectionval.map((e, i) => <SectionboxItemskill      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title}  sectionindex={index} />));
+  return (sectionval.map((e, i) => <SectionboxItemskill      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_2`} compid={i} secname = {compData.title}  sectionindex={index} />));
   break;
   case 3:
-  return (sectionval.map((e, i) => <SectionboxItemfixed      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title} sectionindex={index} />));
+  return (sectionval.map((e, i) => <SectionboxItemfixed      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_3`} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 4:
-  return (sectionval.map((e, i) => <SectionboxItem           uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title} sectionindex={index} />));
+  return (sectionval.map((e, i) => <SectionboxItem           uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_4`} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 5:
-  return (sectionval.map((e, i) => <SectionboxItemobjtwo     uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title} sectionindex={index} />));
+  return (sectionval.map((e, i) => <SectionboxItemobjtwo     uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_5`} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   case 6:
-  return (sectionval.map((e, i) => <SectionboxItemunfix      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={i+compData.title} compid={i} secname = {compData.title} sectionindex={index} />));
+  return (sectionval.map((e, i) => <SectionboxItemunfix      uistate={uistate} updateuistate={setuistate} secvalue={sectionval} updatesecvalue={setsectionval}  key={`${i}+${compData.title}_6`} compid={i} secname = {compData.title} sectionindex={index} />));
   break;
   default:
   return "";

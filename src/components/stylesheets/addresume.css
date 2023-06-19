@@ -1,0 +1,89 @@
+.addnew-popup-container-scrim{
+    background-color: #000000cf;
+    display:flex;
+    height:100%;
+    width:100%;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    position: fixed;
+    top:0;
+    z-index:7;
+}
+
+.addnew-popup-holder{
+    width:350px;
+    font-size:13px;
+    min-height:200px;
+    height:fit-content;
+    background-color:white;
+    padding:5px 35px 20px 35px;
+    box-sizing: border-box;
+    border-radius:10px;
+    border:1px solid black;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    gap:0px;
+    text-align: left;
+    z-index:9;
+}
+
+.addnew-popup-holder h2{
+    max-width:100%;
+    flex-wrap: wrap;
+}
+.addnew-popup-holder p{
+    margin:0;
+    font-size:13px;
+}
+#addnew-button-popup-doc{
+  color:green;
+
+}
+::-webkit-scrollbar-thumb{
+background-color:#0000002b;
+}
+
+.addnew-popup--button-holder{
+    display:flex;
+    gap:30px;
+  margin:20px 0px 10px 0px;
+}
+
+.addnew-popup--button-holder button{
+width:100px;
+height:35px;
+border:1px solid #00000052;
+    outline:none;
+    border-radius: 5px;
+      box-shadow: 5px 5px 5px #00000052;
+}
+
+.addnew-popup--button-holder button:active{
+    box-shadow: 2px 2px 2px #00000052;
+}
+
+.addnew-popup-input{
+    padding:10px;
+    border:1px solid orange;
+}
+
+
+.error-message-addnew-popup{
+    font-size:12px;
+    margin-top:10px;
+
+}
+
+@media only screen and (min-width: 768px) {
+    .addnew-popup-holder{
+        min-width:400px;
+        width:fit-content;
+        min-height:200px;
+        font-size:17px;
+    }
+
+    
+}

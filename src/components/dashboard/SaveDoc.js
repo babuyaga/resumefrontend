@@ -6,9 +6,11 @@ import { authContext} from "../../pages/Router";
 import axios from "axios";
 
 
-function DeleteDoc(){
+function SaveDoc(){
 
-    const {showDelete,setShowDelete} = useContext(authContext);
+const navigate = useNavigate();
+
+    const {showSave,setShowSave} = useContext(authContext);
     const parentRef = useRef(null);
     const buttonRef = useRef(null);
     useEffect(()=>{
@@ -17,8 +19,13 @@ function DeleteDoc(){
 
   const closePopUp=(e)=>{
     if ((e.target === parentRef.current)||(e.target === buttonRef.current)) {
-      setShowDelete(false);
+      setShowSave(false);
     }
+
+if(e.target === buttonRef.current){
+  navigate("/Dashboard");
+}
+
   }
 
   const openSop=(e)=>{
@@ -26,28 +33,25 @@ function DeleteDoc(){
    
   }
 
-  const deleteStuff=()=>{
-    axios.post('http://localhost:5000/api/deletedoc',{rid:showDelete.id,type:showDelete.type}).then((res)=>{
-      console.log("Deleted",res);
-      setShowDelete(false);
-    })
+  const SaveStuff=()=>{
+ 
   }
 
-return (<div className="delete-popup-container-scrim" ref={parentRef} onClick={closePopUp} style={showDelete?{}:{"display":"none"}}>
+return (<div className="delete-popup-container-scrim" ref={parentRef} onClick={closePopUp} style={showSave?{}:{"display":"none"}}>
                      <style>
-                     {showDelete?`body{
+                     {showSave?`body{
                         overflow:hidden;
                         }`:""}
                      </style>
                      <div className="delete-popup-holder">
                        
-                        <h2>Delete {showDelete.name}?</h2>
-                        <p>Deleted documents cannot be recovered</p>
-                                          <p>{showDelete.type}</p>
+                        <h2>Discard changes to: <br></br> {showSave.name}?</h2>
+                        <p></p>
+                                          <p>{showSave.type}</p>
                            
                               <div className="delete-popup--button-holder">
-                                <button id="delete-button-popup-doc" onClick={deleteStuff}>Delete</button>
-                              <button onClick={closePopUp} ref={buttonRef}>Cancel</button>
+                                <button id="delete-button-popup-doc" onClick={SaveStuff}>Save</button>
+                              <button onClick={closePopUp} ref={buttonRef}>Discard</button>
                               
                               
                               
@@ -63,4 +67,4 @@ return (<div className="delete-popup-container-scrim" ref={parentRef} onClick={c
             </div>);
     }
 
-export default DeleteDoc;
+export default SaveDoc;

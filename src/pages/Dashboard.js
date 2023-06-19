@@ -11,13 +11,13 @@ import MenuDash from "../components/dashboard/MenuDash.js";
 import BannerDash from "../components/dashboard/BannerDash";
 import Loadericon from "../icons/Loadericon";
 import axios from "axios";
-
+import AddResume from "../components/dashboard/AddResume";
 
 
 
 function Dashboard() {
 const [selected,setselect] = useState("all");
-const {setLoading,userData,showSop,setShowSOP} = useContext(authContext);
+const {setLoading,userData,showSop,setShowSOP,showDelete,setaddResume} = useContext(authContext);
 const navigate = useNavigate();
 const [resumedocs,setresumedocs] = useState([]);
 const [sopdocs,setsopdocs] = useState([]);
@@ -27,9 +27,9 @@ const contentMaker = (value,type)=>{
 let html;
 
     if(type==="sop"){
-      html =  value.map((e,i)=> <Document key={`sop${i}`} docname={e.sopname} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
+      html =  value.map((e,i)=> <Document key={`sop${i}`} doctype="sop" docname={e.sopname} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
     }else if(type==="resume"){
-    html =  value.map((e,i)=> <Document key={`resume${i}`} docname={e.resumename} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
+    html =  value.map((e,i)=> <Document key={`resume${i}`} doctype="resume" docname={e.resumename} updatedAt={e.updatedAt} tags={e.tags} docid={e.uniqueid}/> );
     }
 return html;   
 }
@@ -59,10 +59,9 @@ useEffect(()=>{
 
 
 
-
 return (  
 <div className="dashboard-page" >
-
+<AddResume/>
                 <div className="container-content--dashboard">
                         {/* <div className="menu-faux--dashboard component-content--dashboard"></div> */}
                         <MenuDash item="1"/>
@@ -74,7 +73,7 @@ return (
                                 <div className="container-buttons-sections--dashboard">
                                     {console.log()}
                                     <div className="component-buttons-sections--dashboard"> 
-                                        <div className="feature-button--dashboard" id="feature-button-one"  onClick={()=>{navigate("/builder/resume");}}>
+                                        <div className="feature-button--dashboard" id="feature-button-one"  onClick={()=>{setaddResume(true)}}>
                                             <div className="icon-feature-button"></div>
                                             <div><span className="title-feature-button">Resume</span><span className="subtitle-feature-button">Create from scratch</span></div>
                                         </div> 

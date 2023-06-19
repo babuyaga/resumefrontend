@@ -5,7 +5,7 @@ import Trashicon from "../../icons/Trashicon";
 
 
 
-function Document({docname,updatedAt,tags,docid}) {
+function Document({docname,updatedAt,tags,docid,doctype}) {
 const {showDelete,setShowDelete} = useContext(authContext);
 
 const dateTimeObj = new Date(updatedAt);
@@ -31,11 +31,11 @@ return (    <div className="item-documents-section--dashboard">
 <div className="subtitle-item-documents--dashboard"><span>Last updated at {formattedTime?formattedTime:""}<br></br> {connector?connector:""} {formattedDate?formattedDate:""}</span></div>
 <div className="tag-holder-item-documents--dashboard">
         {tags.length>1?tags.slice(0,2).map((e,i)=><div key={i} className="tags-document--dashboard"><span>{e}</span></div>):""}{tags.length>2?<div className="tags-left-document--dashboard"><span>+{tags.length-2}</span></div>:""}
-        <div className="trashicon-documents--dashboard-desktop" onClick={()=>{setShowDelete({id:docid,name:docname})}}><Trashicon wi="19" hi="19"/></div>
+        <div className="trashicon-documents--dashboard-desktop" onClick={()=>{setShowDelete({id:docid,name:docname,type:doctype})}}><Trashicon wi="19" hi="19"/></div>
 </div>
 
 </div>
-<div className="trashicon-documents--dashboard-mobile" onClick={()=>{setShowDelete({id:docid,name:docname})}}><Trashicon/></div>
+<div className="trashicon-documents--dashboard-mobile" onClick={()=>{setShowDelete({id:docid,name:docname,type:doctype})}}><Trashicon/></div>
 </div>
 );
 
