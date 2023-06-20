@@ -62,7 +62,7 @@ const [hoveron,sethover] = useState(false);
 const [appval, setappval] = useState(["init"]);
 const [hoverindex,sethovindex] = useState(0);
 const {resumeid} = useParams();
-
+const  [resumetitle,settitle] = useState("Untitled Resume");
 const openSetting=(e)=>{e.preventDefault();
   setshowset({"display":true,"index":appval.length,"navbar":true}); //if settings pop up is opened via the navbar and add section is clicked. Add the section at the very end by setting index as appval.length
 }
@@ -70,8 +70,11 @@ const openSetting=(e)=>{e.preventDefault();
 useEffect(()=>{
  axios.get(`http://localhost:5000/api/getresume?r=${resumeid}`).then((res)=>{
   console.log(res.data.resume.value);
+  console.log("Daaaataaaaa",res.data.resume);
   const data = JSON.parse(res.data.resume.value);
    setappval(data); 
+   settitle(res.data.resume.resumename);
+  
 })
 
 },[]); 
@@ -82,7 +85,7 @@ let tempval = [...appval];
 tempval[i].value = updatevalue;
 tempval[i].title= title;
 tempval[i].include=include;
-saveData(tempval,saveUrl);
+saveData(tempval,saveUrl,resumeid);
 setappval(tempval); 
 console.log("Client pushed Appval", appval);
 }
@@ -91,7 +94,7 @@ console.log("Client pushed Appval", appval);
 const deleteAppval = (index) => {
 let tempval = [...appval];
 tempval.splice(index,1);
-saveData(tempval,saveUrl);
+saveData(tempval,saveUrl,resumeid);
 setappval(tempval);
 }
 
@@ -122,7 +125,7 @@ const addAppval = (index) =>{
       if(tempval.length<15){
             tempval.splice(index,0,resumeobj);
           }
-           saveData(tempval,saveUrl);
+           saveData(tempval,saveUrl,resumeid);
           setappval(tempval);
 }
 
@@ -152,7 +155,7 @@ const reorder = (i,flag)=>{
   }
 
   console.log("after reorder",tempval);
-  saveData(tempval,saveUrl);
+  saveData(tempval,saveUrl,resumeid);
   setappval(tempval);
 }
 
@@ -177,7 +180,7 @@ const swaporder = (i,j)=>{
   }
  }
 
-   saveData(temparray,saveUrl); 
+   saveData(temparray,saveUrl,resumeid); 
    setappval(temparray);
    console.log("element",element);
    element.scrollIntoView();
@@ -196,7 +199,7 @@ if(type==="header"){
 
   return (   <div className="sop-app-navbar">
   <div className="dashboard-back-button-holder--sop"><div className="dashboard-back-button-sop" onClick={()=>{setShowSave(true)}}><div><Downarrow/></div><span>Dashboard</span></div></div>
-   <span><input value="Untitled SOP"></input></span>
+   <span><input value={resumetitle} onChange={(e)=>{settitle(e.target.value)}}></input></span>
    <div className="right-buttons--navbar">
    <button id="save-button-sopapp">Save</button>
    

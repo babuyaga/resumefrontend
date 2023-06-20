@@ -17,7 +17,7 @@ import {appuiContext} from "../pages/App.js";
 
 function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
 
-const {setshowset,pushAppValclient,swaporder,hoverindex} = useContext(appuiContext);
+const {setshowset,updateAppVal,swaporder,hoverindex} = useContext(appuiContext);
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
@@ -137,7 +137,7 @@ const updateParent_ = (titleval,toggleval)=>{
   // tempparentval.pop();
   // } //if the last component is just added and not updated, then don't add it to the database
 
-pushAppValclient(tempparentval,index,titleval,toggleval);
+  updateAppVal(tempparentval,index,titleval,toggleval);
 }
 
 

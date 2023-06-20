@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function getdataformat() {
   
    const sample = [{
@@ -76,33 +78,16 @@ setstate(data_);
 
 
 
-export async function saveData(dataSave,url){
+export async function saveData(dataSave,url,resumeid){
 
-  console.log("savedata called");
-  if(url){
-    url = `${process.env.REACT_APP_APPLICATION_TEST_URL}/saveresume`;
-  }
-  
-  var sectiondata = [ {
-    "description": "First Description"
-  }, {
-    "description": "Second Descriptiotn"
-  }, {
-    "description": "Third description"
-  },
-];
+  const saveData = JSON.stringify(dataSave);
+  console.log("datasave", saveData);
+  axios.post("http://localhost:5000/api/saveresume",{updateObj:saveData,rid:resumeid}).then((res)=>{
+
+    console.log(res);
+  })
 
 
-const res = await fetch(url,{
-  method:'POST',
-  headers : { 
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-   },
-  body: JSON.stringify(dataSave)
-});
 
-const json = res.json();
-console.log(json);
 }
 // {"Resume Objective":[{"description":"<p>First Description</p>"},{"description":"<p>First Description</p>"},{"description":"<p>First Description</p>"}]}
