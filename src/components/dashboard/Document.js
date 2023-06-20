@@ -7,7 +7,7 @@ import Trashicon from "../../icons/Trashicon";
 
 function Document({docname,updatedAt,tags,docid,doctype}) {
 const {showDelete,setShowDelete} = useContext(authContext);
-
+const navigate= useNavigate();
 const dateTimeObj = new Date(updatedAt);
 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 let today = new Date();
@@ -23,8 +23,19 @@ const formattedTime = dateTimeObj.toLocaleTimeString(options);
 
 // }
 
+const openDoc = ()=>{
+
+if(doctype==="resume"){
+        navigate(`/builder/resume/${docid}`);
+}else{
+        navigate(``);
+}
+
+}
+
+
 console.log("Document called");
-return (    <div className="item-documents-section--dashboard">
+return (    <div className="item-documents-section--dashboard" onClick={openDoc}>
 <div className="image-item-documents--dashboard"></div>
 <div>
 <div className="title-item-documents--dashboard"><span>{docname?docname:""}</span></div>

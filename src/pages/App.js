@@ -68,7 +68,11 @@ const openSetting=(e)=>{e.preventDefault();
 }
 
 useEffect(()=>{
-  getServer(setappval,getDataurl);
+ axios.get(`http://localhost:5000/api/getresume?r=${resumeid}`).then((res)=>{
+  console.log(res.data.resume.value);
+  const data = JSON.parse(res.data.resume.value);
+   setappval(data); 
+})
 
 },[]); 
 
@@ -231,7 +235,7 @@ return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval
 
   </div>
 <div ref={divRef}>
-  {console.log(resumeid)}
+  
               {contentMaker(appval)}
               </div>
           </div>
