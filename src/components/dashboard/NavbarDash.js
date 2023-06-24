@@ -2,6 +2,7 @@ import {useState,useEffect,useContext,createContext,useRef} from "react";
 import {authContext} from "../../pages/Router";
 import { useNavigate } from "react-router-dom";
 import "./stylesheets/navbardash.css";
+import Signout from "../../icons/Signout";
 
 function NavbarDash() {
 const [checked,setchecked] = useState(false);
@@ -22,7 +23,7 @@ return (     <div className="navbar-general--dashboard">
 <div className="navbar-component-container--dashboard">
     <div className="navbar-logo--holder" onClick={()=>{navigate("/dashboard");}}></div>
 
-    <div className="navbar-buttons-holder"><div className="signout-button--navbardash" onClick={signOut}>Signout</div></div>
+    <div className="navbar-buttons-holder"><div className="signout-button--navbardash" onClick={signOut}>Signout <Signout/></div></div>
 </div>
 </div>
 );

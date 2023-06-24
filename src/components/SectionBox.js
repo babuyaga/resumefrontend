@@ -17,7 +17,7 @@ import {appuiContext} from "../pages/App.js";
 
 function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
 
-const {setshowset,updateAppVal,swaporder,hoverindex} = useContext(appuiContext);
+const {showset,setshowset,updateAppVal,swaporder,hoverindex} = useContext(appuiContext);
 
 const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
 
@@ -38,6 +38,12 @@ let update_message = {value:`Autosaved`,display:"block", messagetype:2};
 
 const [togglestate,settoggle] = useState(compData.include);
 
+
+useEffect(() => {
+  if ((sectionbox.current)&&(showset.scroll)) {
+    sectionbox.current.scrollIntoView({ behavior: 'smooth' });
+  }
+}, []);
 
 
 

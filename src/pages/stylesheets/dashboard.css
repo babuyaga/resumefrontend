@@ -48,7 +48,7 @@
     flex-direction:row;
     justify-content: center;
     align-items: center;
-    border:1px solid violet;
+  box-shadow: 0px 1px 5px #00000012;
     background-color:white;
 }
 
@@ -250,6 +250,7 @@ flex-direction: column;
     display:flex;
     justify-content: center;
     align-items: center;
+    z-index:9;
 }
 
 .trashicon-documents--dashboard-mobile:active{

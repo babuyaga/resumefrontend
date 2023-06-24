@@ -78,11 +78,21 @@ setstate(data_);
 
 
 
-export async function saveData(dataSave,url,resumeid){
+export async function saveData(dataSave,url,resumeid,title){
+
+let postData = {};
 
   const saveData = JSON.stringify(dataSave);
+
+
+  if(title){
+    postData={updateObj:saveData,rid:resumeid,rname:title};
+  } else {
+    postData={updateObj:saveData,rid:resumeid}
+  }
+
   console.log("datasave", saveData);
-  axios.post("http://localhost:5000/api/saveresume",{updateObj:saveData,rid:resumeid}).then((res)=>{
+  axios.post("http://localhost:5000/api/saveresume",postData).then((res)=>{
 
     console.log(res);
   })

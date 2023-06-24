@@ -23,7 +23,6 @@ import SopApp from './SopApp.js';
 import NavbarDash from '../components/dashboard/NavbarDash.js';
 import SopPopUp from '../components/dashboard/SopPopUp.js';
 import DeleteDoc from '../components/dashboard/DeleteDoc.js';
-import SaveDoc from '../components/dashboard/SaveDoc.js';
 
 export const authContext = createContext();
 
@@ -48,7 +47,7 @@ function Router() {
     setUser(JSON.parse(Cookies.get("user")));
   }},[]);
 
-  console.log(userData);
+
   const [SignInerror,setSignInError] = useState("");
   const [SignUperror,setSignUpError] = useState("");
   const [loading,setLoading] = useState(false);
@@ -245,7 +244,7 @@ return (  <BrowserRouter>
 <NavbarDash/>
 <SopPopUp/>
 <DeleteDoc/>
-<SaveDoc/>
+
     <Routes>
   
     {/* <Route index element={<Error404 />} />  */}

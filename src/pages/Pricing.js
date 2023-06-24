@@ -239,8 +239,8 @@ return (<div className={`item-pricing-section--dashboard  ${classnm}`} id={idnam
                                         <div className={`title-item-pricing--dashboard`} ><span>{idname}</span></div>
                                        
                                         <div className={`subtitle-item-pricing--dashboard`}>
-                                          {plandetails[idname].map(element => 
-                                            <span><li></li>{element}</span>
+                                          {plandetails[idname].map((element,index) => 
+                                            <span key={index}><li></li>{element}</span>
                                           )}
                                               
                                         </div>

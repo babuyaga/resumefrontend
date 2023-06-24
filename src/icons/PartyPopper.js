@@ -1,5 +1,5 @@
 function PartyPopper({wi,hi}){
-    return(<svg width={wi} height={hi} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+    return(<svg width={wi} height={hi} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
     <path fill="#f7b600" d="M2 61l8.6-3l-6.5-3z"/>
     <path fill="#ffdd7d" d="M26.9 36.4L14.8 24.2l-2 5.6z"/>
     <path fill="#f7b600" d="M12.8 29.8l-2.2 6.3l26.8 12.5l1.3-.4l-11.8-11.8z"/>

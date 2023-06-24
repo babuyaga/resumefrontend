@@ -14,23 +14,28 @@ import Downarrow from '../icons/Downarrow.js';
 import {authContext} from "./Router.js";
 import Trashicon from '../icons/Trashicon.js';
 import axios from 'axios';
+import SaveDoc from '../components/dashboard/SaveDoc.js';
+
 export const appuiContext = createContext();
 
 
 function App() {
 
-const {showSave,setShowSave} = useContext(authContext);
+
 
 const divRef = useRef(null);
+const scrollRef = useRef(null);
 
 useEffect(() => {
   const observer = new MutationObserver((mutations) => {
     // Handle changes to the div or its children here
-    console.log('Changes detected:', mutations);
+    setChange(true);
+
   });
 
   if (divRef.current) {
     observer.observe(divRef.current, { subtree: true, childList: true });
+ 
   }
 
   return () => {
@@ -43,9 +48,13 @@ useEffect(() => {
 
 
 
+let getDataurl = "http://localhost:5000/newresume";
+let saveUrl = 'http://localhost:5000/saveresume'; 
 
-  let getDataurl = "http://localhost:5000/newresume";
-  let saveUrl = 'http://localhost:5000/saveresume'; 
+
+
+
+
 // const forlater=[
 // {"title":"Work Experience","idno":4,"addmore":true},
 // {"title":"Skills","idno":2,"addmore":true},
@@ -53,41 +62,50 @@ useEffect(() => {
 // {"title":"Personal Projects","idno":5,"addmore":true},
 // {"title":"Licenses and Certifications","idno":5,"addmore":true}];
 
-
-const [toaststate,settoast] = useState([]); //saves the state of the toast message
+const {showSave,setShowSave,setShowDelete,settoast} = useContext(authContext);
 const [showset,setshowset] = useState({"display":false,"index":1});
  //saves the data used for each of the components in the app
 const [theme,settheme] = useState(Cookies.get("theme") ||"light");
 const [hoveron,sethover] = useState(false);
-const [appval, setappval] = useState(["init"]);
+const [appval, setappval] = useState(false);
 const [hoverindex,sethovindex] = useState(0);
 const {resumeid} = useParams();
 const  [resumetitle,settitle] = useState("Untitled Resume");
+const [validTitle,setValid] = useState("Untitled Resume");
+const [changed,setChange] = useState(false);
 const openSetting=(e)=>{e.preventDefault();
   setshowset({"display":true,"index":appval.length,"navbar":true}); //if settings pop up is opened via the navbar and add section is clicked. Add the section at the very end by setting index as appval.length
 }
 
 useEffect(()=>{
  axios.get(`http://localhost:5000/api/getresume?r=${resumeid}`).then((res)=>{
-  console.log(res.data.resume.value);
-  console.log("Daaaataaaaa",res.data.resume);
   const data = JSON.parse(res.data.resume.value);
    setappval(data); 
    settitle(res.data.resume.resumename);
-  
+   setValid(res.data.resume.resumename);
 })
 
 },[]); 
 
+
 const updateAppVal = (updatevalue,i,title,include)=>{
-  console.log(include);
+
 let tempval = [...appval];
 tempval[i].value = updatevalue;
 tempval[i].title= title;
 tempval[i].include=include;
-saveData(tempval,saveUrl,resumeid);
+saveData(tempval,saveUrl,resumeid,resumetitle);
 setappval(tempval); 
-console.log("Client pushed Appval", appval);
+}
+
+
+const updateappvalWhole = (updatevalue)=>{
+  saveData(updatevalue,saveUrl,resumeid,resumetitle);
+  setappval(updatevalue); 
+}
+
+const saveThis = ()=>{
+  updateappvalWhole(appval);
 }
 
 
@@ -98,7 +116,7 @@ saveData(tempval,saveUrl,resumeid);
 setappval(tempval);
 }
 
-const addAppval = (index) =>{
+const addAppval = (index,includeSOP) =>{
     let tempval = [...appval];
   
    const generateKey = (pre) => {
@@ -113,48 +131,48 @@ const addAppval = (index) =>{
    const resumeobj = {
       "title":"Added Section",
      "idno":6,
-      "uniqueid":"adfasdfasdfasdfasdf",
+      "uniqueid":"",
      "addmore":false,
      "include":true,
+     "includeSOP":includeSOP,
      "value":[{"description": "First Description"}]
      };
 
    resumeobj.uniqueid = generateKey(resumeobj.title);
    
-      console.log("function called at ", index );
+  
       if(tempval.length<15){
             tempval.splice(index,0,resumeobj);
           }
-           saveData(tempval,saveUrl,resumeid);
+           saveData(tempval,saveUrl,resumeid,resumetitle);
           setappval(tempval);
 }
-
-const updateToast = (error)=>{ 
-        let tempmessage = toaststate.map((e)=>e);
-      if(tempmessage.length>3){
-             tempmessage = [];
-        }
-        tempmessage.push(error);
-        settoast(tempmessage);
-        } 
+// const updateToast = (error)=>{ 
+//         let tempmessage = toaststate.map((e)=>e);
+//       if(tempmessage.length>3){
+//              tempmessage = [];
+//         }
+//         tempmessage.push(error);
+//         settoast(tempmessage);
+//         } 
 
 
 const reorder = (i,flag)=>{
   let tempval = appval.map((x)=>(x));
-  console.log("before reorder",appval);
+
 
   if((flag)&&(i>0)){
-    console.log("Up");
+
     tempval[i-1] = appval[i];
   tempval[i]=appval[i-1];
   }
   else if ((!flag)&&(i<appval.length-1)){
-    console.log("Down");
+  
     tempval[i+1] = appval[i];
     tempval[i]=appval[i+1];
   }
 
-  console.log("after reorder",tempval);
+
   saveData(tempval,saveUrl,resumeid);
   setappval(tempval);
 }
@@ -182,14 +200,44 @@ const swaporder = (i,j)=>{
 
    saveData(temparray,saveUrl,resumeid); 
    setappval(temparray);
-   console.log("element",element);
    element.scrollIntoView();
+}
+
+const showDiscard = ()=>{
+  if(changed){
+    console.log(changed);
+    setShowSave({name:resumetitle,type:"Resume"})
+  }else{
+    
+  }
+}
+
+const contentMaker = (value)=>{
+ return value.map((e,i)=> <div key={`div_${e.uniqueid}`}><IndexHolder sectionid={`indexholder_${i}`} itemindex={i} key={`index_${e.uniqueid}`} />   <SectionBox sectionid={`sectionbox_${i}`} compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={updateAppVal} classname="section_box" /> {i===(appval.length-1)?<IndexHolder sectionid={`indexholder_${i+1}`}  key={`index_${e.uniqueid}_last`} itemindex={i+1}/>:""}</div>)
 }
 
 
 
-const contentMaker = (value)=>{
- return value.map((e,i)=> <div><IndexHolder sectionid={`indexholder_${i}`} itemindex={i}/>   <SectionBox sectionid={`sectionbox_${i}`} compData={e} reorder={reorder} item={e.idno} key={e.uniqueid} /*{e.key}*/ index={i}  updateParentVal={updateAppVal} classname="section_box" /> {i===(appval.length-1)?<IndexHolder sectionid={`indexholder_${i+1}`} itemindex={i+1}/>:""}</div>)
+const deleteDoc=(e)=>{
+  e.preventDefault();
+  setShowDelete({id:resumeid,name:resumetitle,type:`resume`});
+}
+
+
+
+const titleChange = (e)=>{
+  setValid(resumetitle);
+  settitle(e.target.value);
+}
+
+const onTitleBlur = ()=>{
+  if(resumetitle<6){
+    settitle(validTitle);
+  }else if(resumetitle>20){
+    settitle(validTitle);
+  }else{
+    saveThis()
+  }
 }
 
 const navBar = (type)=>{
@@ -198,14 +246,14 @@ const navBar = (type)=>{
 if(type==="header"){
 
   return (   <div className="sop-app-navbar">
-  <div className="dashboard-back-button-holder--sop"><div className="dashboard-back-button-sop" onClick={()=>{setShowSave(true)}}><div><Downarrow/></div><span>Dashboard</span></div></div>
-   <span><input value={resumetitle} onChange={(e)=>{settitle(e.target.value)}}></input></span>
+  <div className="dashboard-back-button-holder--sop"><div className="dashboard-back-button-sop" onClick={showDiscard}><div><Downarrow/></div><span>Dashboard</span></div></div>
+   <span><input value={resumetitle} onChange={titleChange} onBlur={onTitleBlur}></input></span>
    <div className="right-buttons--navbar">
-   <button id="save-button-sopapp">Save</button>
+   <button id="save-button-sopapp" onClick={(e)=>{e.preventDefault(); saveThis()}}>Save</button>
    
    <button onClick={openSetting}>Add section</button>
    <button>Download</button>
-   <button style={{"min-width":"0"}}><Trashicon/></button>
+   <button style={{"minWidth":"0"}} onClick={deleteDoc}><Trashicon/></button>
    </div>
   </div>);
 
@@ -213,10 +261,8 @@ if(type==="header"){
   return <div className="sop-app-footbar sop-app-navbar">
   <div className="right-buttons--navbar-footer">
        <button id="save-button-sopapp">Save</button>
-   
-       <button>Regenerate</button>
        <button>Download</button>
-       <button style={{"min-width":"0"}}><Trashicon/></button>
+       <button style={{"minWidth":"0"}} onClick={deleteDoc}><Trashicon/></button>
    </div>
 </div>  
 }
@@ -224,22 +270,26 @@ if(type==="header"){
 }
 
 
-return (<appuiContext.Provider value={{showset,setshowset,deleteAppval,addAppval,updateAppVal,appval,hoveron,sethover,swaporder,hoverindex,sethovindex,reorder}}>
-  <div>   <SettingBox/> 
+return (<appuiContext.Provider value={{scrollRef,saveThis,updateappvalWhole,showset,setshowset,deleteAppval,addAppval,updateAppVal,appval,hoveron,sethover,swaporder,hoverindex,sethovindex,reorder}}>
+  <div>   
+  <SaveDoc/>
+  {showset.display?<SettingBox/>:""} 
 
-    <div className={`App ${theme}`}>
+
+    <div className={`App ${theme}`} ref={divRef}>
      
     <form>
-    <button onClick={(e)=>{e.preventDefault();console.log(appval)}}>Show App Val</button>
+  
          <div style={{"display":"flex","flexDirection":"column","gap":"15px"}}>
 <div className="dashboard-back-button-holder--app">
   
 {navBar("header")}
 
   </div>
-<div ref={divRef}>
+<div ><button onClick={(e)=>{e.preventDefault();console.log(appval);}}>Show app val</button>
   
-              {contentMaker(appval)}
+              {appval?contentMaker(appval):""}
+
               </div>
           </div>
 </form>

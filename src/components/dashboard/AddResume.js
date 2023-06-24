@@ -31,6 +31,9 @@ if(e.target.value.length>6){
   const validateStuff=()=>{
 if(name.length<6){
   setError("Name has to be atleast 6 characters");
+}else if(name.length>20){
+  setError("Name can be maximum 20 characters");
+
 }else{
   setError("");
 addinDB();
@@ -55,7 +58,7 @@ return (<div className="addnew-popup-container-scrim" ref={parentRef} onClick={c
                      <div className="addnew-popup-holder">
                        <h3>Resume Name:</h3>
                        <input value={name} onChange={onNameChange} autoFocus={true} className="addnew-popup-input"></input>   
-                       <span className="error-message-addnew-popup">{error?error:" "}</span>
+                       <span className="error-message-addnew-popup" style={{"color":"red"}}>{error?error:" "}</span>
                               <div className="addnew-popup--button-holder">
                                 <button id="addnew-button-popup-doc" onClick={validateStuff}>Add</button>
                               <button onClick={closePopUp} ref={buttonRef}>Discard</button>

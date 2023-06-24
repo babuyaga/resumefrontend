@@ -9,6 +9,7 @@ import axios from "axios";
 function DeleteDoc(){
 
     const {showDelete,setShowDelete} = useContext(authContext);
+    const navigate = useNavigate();
     const parentRef = useRef(null);
     const buttonRef = useRef(null);
     useEffect(()=>{
@@ -30,6 +31,7 @@ function DeleteDoc(){
     axios.post('http://localhost:5000/api/deletedoc',{rid:showDelete.id,type:showDelete.type}).then((res)=>{
       console.log("Deleted",res);
       setShowDelete(false);
+      navigate('/dashboard');
     })
   }
 

@@ -18,17 +18,17 @@ opacity: 0;
 }
 
 .setting_box{
-    width:400px;
+    width:333px;
     height:fit-content;
-    background-color:#222222;
-    color:white;
+    background-color:#FFFFFF;
+    color:#000000;
     border:1px solid white;
     margin:auto;
     border-radius:5px;
     z-index:3;
     display:flex;
     flex-direction:column;
-    padding:15px;
+    padding:40px 10px;
     box-sizing: border-box;
     gap:20px;
 }
@@ -48,7 +48,6 @@ cursor: pointer;
     display:flex;
     height:fit-content;
     box-sizing: border-box;
-    background-color:#00000012;
     padding: 8px 0px 8px 15px;
     flex-direction: row;
  justify-content: flex-start;
@@ -68,10 +67,19 @@ outline:1px solid black;
 
 }
 
-
+.setting_box-button{
+    width:130px;
+    height:45px;
+}
  
 
 .setting_box_top{
     align-items: end;
     flex-direction: column;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .setting_box{
+        width:400px;}
 }

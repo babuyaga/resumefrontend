@@ -3,6 +3,7 @@ import "../stylesheets/deletedoc.css";
 import Loadericon from "../../icons/Loadericon";
 import { useNavigate } from "react-router-dom";
 import { authContext} from "../../pages/Router";
+import { appuiContext } from "../../pages/App";
 import axios from "axios";
 
 
@@ -11,6 +12,8 @@ function SaveDoc(){
 const navigate = useNavigate();
 
     const {showSave,setShowSave} = useContext(authContext);
+    const {saveThis} = useContext(appuiContext);
+    
     const parentRef = useRef(null);
     const buttonRef = useRef(null);
     useEffect(()=>{
@@ -34,7 +37,8 @@ if(e.target === buttonRef.current){
   }
 
   const SaveStuff=()=>{
- 
+    saveThis();
+    navigate("/Dashboard");
   }
 
 return (<div className="delete-popup-container-scrim" ref={parentRef} onClick={closePopUp} style={showSave?{}:{"display":"none"}}>
@@ -45,9 +49,9 @@ return (<div className="delete-popup-container-scrim" ref={parentRef} onClick={c
                      </style>
                      <div className="delete-popup-holder">
                        
-                        <h2>Discard changes to: <br></br> {showSave.name}?</h2>
+                        <h2>Discard changes to <br></br>{showSave.name}?</h2>
                         <p></p>
-                                          <p>{showSave.type}</p>
+                                          <p></p>
                            
                               <div className="delete-popup--button-holder">
                                 <button id="delete-button-popup-doc" onClick={SaveStuff}>Save</button>
