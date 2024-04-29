@@ -15,7 +15,7 @@ var styles = {display:""};
 var stylez = {display:""};
 
 
-function SectionboxItem({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
+function SectionboxItemEdu({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
 
 // useEffect(()=>{ objValue.description = "Kindly update description...";
 //  updatesectione();},[]
@@ -29,15 +29,6 @@ const top = uistate[compid];
 const objValue = secvalue[compid];
 objValue.startDate = objValue.startDate?objValue.startDate:"2022-09";
 objValue.endDate = objValue.endDate?objValue.endDate:"2022-09";
-
-console.log("Appval compid",appval[compid].flag);
-
-let titles = {"title":"Role","place":"Workplace"};
-
-if(objValue.flag==="education"){
-  titles = {"title":"Course","place":"University"};
-}
-
 
 let designationref = useRef();
 let cityref = useRef();
@@ -126,12 +117,12 @@ console.log("Appval, sectionindex",appval[sectionindex]);
 
   return (
 
-            <div className="section_box__item section_form__holder">1
+            <div className="section_box__item section_form__holder">2
                   <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
                   <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
-                      <div className="section_form__item section_item__title"><span>{titles.title}</span>      <div className="inputbox_component"><input placeholder="Enter Title" ref={designationref} value={objValue.designation} onChange={changeobjval} ></input></div>    </div>
+                      <div className="section_form__item section_item__title"><span>Title</span>      <div className="inputbox_component"><input placeholder="Enter Title" ref={designationref} value={objValue.designation} onChange={changeobjval} ></input></div>    </div>
                       <div className="section_form__item section_item__location"><span>City/Town</span> <div className="inputbox_component"><input placeholder="Enter City/Town" ref={cityref} value={objValue.location} onChange={changeobjval}></input></div> </div>
-                      <div className="section_form__item section_item__place"> <span> {titles.place} </span> <div className="inputbox_component"><input placeholder="Enter Workplace" ref={schoolref} value={objValue.place} onChange={changeobjval}></input></div> </div>
+                      <div className="section_form__item section_item__place"> <span> Workplace </span> <div className="inputbox_component"><input placeholder="Enter Workplace" ref={schoolref} value={objValue.place} onChange={changeobjval}></input></div> </div>
                       <div className="section_form__item section_item__dates">
                             <div className="section_item__startd section_item__dateinput"><span>Start Date</span><div className="inputbox_component"><input ref={sdateref} value={objValue.startDate} onChange={changeobjval} type="month" placeholder="Start Date" id="startdate" name="startdate"></input></div></div>
                             <div className="section_item__endd section_item__dateinput"><span> End Date </span><div className="inputbox_component"><input ref={edateref} value={objValue.endDate} onChange={changeobjval} type="month" id="enddate" name="enddate"></input></div></div>
@@ -148,4 +139,4 @@ console.log("Appval, sectionindex",appval[sectionindex]);
   );
 }
 
-export default SectionboxItem;
+export default SectionboxItemEdu;

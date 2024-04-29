@@ -15,6 +15,9 @@ import {authContext} from "./Router.js";
 import Trashicon from '../icons/Trashicon.js';
 import axios from 'axios';
 import SaveDoc from '../components/dashboard/SaveDoc.js';
+import { useNavigate } from 'react-router-dom';
+import ResumeDesign from '../components/dashboard/ResumeDesign.js';
+
 
 export const appuiContext = createContext();
 
@@ -22,6 +25,7 @@ export const appuiContext = createContext();
 function App() {
 
 
+const navigate = useNavigate();
 
 const divRef = useRef(null);
 const scrollRef = useRef(null);
@@ -29,8 +33,9 @@ const scrollRef = useRef(null);
 useEffect(() => {
   const observer = new MutationObserver((mutations) => {
     // Handle changes to the div or its children here
+        if(appval){
     setChange(true);
-
+    }
   });
 
   if (divRef.current) {
@@ -64,6 +69,9 @@ let saveUrl = 'http://localhost:5000/saveresume';
 
 const {showSave,setShowSave,setShowDelete,settoast} = useContext(authContext);
 const [showset,setshowset] = useState({"display":false,"index":1});
+
+const [showDesign,setShowDesign] = useState(false);
+
  //saves the data used for each of the components in the app
 const [theme,settheme] = useState(Cookies.get("theme") ||"light");
 const [hoveron,sethover] = useState(false);
@@ -77,15 +85,110 @@ const openSetting=(e)=>{e.preventDefault();
   setshowset({"display":true,"index":appval.length,"navbar":true}); //if settings pop up is opened via the navbar and add section is clicked. Add the section at the very end by setting index as appval.length
 }
 
+
+
+const openDesigns=(e)=>{e.preventDefault();
+setShowDesign(true);  
+}
+
 useEffect(()=>{
  axios.get(`http://localhost:5000/api/getresume?r=${resumeid}`).then((res)=>{
   const data = JSON.parse(res.data.resume.value);
-   setappval(data); 
+   setappval([{
+    "title": "Descriptive",
+    "idno": 3,
+    "uniqueid": "Descriptive_17392145_1677662710762",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "description": ""
+    }]
+  }, {
+    "title": "Skills",
+    "idno": 2,
+    "uniqueid": "Skills_872055_1677662710762",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "name": "",
+      "level": "1"
+    }]
+  }, {
+    "title": "References",
+    "idno": 1,
+    "uniqueid": "References_81165534_1677662710762",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "compname": "",
+      "contactperson": "",
+      "phonenumber": "",
+      "emailadd": ""
+    }]
+  }, {
+    "title": "Work Experience",
+    "idno": 4,
+    "uniqueid": "",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "description": "",
+      "designation": "",
+      "endDate": "2023-03",
+      "location": "",
+      "place": "",
+      "startDate": "2022-07",
+      "website": ""
+    }]
+  },{
+    "title": "Educational Experience",
+    "idno": 4,
+    "uniqueid": "",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "flag":"education",
+    "value": [{
+      "description": "",
+      "designation": "",
+      "endDate": "2023-03",
+      "location": "",
+      "place": "",
+      "startDate": "2022-07",
+      "website": ""
+    }]
+  }, {
+    "title": "Resume Objective",
+    "idno": 6,
+    "uniqueid": "Resume Objective_26629205_1677662710762",
+    "addmore": false,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "description": ""
+    }]
+  }, {
+    "title": "Additional Section",
+    "idno": 5,
+    "uniqueid": "Descriptive_20401003_1677662710762",
+    "addmore": true,
+    "include": true,
+    "includeSOP":true,
+    "value": [{
+      "description": ""
+    }]
+  }]); 
    settitle(res.data.resume.resumename);
    setValid(res.data.resume.resumename);
 })
 
 },[]); 
+
+const [count,setCount] = useState(0);
 
 
 const updateAppVal = (updatevalue,i,title,include)=>{
@@ -208,7 +311,7 @@ const showDiscard = ()=>{
     console.log(changed);
     setShowSave({name:resumetitle,type:"Resume"})
   }else{
-    
+    navigate('/dashboard');
   }
 }
 
@@ -226,16 +329,14 @@ const deleteDoc=(e)=>{
 
 
 const titleChange = (e)=>{
-  setValid(resumetitle);
   settitle(e.target.value);
 }
 
 const onTitleBlur = ()=>{
-  if(resumetitle<6){
-    settitle(validTitle);
-  }else if(resumetitle>20){
+  if((resumetitle<6)||(resumetitle>20)){
     settitle(validTitle);
   }else{
+    setValid(resumetitle);
     saveThis()
   }
 }
@@ -252,7 +353,7 @@ if(type==="header"){
    <button id="save-button-sopapp" onClick={(e)=>{e.preventDefault(); saveThis()}}>Save</button>
    
    <button onClick={openSetting}>Add section</button>
-   <button>Download</button>
+   <button onClick={openDesigns}>Download</button>
    <button style={{"minWidth":"0"}} onClick={deleteDoc}><Trashicon/></button>
    </div>
   </div>);
@@ -261,7 +362,7 @@ if(type==="header"){
   return <div className="sop-app-footbar sop-app-navbar">
   <div className="right-buttons--navbar-footer">
        <button id="save-button-sopapp">Save</button>
-       <button>Download</button>
+       <button onClick={openDesigns}>Download</button>
        <button style={{"minWidth":"0"}} onClick={deleteDoc}><Trashicon/></button>
    </div>
 </div>  
@@ -270,11 +371,12 @@ if(type==="header"){
 }
 
 
-return (<appuiContext.Provider value={{scrollRef,saveThis,updateappvalWhole,showset,setshowset,deleteAppval,addAppval,updateAppVal,appval,hoveron,sethover,swaporder,hoverindex,sethovindex,reorder}}>
+return (<appuiContext.Provider value={{showDesign,setShowDesign,count,setCount,scrollRef,saveThis,updateappvalWhole,showset,setshowset,deleteAppval,addAppval,updateAppVal,appval,setappval,hoveron,sethover,swaporder,hoverindex,sethovindex,reorder}}>
   <div>   
   <SaveDoc/>
   {showset.display?<SettingBox/>:""} 
-
+  {showDesign?<ResumeDesign/>:""} 
+  
 
     <div className={`App ${theme}`} ref={divRef}>
      

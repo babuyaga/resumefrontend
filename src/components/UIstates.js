@@ -30,29 +30,3 @@ if(componentid<(secval.length-1)){
 
 
 
-
-
-
-
-export function deletechild_(secval,secstat,updatesecval,updateuistat,componentid){
-
-  var tempdelvalue =[...secval];
-  var tempdeluistate = [...secstat];
-  if(tempdelvalue.length>1){
-  tempdelvalue.splice(componentid,1);
-  tempdeluistate.splice(componentid,1);
-  updatesecval(tempdelvalue);
-  updateuistat(tempdeluistate);
- 
-  }
-
-  if(tempdelvalue.length===1){
-    tempdelvalue = [];
-    tempdeluistate = [];
-    updatesecval(tempdelvalue);
-    updateuistat(tempdeluistate);
-
-  }
-
-}
-

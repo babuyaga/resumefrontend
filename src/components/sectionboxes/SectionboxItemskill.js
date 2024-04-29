@@ -1,11 +1,12 @@
 import Closeicon from "../../icons/Closeicon.js";
 import Saveicon from "../../icons/Saveicon.js";
 import Trashicon from "../../icons/Trashicon.js";
-import {useRef,useState,useEffect} from "react";
+import {useRef,useState,useEffect,useContext} from "react";
 import Uparrow from "../../icons/Uparrow.js";
 import Downarrow from "../../icons/Downarrow.js";
 import Minimizeicon from "../../icons/Minimizeicon.js";
 import Maximizeicon from "../../icons/Maximizeicon.js";
+import { appuiContext} from '../../pages/App.js';
 
 
 var styles = {display:""};
@@ -15,8 +16,9 @@ var stylez = {display:""};
 var options = ["Beginner","Intermediate","Skilfull","Experienced","Expert"];
 var opthtml = options.map((item,i) => (<option value={i} key={i}>{item}</option>));
 
-function SectionboxItemskill({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
-
+function SectionboxItemskill({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
+  const {saveThis,appval,setappval,count,setCount} = useContext(appuiContext);
+  
 const top = uistate[compid];
 const objValue = secvalue[compid];
 objValue.name = objValue.name?objValue.name:"";
@@ -44,6 +46,15 @@ const updatesection =() =>{
   const tempupvalue = [...secvalue];
   tempupvalue[compid] = objValue;
   updatesecvalue(tempupvalue);
+  let tempappval = appval;
+  tempappval[sectionindex].value = tempupvalue;
+  setCount(count=>count+1);
+  setappval(tempappval);
+  if(count===5){
+   setCount(0);
+   saveThis();
+   console.log("auto saved");
+  }
 }
 
 
@@ -80,23 +91,27 @@ const remuistate =(e) =>{
 };
 
 const deletesec_comp = (e)=>{
-e.preventDefault();
-const tempdelvalue =[...secvalue];
-const tempdeluistate = [...uistate];
-if(tempdelvalue.length>1){
-tempdelvalue.splice(compid,1);
-tempdeluistate.splice(compid,1);
-updatesecvalue(tempdelvalue);
-updateuistate(tempdeluistate);
-}
-}
+  e.preventDefault();
+  const tempdelvalue =[...secvalue];
+  const tempdeluistate = [...uistate];
+  if(tempdelvalue.length>1){
+  tempdelvalue.splice(compid,1);
+  tempdeluistate.splice(compid,1);
+  updatesecvalue(tempdelvalue);
+  updateuistate(tempdeluistate); 
+  let tempappval = appval;
+  tempappval[sectionindex].value = tempdelvalue;
+  setappval(tempappval);
+  saveThis();
+  }
+  }
 
 
 
 
   return (
 
-            <div className="section_box__item section_form__holder">5
+            <div className="section_box__item section_form__holder">6
               <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
                   <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
                       <div className="section_form__item section_item__title"><span>Skill</span>      <div className="inputbox_component" ><input value={objValue.name} onChange={changeobjval} ref={skillref}></input></div>    </div>

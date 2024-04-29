@@ -5,12 +5,15 @@ import Saveicon from "../../icons/Saveicon.js";
 import Trashicon from "../../icons/Trashicon.js";
 import Addicon from "../../icons/Addicon.js";
 import {useState,useEffect,useContext,createContext,useRef} from "react";
-import {appuiContext} from "../../pages/App.js";
+
 import Uparrow from "../../icons/Uparrow.js";
 import Downarrow from "../../icons/Downarrow.js";
 import Minimizeicon from "../../icons/Minimizeicon.js";
 import Maximizeicon from "../../icons/Maximizeicon.js";
-import {moveup_,movedown_, deletechild_} from "../UIstates.js";
+import {moveup_,movedown_} from "../UIstates.js";
+import { appuiContext} from '../../pages/App.js';
+
+
 
 var stylez = {"display":"", "animationName": "example",
 "animationDuration": "4s"};
@@ -19,8 +22,8 @@ var styles = {"display":""};
 //COMPID is 6
 
 function SectionboxItemunfix({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
+  const {saveThis,appval,setappval,count,setCount} = useContext(appuiContext);
 
-const {appval} = useContext(appuiContext);
 
   const compidsol = compid;
   const top = uistate[compid];
@@ -32,6 +35,15 @@ const updatesection =() =>{
   const tempupvalue = [...secvalue];
   tempupvalue[compid] = objValue;
   updatesecvalue(tempupvalue);
+  let tempappval = appval;
+  tempappval[sectionindex].value = tempupvalue;
+  setCount(count=>count+1);
+  setappval(tempappval);
+  if(count===5){
+   setCount(0);
+   saveThis();
+   console.log("auto saved");
+  }
  }
 
 
@@ -48,12 +60,21 @@ const updatesectione = (e) =>{ //function to update section
 
 
 
-
-  const deletesec_comp = (e)=>{ //call this function to delete the current instance of the component
- e.preventDefault();
- if(uistate.length>1){
-deletechild_(secvalue,uistate,updatesecvalue,updateuistate,compid);
-  }}
+  const deletesec_comp = (e)=>{
+    e.preventDefault();
+    const tempdelvalue =[...secvalue];
+    const tempdeluistate = [...uistate];
+    if(tempdelvalue.length>1){
+    tempdelvalue.splice(compid,1);
+    tempdeluistate.splice(compid,1);
+    updatesecvalue(tempdelvalue);
+    updateuistate(tempdeluistate); 
+    let tempappval = appval;
+    tempappval[sectionindex].value = tempdelvalue;
+    setappval(tempappval);
+    saveThis();
+    }
+    }
 
   const remuistate = (e)=>{  //call this function to toggle min-max of the current instance of the component
     e.preventDefault();
@@ -77,7 +98,7 @@ moveup_(secvalue,uistate,updatesecvalue,updateuistate,compid);
 
   return (                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
-            <div className="section_box__item section_form__holder">6
+            <div className="section_box__item section_form__holder">7
             <div className="top_button__holder" style={(top===1)?stylez:{"display":"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
                   <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
                       <div className="section_form__item section_item__description"><span>Description</span><ReactQuill  theme="snow" value={objValue.description} onChange={changeobjdesc} placeholder="Enter Description"/></div>

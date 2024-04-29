@@ -15,11 +15,11 @@ import Switch from "react-switch";
 import {appuiContext} from "../pages/App.js";
 
 
-function SectionBox({sectionid,compData,index,errorFunc,reorder}) {
+function SectionBox({sectionid,compData,index,reorder}) {
 
-const {showset,setshowset,updateAppVal,swaporder,hoverindex} = useContext(appuiContext);
+const {saveThis,showset,setshowset,updateAppVal,swaporder,hoverindex,appval,setappval} = useContext(appuiContext);
 
-const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it. 
+const item_ = parseInt(compData.idno)-1; //converts the variable item into an integer using parseInt() and then subtracts one from it to get index. 
 
 const sampe = getdataformat(); //has a sample array with all the possible data objects
 
@@ -34,7 +34,7 @@ const [uistate,setuistate] =useState([1]); //state variable to keep track of the
 
 const [comptitle,settitle] = useState(compData.title);
 let update_message = {value:`Autosaved`,display:"block", messagetype:2};
-
+const [clickY,setclicky] = useState(0);
 
 const [togglestate,settoggle] = useState(compData.include);
 
@@ -50,7 +50,7 @@ useEffect(() => {
 
 useEffect(()=>{
 updateComponentData();
-},[]);
+},[appval]);
 
 
 // const MINUTE_MS = 10000;
@@ -99,18 +99,18 @@ const addchild =(e) =>{
 
  if((temparr.length>=5)){
   let error = {value:`Max 5 inputs allowed. Try removing a previous input`,display:"block", messagetype:1};
-  errorFunc(error);  
+ console.log("Call error here");
  }
  else{
   temparr.push(sampe[item_]);
   setsectionval(temparr);   //update the section value
   updatestate();   //call the function to update UI state of all the children and then add an element to the state keeping array; this function minimizes all children other than the last one.
-  updateParent();
+  updateParent(temparr);
  }
 
 //  else if((sum!==(temparr.length))){
 //   let error = {value:`Why leave it empty? Fill it up`,display:"block", messagetype:1};
-//   errorFunc(error);  
+
 //  }
 
 
@@ -129,27 +129,18 @@ const updatestate =()=>{
 
 
 //Function to update the parent object
-const updateParent = (e) =>{  
-if(e){e.preventDefault();}
-updateParent_(comptitle,togglestate);
+const updateParent = (temparr) =>{  
+
+updateAppVal(temparr,index,comptitle,togglestate);
+
 makeToast(update_message);
 }
 
-const updateParent_ = (titleval,toggleval)=>{
-
-    let tempparentval = sectionval.map((x)=>(x));
-
-  // if(compupdate[(tempparentval.length-1)]!=1){ //check if the last component added was updated, if not, remove it from temparray and then only update the db
-  // tempparentval.pop();
-  // } //if the last component is just added and not updated, then don't add it to the database
-
-  updateAppVal(tempparentval,index,titleval,toggleval);
-}
 
 
 const makeToast =(error)=>{
   //if calling this function directly via a button, use e.preventDefault() to handle error.  
-errorFunc(error);
+console.log("call error here");
 }
 
 
@@ -157,7 +148,7 @@ const toggleChange = ()=>{
 var temptoggle = togglestate;
 temptoggle = !temptoggle;
 settoggle(temptoggle);
-updateParent_(comptitle,temptoggle);
+updateAppVal(sectionval,index,comptitle,temptoggle);
 }
 
 
@@ -180,7 +171,7 @@ const [stylezz,setstylezz]=useState({"opacity":"1","order":index});
 
 const dragstartfunc=(e)=>{
 setstylezz({"opacity":"0.5"});
-
+setclicky(e.clientY);
 }
 
 const ondragfunc = (e)=>{
@@ -191,6 +182,16 @@ let x = sectionbox.current.offsetLeft;
 let diff= e.clientY-sectionbox.current.offsetTop;
 let y= e.clientY-30;
 setstylezz({"opacity":"0.3"});
+
+
+if (e.clientY < (clickY-100)){
+  window.scrollTo(0, window.scrollY - 150); // Scroll up
+} else if (e.clientY > (clickY+100)) {
+  window.scrollTo(0, window.scrollY + 150); // Scroll down
+}
+
+
+
 }
 
 

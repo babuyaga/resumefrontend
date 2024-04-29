@@ -1,0 +1,196 @@
+.resumedesign-popup-container-scrim{
+    background-color: #000000cf;
+    display:flex;
+    height:100%;
+    width:100%;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    position: fixed;
+    top:0;
+    z-index:7;
+}
+
+.resumedesign-popup-holder{
+    
+    font-size:13px;
+    width:350px;
+    height:480px;
+box-sizing: border-box;
+    padding:20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    gap:5px;
+    text-align: left;
+    z-index:9;
+}
+
+.resumedesign-popup-holder-container{
+    background-color:white;
+    width:350px;
+    height:480px;
+    display:flex;
+    flex-direction:column;
+    justify-content: flex-start;
+    gap:5px;
+    text-align: left;
+    z-index:9;
+    border-radius:10px;
+    padding-bottom:40px;
+    box-sizing: border-box;
+}
+
+
+.resumedesign-popup-holder p{
+    margin:0;
+    font-size:13px;
+}
+
+.resumedesign-resume-holder{
+    border:1px solid #00000032;
+   height:100%;
+   padding:10px;
+   overflow-y:scroll;
+   overflow-x: hidden;
+   padding-left:15px;
+}
+
+.resumedesign-list-item{
+    width:100%;
+    height:90px;
+    border:1px solid black;
+    margin:15px auto;
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    box-sizing: border-box;
+    box-shadow: 6px 7px 5px #00000081;
+    user-select: none;
+    padding:10px;
+}
+
+.resumedesign-list-item:hover{
+    cursor:pointer;
+}
+
+.resumedesign-list-item:active{
+    box-shadow: 2px 2px 5px #00000081;
+}
+
+.resumedesign-list-item-cover{
+    width:45px;
+    height:45px;
+    margin:auto 0;
+    background-color:black;
+}
+
+::-webkit-scrollbar-thumb{
+background-color:#0000002b;
+}
+
+.resumedesign-list-item-text{
+height:55px;
+padding:2px;
+display:flex;
+flex-direction: column;
+justify-content: space-between;
+gap:10px;
+}
+
+.resumedesign-list-item-text h4{
+    margin:auto;
+}
+
+
+.resumedesign-closebutton-holder{
+    display:none;
+}
+.resumedesign-closebutton-holder div{
+    margin:auto;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width:948px) {
+    .resumedesign-resume-holder{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Four columns with equal width */
+        gap: 10px;
+        }
+
+}
+
+
+@media only screen and (min-width: 948px) and (max-width:1320px) {
+    .resumedesign-resume-holder{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Four columns with equal width */
+        gap: 10px;
+        }
+
+}
+
+
+@media only screen and (min-width: 1320px){
+   .resumedesign-resume-holder{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Four columns with equal width */
+        gap: 10px;
+        }
+
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    .resumedesign-popup-holder{
+        width:100%;
+        height:100%;
+        font-size:17px;
+    }
+
+    .resumedesign-popup-holder-container{
+        width:90%;
+        max-width:1390px;
+        height:90%;
+        font-size:17px;
+        flex-direction: row;
+    }
+
+
+    .resumedesign-closebutton-holder{
+        background-color:#fffff0;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width:35px;
+        height:35px;
+        border-radius: 30px;
+        margin: -20px -25px;
+        z-index:9;
+        display:flex;
+        border:1px solid black;
+        }
+
+        .resumedesign-closebutton-holder:hover{
+            cursor: pointer;
+        }
+   
+.resumedesign-list-item{
+    background-color: red;
+    width:250px;
+    height:280px;
+    flex-direction: column;
+}
+.resumedesign-list-item-cover{
+    width: 100%;
+    height:90%;
+    margin:0 auto;
+}
+
+.resumedesign-list-item-text h4{
+    margin:auto 0;}
+
+}

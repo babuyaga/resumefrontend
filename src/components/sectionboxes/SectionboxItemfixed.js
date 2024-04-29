@@ -4,12 +4,13 @@ import 'react-quill/dist/quill.snow.css';
 import Saveicon from "../../icons/Saveicon.js";
 import Trashicon from "../../icons/Trashicon.js";
 import Addicon from "../../icons/Addicon.js";
-import {useRef,useState,useEffect} from "react";
+import {useRef,useState,useEffect,useContext} from "react";
 import Uparrow from "../../icons/Uparrow.js";
 import Downarrow from "../../icons/Downarrow.js";
 import Minimizeicon from "../../icons/Minimizeicon.js";
 import Maximizeicon from "../../icons/Maximizeicon.js";
-import {moveup_,movedown_, deletechild_} from "../UIstates.js";
+import {moveup_,movedown_} from "../UIstates.js";
+import { appuiContext} from '../../pages/App.js';
 
 var styles = {display:""};
 var stylez = {display:""};
@@ -18,12 +19,16 @@ var stylez = {display:""};
 
 
 
-function SectionboxItemfixed({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue}) {
+function SectionboxItemfixed({ uistate,updateuistate, compid, secname,secvalue,updatesecvalue,sectionindex}) {
+
+
+  const {saveThis,appval,setappval,count,setCount} = useContext(appuiContext);
 
   const compref_id = secname + compid;
   const compidsol = compid;
   const top = uistate[compid];
   const objValue = secvalue[compid];
+  
   objValue.description = objValue.description?objValue.description:"";
 
   const changeobjdesc =(e)=>{ //Function to update inputbox of component
@@ -31,26 +36,46 @@ function SectionboxItemfixed({ uistate,updateuistate, compid, secname,secvalue,u
     updatesection();
     };
 
-
-const updatesection =() =>{ 
-    
-    const tempupvalue = [...secvalue];
-    tempupvalue[compid] = objValue;
-    updatesecvalue(tempupvalue);
- 
-
-   }
-
-
 const updatesectione =(e) =>{
   e.preventDefault();
   updatesection();
   };
 
 
+const updatesection =() =>{ 
+    
+    const tempupvalue = [...secvalue];
+    tempupvalue[compid] = objValue;
+    updatesecvalue(tempupvalue);
+ let tempappval = appval;
+ tempappval[sectionindex].value = tempupvalue;
+ setCount(count=>count+1);
+ setappval(tempappval);
+ if(count===5){
+  setCount(0);
+  saveThis();
+  console.log("auto saved");
+ }
+   }
+
+
+
+
+
   const deletesec_comp = (e)=>{
   e.preventDefault();
-  deletechild_(secvalue,uistate,updatesecvalue,updateuistate,compid);
+  const tempdelvalue =[...secvalue];
+  const tempdeluistate = [...uistate];
+  if(tempdelvalue.length>1){
+    tempdelvalue.splice(compid,1);
+    tempdeluistate.splice(compid,1);
+    updatesecvalue(tempdelvalue);
+    updateuistate(tempdeluistate); 
+    let tempappval = appval;
+    tempappval[sectionindex].value = tempdelvalue;
+    setappval(tempappval);
+    saveThis();
+    }
   }
 
   const remuistate = (e)=>{
@@ -63,10 +88,15 @@ const updatesectione =(e) =>{
 const moveup =(e) =>{e.preventDefault(); 
   moveup_(secvalue,uistate,updatesecvalue,updateuistate,compid);
 };
+
+
 const movedown = (e)=>{e.preventDefault();
   movedown_(secvalue,uistate,updatesecvalue,updateuistate,compid);}
+
+
+  
   return (
-    <div className="section_box__item section_form__holder">2
+    <div className="section_box__item section_form__holder">3
     <div className="top_button__holder" style={(top===1)?stylez:{display:"none"}}><button onClick={remuistate} className="minimize-icon--button"><Minimizeicon/></button></div>
           <div className="section_box__item section_form__holder_container" style={(top===1)?stylez:{display:"none"}}>
               <div className="section_form__item section_item__description"><span>Description</span><ReactQuill  theme="snow" value={objValue.description} onChange={changeobjdesc} placeholder="Enter Description"/></div>
